@@ -24,7 +24,7 @@ body {
   flex-direction: column;
   align-items: center;
   max-width: 1200px;
-  gap: 50px;
+  gap: 30px;
   text-align: center;
 }
 @media (min-width: 768px) {
@@ -32,6 +32,7 @@ body {
     flex-direction: row;
     align-items: center;
     text-align: left;
+    gap: 70px;
   }
 }
 .profile-picture {
@@ -41,7 +42,7 @@ body {
   overflow: hidden;
   width: 250px;
   height: 250px;
-  box-shadow: 0 0 30px #22d3ee;
+  box-shadow: 2px 3px 30px #22d3ee;
 }
 .profile-picture img {
   width: 100%;
@@ -61,12 +62,14 @@ body {
 }
 .profile-info h2 {
   font-family: 'Satoshi', sans-serif;
+  font-weight: 500;
   font-size: 1.6rem;
   color: #e5e5e5;
   margin-bottom: 20px;
 }
+
 .profile-info p {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Satoshi', sans-serif;
   font-size: 1.2rem;
   max-width: 600px;
   margin-bottom: 30px;
@@ -186,3 +189,57 @@ body {
   font-size: 1rem;
   color: #cccccc;
 }
+
+
+/* FOOTER */
+.site-footer {
+  background: radial-gradient(#0d003b,#00131d);
+  padding: 48px 0;
+  color: #e0e0e0;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+@media (min-width: 768px) {
+  .footer-content {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.footer-left {
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .footer-left {
+    text-align: left;
+  }
+}
+
+.footer-email {
+  color: #777777;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+@media (min-width: 768px) {
+  .footer-email {
+    justify-content: flex-start;
+  }
+}
+
