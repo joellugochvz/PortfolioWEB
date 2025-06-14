@@ -23,8 +23,8 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 1900px;
-  gap: 40px;
+  max-width: 1200px;
+  gap: 50px;
   text-align: center;
 }
 @media (min-width: 768px) {
