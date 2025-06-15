@@ -159,7 +159,7 @@ body {
 }
 .projects-section h2 {
   font-size: 2.5rem;
-  margin-bottom: 40px;
+  margin-bottom: 50px;
 }
 
 .project-card {
@@ -168,10 +168,10 @@ body {
   background-color: rgba(0, 0, 0, 0.4);
   border: 1px solid rgba(255,255,255,0.1);
   border-radius: 16px;
-  padding: 30px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 10px;
 }
 .project-images {
   display: flex;
@@ -284,7 +284,7 @@ body {
 
 
 
-
+/* xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx */
 
 
 /* Botón PDF */
@@ -322,15 +322,35 @@ body {
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  aspect-ratio: 16/9; /* Mantener relación de aspecto */
 }
 
-.video-preview img {
+/* Estilos para ambos tipos de thumbnail */
+.video-thumbnail, 
+.video-fallback {
   width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
   transition: transform 0.3s;
 }
 
-.video-preview:hover img {
+.video-preview:hover .video-thumbnail,
+.video-preview:hover .video-fallback {
   transform: scale(1.02);
+}
+
+/* Solo mostrar canvas cuando JS funcione */
+.video-thumbnail {
+  display: none;
+}
+
+.js-enabled .video-thumbnail {
+  display: block;
+}
+
+.js-enabled .video-fallback {
+  display: none;
 }
 
 .play-button {
@@ -347,7 +367,10 @@ body {
   justify-content: center;
   font-size: 24px;
   color: #ff3b30;
+  pointer-events: none;
 }
+
+
 
 /* Tecnologías */
 .technologies {
@@ -375,7 +398,8 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-size: 0.9rem;
+  font-size: 0.rem;
+  font-family: 'Satoshi', sans-serif;
 }
 
 /* Lightbox */
