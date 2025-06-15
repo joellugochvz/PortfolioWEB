@@ -15,9 +15,9 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 60px 20px;
+  padding: 80px 20px;
   min-height: 100vh;
-  background: linear-gradient(to bottom right, #8512c7, #000000);
+  background: linear-gradient(65deg, #8512c7,#410e5f,#000000);
 }
 .header-content {
   display: flex;
@@ -37,12 +37,12 @@ body {
 }
 .profile-picture {
   flex-shrink: 0;
-  border: 4px solid #27e2ff;
+  border: 4px solid #33e2fd;
   border-radius: 50%;
   overflow: hidden;
   width: 250px;
   height: 250px;
-  box-shadow: 2px 3px 30px #22d3ee;
+  box-shadow: 2px 3px 30px #22d3eece;
 }
 .profile-picture img {
   width: 100%;
@@ -61,11 +61,22 @@ body {
   margin-bottom: 10px;
 }
 .profile-info h2 {
-  font-family: 'Satoshi', sans-serif;
-  font-weight: 500;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
   font-size: 1.6rem;
   color: #e5e5e5;
   margin-bottom: 20px;
+}
+#DiplomaICON {
+  width: 1.5rem;               /* Tamaño relativo al texto */
+  height: 1.5rem;
+  vertical-align: middle;     /* Alineación vertical */
+  margin-right: 1px;         /* Espaciado derecho */
+}
+/* Definición del gradiente (debes agregarlo dentro del SVG) */
+#DiplomaICON {
+  --gradient-start: #ec21ff;
+  --gradient-end: #27e2ff;
 }
 
 .profile-info p {
@@ -75,51 +86,72 @@ body {
   margin-bottom: 30px;
 }
 
-/*ICONS*/
+/* ICONS LINKS */
 .social-links {
   display: flex;
   gap: 20px;
+  justify-content: center;
 }
+@media (min-width:768px){
+  .social-links{
+    justify-content: flex-start;
+  }
+}
+
 .icon {
-  width: 48px;
-  height: 48px;
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
   background-color: #444;
   color: white;
   display: flex;
   align-items: center;
   justify-content: center;
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 1rem;
-  transition: background 0.3s;
+  transition: all 0.4s ease; /* Transición para todas las propiedades */
 }
+
+/* ICON LINKEDIN - Versión unificada */
 .icon.linkedin {
-  background-color: #0077b5;
+  background: linear-gradient(to bottom, #0e76df, #0c5297);
+  box-shadow: 0px 5px 10px #0000003b;
 }
+.icon.linkedin svg {
+  fill: #ffffff;
+  width: 36px;
+  height: 36px;
+  /*transition: all 0.3s ease;  Transición también en el SVG */
+}
+/* Efecto hover unificado */
 .icon.linkedin:hover {
-  background-color: #005582;
+  background: linear-gradient(to right, #0a66c2, #0a549e);
+  transform: scale(1.15) rotate(15deg);
+  box-shadow: 
+    0 4px 10px -1px rgb(60, 173, 248),
+    0 3px 3px -1px rgb(0, 250, 83);
+  border: 1px solid  #ffffff;
 }
-.icon.email {
-  background-color: #7e22ce;
+.icon.linkedin:hover svg path {
+  filter: drop-shadow(0 0 2px rgba(39, 226, 255, 0.7));
 }
-.icon.email:hover {
-  background-color: #5c1c9c;
-}
-.icon.github {
+
+/* ICON GITHUB */
+/* .icon.github {
   background-color: #181717;
 }
 .icon.github:hover {
   background-color: #0f0f0f;
-}
+} */
+
 
 /* PROYECTOS */
 .projects-section {
   padding: 80px 20px;
   background: linear-gradient(
     to bottom right,
-    #581c87,
-    #6b21a8,
+    #261944,
+    #5e139b,
+    #64209c,
+    #3a115c,
     #000000);
   /*background-repeat: no-repeat;*/
   /*background-attachment: fixed; /* Opcional: gradiente fijo */
@@ -129,6 +161,7 @@ body {
   font-size: 2.5rem;
   margin-bottom: 40px;
 }
+
 .project-card {
   max-width: 900px;
   margin: auto;
@@ -193,9 +226,11 @@ body {
 
 /* FOOTER */
 .site-footer {
-  background: radial-gradient(#0d003b,#00131d);
+  background: repeating-linear-gradient(50deg,#351053,#050007);
   padding: 48px 0;
-  color: #e0e0e0;
+  border-top: 1px solid #272727; /*DEFINICIÓN DE BORDE*/ 
+  border-image: linear-gradient(to right, #27e2ff, #7e22ce) 1; /*COLORACIÓN DE BORDE*/ 
+  box-shadow: 0 -5px 20px rgba(39, 226, 255, 0.3); 
 }
 
 .footer-container {
@@ -224,12 +259,16 @@ body {
 
 @media (min-width: 768px) {
   .footer-left {
-    text-align: left;
+    text-align: center;
   }
 }
 
 .footer-email {
-  color: #777777;
+  color: #8a8a8a;
+  background: linear-gradient(to right, #1ca6bb, #7e22ce);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
   margin-bottom: 8px;
   display: flex;
   align-items: center;
@@ -243,3 +282,131 @@ body {
   }
 }
 
+
+
+
+
+
+/* Botón PDF */
+.pdf-button {
+  background-color: #ff3b30;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: bold;
+  margin: 15px 0;
+  transition: all 0.3s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pdf-button:hover {
+  background-color: #d32f2f;
+  transform: scale(1.05);
+}
+
+/* Contenedor de video */
+.video-container {
+  margin: 20px 0;
+}
+
+.video-preview {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  cursor: pointer;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.video-preview img {
+  width: 100%;
+  transition: transform 0.3s;
+}
+
+.video-preview:hover img {
+  transform: scale(1.02);
+}
+
+.play-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(255, 255, 255, 0.8);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  color: #ff3b30;
+}
+
+/* Tecnologías */
+.technologies {
+  margin-top: 25px;
+}
+
+.technologies h4 {
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+  color: #e0e0e0;
+}
+
+.tech-bubbles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.tech-bubble {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  padding: 8px 15px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+}
+
+/* Lightbox */
+.lightbox {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  justify-content: center;
+  align-items: center;
+}
+
+.lightbox-content {
+  max-width: 90%;
+  max-height: 90%;
+}
+
+.close-btn {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  color: white;
+  font-size: 40px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close-btn:hover {
+  color: #ccc;
+}
