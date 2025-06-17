@@ -130,3 +130,60 @@ function openPdf(pdfUrl) {
   window.open(pdfUrl, '_blank', 'noopener,noreferrer');
 }
 
+// =================================================================
+// PCTURES CAROUSEL
+// =================================================================
+const carousel = document.getElementById("carousel");
+const slides = document.querySelectorAll(".slide");
+const descriptionOverlay = document.getElementById("descriptionOverlay");
+const prevBtn = document.getElementById("prevBtn");
+const nextBtn = document.getElementById("nextBtn");
+
+let currentIndex = 0;
+
+function updateButtons() {
+  prevBtn.disabled = currentIndex === 0;
+  nextBtn.disabled = currentIndex === slides.length - 1;
+}
+
+function scrollToSlide(index) {
+  const slide = slides[index];
+  if (slide) {
+    slide.scrollIntoView({ behavior: "smooth", inline: "center" });
+    currentIndex = index;
+    updateButtons();
+  }
+}
+
+function prevSlide() {
+  if (currentIndex > 0) {
+    scrollToSlide(currentIndex - 1);
+  }
+}
+
+function nextSlide() {
+  if (currentIndex < slides.length - 1) {
+    scrollToSlide(currentIndex + 1);
+  }
+}
+
+slides.forEach((slide, index) => {
+  slide.addEventListener("click", () => {
+    const desc = slide.dataset.description;
+    descriptionOverlay.textContent = desc;
+    descriptionOverlay.style.display = "block";
+
+    setTimeout(() => {
+      descriptionOverlay.style.display = "none";
+    }, 3000);
+  });
+});
+
+carousel.addEventListener("scroll", () => {
+  const newIndex = Math.round(carousel.scrollLeft / carousel.clientWidth);
+  currentIndex = newIndex;
+  updateButtons();
+});
+
+updateButtons();
+scrollToSlide(0);
