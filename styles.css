@@ -491,9 +491,11 @@ body {
   justify-content: center;
 }
 
-.tech-bubble {
-  background-color: rgba(255, 255, 255, 0.1); /* valor por defecto si JS no corre */
-  border: 1px solid rgba(255, 255, 255, 0.2);
+
+.tech-bubble-powerapps {
+  background-color: #efe0ff;
+  color: #35006e;
+  /* border: 1px solid rgba(255, 255, 255, 0.2); */
   border-radius: 20px;
   padding: 1px 15px;
   padding-right: 17px;
@@ -505,7 +507,118 @@ body {
   font-family: 'Satoshi', sans-serif;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
-
+.tech-bubble-powerautomate {
+  background-color: #dbeafe;
+  color: #35006e;
+  border-radius: 20px;
+  padding: 1px 15px;
+  padding-right: 17px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+.tech-bubble-macrosexcel {
+  background-color: #c7ddd1;
+  color: #0e3e24;
+  border-radius: 20px;
+  padding: 1px 15px;
+  padding-right: 17px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+.tech-bubble-sharepoint {
+  background-color: #c7f0f1;
+  color: #031c1d;
+  border-radius: 20px;
+  padding: 1px 15px;
+  padding-right: 17px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+.tech-bubble-powerbi {
+  background-color: #f7efd7;
+  color: #7e5800;
+  border-radius: 20px;
+  padding: 1px 15px;
+  padding-right: 17px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+.tech-bubble-powerfx {
+  background-color: #fae1ef;
+  color: #35006e;
+  border-radius: 20px;
+  padding: 1px 15px;
+  padding-right: 17px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+.tech-bubble-solidworks {
+  background-color: #ecccc6;
+  color: #691403;
+  border-radius: 20px;
+  padding: 1px 15px;
+  padding-right: 17px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+.tech-bubble-arduinoide {
+  background-color: #d8e9e7;
+  color: #014942;
+  border-radius: 20px;
+  padding: 1px 15px;
+  padding-right: 17px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+.tech-bubble-esp32 {
+  background-color: #d4d1ee;
+  color: #7a0903;
+  border-radius: 20px;
+  padding: 1px 15px;
+  padding-right: 17px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
 
 /* ======================================================================== */
 /* FUNCTIONALITIES WITH .JS */
