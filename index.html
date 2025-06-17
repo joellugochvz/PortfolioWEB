@@ -7,7 +7,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Joel Eduardo Lugo Chavez</title>
   <link href="https://fonts.cdnfonts.com/css/satoshi" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="./styles.css" />
 </head>
 
@@ -17,14 +18,13 @@
   <header class="header-section">
     <div class="header-content">
       <div class="profile-picture">
-        <img src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=400"
-          alt="Joel Eduardo Lugo Chavez">
+        <img src="./Imagenes/Profile_00.jpg" alt="Joel Eduardo Lugo Chavez">
       </div>
       <div class="profile-info">
         <h1>Joel Eduardo Lugo Chavez</h1>
         <h2>
           <!-- ÍCONO DIPLOMA -->
-          <svg id='DiplomaICON' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'> <defs> <linearGradient id="diploma-gradient" x1="0%" y1="20%" x2="20%" y2="100%"> <stop offset="0%" stop-color="var(--gradient-start, #27e2ff)" /> <stop offset="100%" stop-color="var(--gradient-end, #7e22ce)" /> </linearGradient> </defs> <g transform="matrix(0.83 0 0 0.83 12 12)"> <path style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: url(#diploma-gradient); fill-rule: nonzero; opacity: 1;" transform=" translate(-16, -17.44)" d="M 4 6 L 4 24 L 12 24 L 12 28.875 L 13.5625 27.84375 L 16 26.21875 L 18.4375 27.84375 L 20 28.875 L 20 19 L 12 19 L 12 22 L 6 22 L 6 8 L 26 8 L 26 22 L 21 22 L 21 24 L 28 24 L 28 6 Z M 8 11 L 8 13 L 24 13 L 24 11 Z M 8 15 L 8 17 L 24 17 L 24 15 Z M 14 21 L 18 21 L 18 25.125 L 16.5625 24.15625 L 16 23.8125 L 15.4375 24.15625 L 14 25.125 Z" stroke-linecap="round" /> </g> </svg>
+          <svg id='DiplomaICON' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'> <defs> <linearGradient id="diploma-gradient" x1="0%" y1="20%" x2="20%" y2="100%"> <stop offset="0%" stop-color="var(--gradient-start, #27e2ff)" /> <stop offset="100%" stop-color="var(--gradient-end, #7e22ce)" /> </linearGradient> </defs> <g transform="matrix(0.83 0 0 0.83 12 12)"><path style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: url(#diploma-gradient); fill-rule: nonzero; opacity: 1;" transform=" translate(-16, -17.44)" d="M 4 6 L 4 24 L 12 24 L 12 28.875 L 13.5625 27.84375 L 16 26.21875 L 18.4375 27.84375 L 20 28.875 L 20 19 L 12 19 L 12 22 L 6 22 L 6 8 L 26 8 L 26 22 L 21 22 L 21 24 L 28 24 L 28 6 Z M 8 11 L 8 13 L 24 13 L 24 11 Z M 8 15 L 8 17 L 24 17 L 24 15 Z M 14 21 L 18 21 L 18 25.125 L 16.5625 24.15625 L 16 23.8125 L 15.4375 24.15625 L 14 25.125 Z" stroke-linecap="round" /> </g> </svg>
           Mechatronics Engineer
         </h2>
 
@@ -40,63 +40,69 @@
                 d="M8.268 28h-5.805v-18.694h5.805zM5.362 6.756c-1.856 0-3.362-1.538-3.362-3.394s1.505-3.362 3.362-3.362 3.362 1.505 3.362 3.362c0 1.856-1.506 3.394-3.362 3.394zM29.994 28h-5.792v-9.1c0-2.169-0.044-4.95-3.018-4.95-3.018 0-3.481 2.356-3.481 4.794v9.256h-5.799v-18.694h5.567v2.55h0.081c0.775-1.469 2.668-3.019 5.492-3.019 5.875 0 6.955 3.869 6.955 8.894v10.269z" />
             </svg>
           </a>
-
+          <!-- ÍCONO EMAIL -->
+          <a class="icon email" title="Copiar email" onclick="copiarCorreo(event)">
+            <svg width='24' height='24' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'><!-- Definición del gradiente lineal --><g transform="matrix(1 0 0 1 12 12)"><path style="stroke: none;  fill-rule: nonzero; opacity: 1;" transform=" translate(-12, -12)" d="M 4 4 C 2.897 4 2 4.897 2 6 L 2 18 C 2 19.103 2.897 20 4 20 L 20 20 C 21.103 20 22 19.103 22 18 L 22 6 C 22 4.897 21.103 4 20 4 L 4 4 z M 4 6 L 20 6 L 20 6.0058594 L 12 11 L 4 6.0039062 L 4 6 z M 4 8.0039062 L 12 13 L 20 8.0058594 L 20.001953 18 L 4 18 L 4 8.0039062 z" stroke-linecap="round" /> </g>
+            </svg>
+          </a>
+          <span id="copiado-msg" class="copiado-msg">¡Copiado!</span>
           <!-- <a href="https://github.com" target="_blank" class="icon github">GH</a> -->
         </div>
+        
       </div>
     </div>
   </header>
 
-  <!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx CONTENIDO OFIACIAL xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
-<main class="projects-section">
-  <h2>Featured Projects</h2>
-  <!-- Proyecto App Audi -->
-  <div class="project-card">
-    <h3>Bitácora M/G-MA1 (Application Developement)</h3>
-    <div class="project-images">
-      <div class="image-class" onclick="openLightbox(this)">
-        <img src="Imagenes/App Audi/AudiApp01.jpg" App Audi">
-        <div class="expandir-imagen"></div>
+  <!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx CONTENIDO OFICIAL xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
+  <main class="projects-section">
+    <h2>Featured Projects</h2>
+    <!-- Proyecto App Audi -->
+    <div class="project-card">
+      <h3>Bitácora M/G-MA1 (Application)</h3>
+      <div class="project-images">
+        <div class="image-class" onclick="openLightbox(this)">
+          <img src="Imagenes/App Audi/AudiApp01.jpg" alt="App Audi">
+          <div class="expandir-imagen"></div>
+        </div>
+        <div class="image-class" onclick="openLightbox(this)">
+          <img src="Imagenes/App Audi/AudiApp08.jpg" alt="App Audi">
+          <div class="expandir-imagen"></div>
+        </div>
+        <div class="image-class" onclick="openLightbox(this)">
+          <img src="Imagenes/App Audi/AudiApp05.jpg" alt="App Audi">
+          <div class="expandir-imagen"></div>
+        </div>
+        <div class="image-class" onclick="openLightbox(this)">
+          <img src="Imagenes/App Audi/AudiApp03.jpg" alt="App Audi">
+          <div class="expandir-imagen"></div>
+        </div>
+        <div class="image-class" onclick="openLightbox(this)">
+          <img src="Imagenes/App Audi/AudiApp06.jpg" alt="App Audi">
+          <div class="expandir-imagen"></div>
+        </div>
+        <div class="image-class" onclick="openLightbox(this)">
+          <img src="Imagenes/App Audi/AudiApp07.jpg" alt="App Audi">
+          <div class="expandir-imagen"></div>
+        </div>
+        <div class="image-class" onclick="openLightbox(this)">
+          <img src="Imagenes/App Audi/AudiApp02.jpg" alt="App Audi">
+          <div class="expandir-imagen"></div>
+        </div>
+        <div class="image-class" onclick="openLightbox(this)">
+          <img src="Imagenes/App Audi/AudiApp10.jpg" alt="App Audi">
+          <div class="expandir-imagen"></div>
+        </div>
+        <div class="image-class" onclick="openLightbox(this)">
+          <img src="Imagenes/App Audi/AudiApp04.jpg" alt="App Audi">
+          <div class="expandir-imagen"></div>
+        </div>
+        <div class="image-class" onclick="openLightbox(this)">
+          <img src="Imagenes/App Audi/AudiApp09.jpg" alt="App Audi">
+          <div class="expandir-imagen"></div>
+        </div>
       </div>
-      <div class="image-class" onclick="openLightbox(this)">
-        <img src="Imagenes/App Audi/AudiApp08.jpg" alt="App Audi">
-        <div class="expandir-imagen"></div>
-      </div>
-      <div class="image-class" onclick="openLightbox(this)">
-        <img src="Imagenes/App Audi/AudiApp05.jpg" alt="App Audi">
-        <div class="expandir-imagen"></div>
-      </div>
-      <div class="image-class" onclick="openLightbox(this)">
-        <img src="Imagenes/App Audi/AudiApp03.jpg" alt="App Audi">
-        <div class="expandir-imagen"></div>
-      </div>
-      <div class="image-class" onclick="openLightbox(this)">
-        <img src="Imagenes/App Audi/AudiApp06.jpg" alt="App Audi">
-        <div class="expandir-imagen"></div>
-      </div>
-      <div class="image-class" onclick="openLightbox(this)">
-        <img src="Imagenes/App Audi/AudiApp07.jpg" alt="App Audi">
-        <div class="expandir-imagen"></div>
-      </div>
-      <div class="image-class" onclick="openLightbox(this)">
-        <img src="Imagenes/App Audi/AudiApp02.jpg" alt="App Audi">
-        <div class="expandir-imagen"></div>
-      </div>
-      <div class="image-class" onclick="openLightbox(this)">
-        <img src="Imagenes/App Audi/AudiApp10.jpg" alt="App Audi">
-        <div class="expandir-imagen"></div>
-      </div>
-      <div class="image-class" onclick="openLightbox(this)">
-        <img src="Imagenes/App Audi/AudiApp04.jpg" alt="App Audi">
-        <div class="expandir-imagen"></div>
-      </div>
-      <div class="image-class" onclick="openLightbox(this)">
-        <img src="Imagenes/App Audi/AudiApp09.jpg" alt="App Audi">
-        <div class="expandir-imagen"></div>
-      </div>
-    </div>
-    <!-- VIDEO -->
-     <div class="video-container">
+      <!-- VIDEO -->
+      <div class="video-container">
         <div class="video-preview" onclick="openVideo('Videos/Demo_App_Audi.mp4')">
           <div class="video-title">DEMO</div>
           <!-- Canvas como thumbnail + imagen de fallback -->
@@ -105,71 +111,67 @@
           <div class="play-button">▶</div>
         </div>
       </div>
-    <div class="project-description">
-      <p>Aplicación de control inteligente integrada con sensores automotrices.</p>
+      <div class="project-description">
+        <p>Aplicación de control inteligente integrada con sensores automotrices.</p>
 
-      <!-- Botón para PDF -->
-      <button class="pdf-button" onclick="openPdf('PDFs/P_Audi App.pdf')">
-        <i class="fas fa-file-pdf"></i> Ver PDF
-      </button>
+        <!-- Botón para PDF -->
+        <button class="pdf-button" onclick="openPdf('PDFs/P_Audi App.pdf')">
+          <i class="fas fa-file-pdf"></i> Ver PDF
+        </button>
 
-      
 
-      <!-- Tecnologías utilizadas -->
-      <div class="technologies">
-        <h4>Tecnologías utilizadas</h4>
-        <div class="tech-bubbles">
-          <div class="tech-bubble"><i class="fas fa-cog"></i> Power Apps</div>
-          <div class="tech-bubble"><i class="fas fa-bolt"></i> Power Automate</div>
-          <div class="tech-bubble"><i class="fas fa-table"></i> Macros Excel</div>
-          <div class="tech-bubble"><i class="fas fa-share-alt"></i> Sharepoint</div>
-          <div class="tech-bubble"><i class="fas fa-chart-bar"></i> Power BI</div>
-          <div class="tech-bubble"><i class="fas fa-code"></i> Power Fx</div>
+
+        <!-- Tecnologías utilizadas -->
+        <div class="technologies">
+          <h4>Tecnologías utilizadas</h4>
+          <div class="tech-bubbles">
+            <div class="tech-bubble"><i class="fas fa-cog"></i> Power Apps</div>
+            <div class="tech-bubble"><i class="fas fa-bolt"></i> Power Automate</div>
+            <div class="tech-bubble"><i class="fas fa-table"></i> Macros Excel</div>
+            <div class="tech-bubble"><i class="fas fa-share-alt"></i> Sharepoint</div>
+            <div class="tech-bubble"><i class="fas fa-chart-bar"></i> Power BI</div>
+            <div class="tech-bubble"><i class="fas fa-code"></i> Power Fx</div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- Proyecto CINDY BJ2 -->
-  <div class="project-card">
-    <h3>CINDY BJ2</h3>
-    <div class="project-images">
-      <!-- Repetir 4 veces la misma imagen -->
-      <div class="image-class" onclick="openLightbox(this)">
-        <img src="Imagenes/CINDYBJ2/CBJ2_1.jpg" alt="CINDY BJ2">
-        <div class="expandir-imagen"></div>
+    <!-- Proyecto CINDY BJ2 -->
+    <div class="project-card">
+      <h3>CINDY BJ2</h3>
+      <div class="project-images">
+        <!-- Repetir 4 veces la misma imagen -->
+        <div class="image-class" onclick="openLightbox(this)">
+          <img src="Imagenes/CINDYBJ2/CBJ2_1.jpg" alt="CINDY BJ2">
+          <div class="expandir-imagen"></div>
+        </div>
+        <div class="image-class" onclick="openLightbox(this)">
+          <img src="Imagenes/CINDYBJ2/CBJ2_2.jpg" alt="CINDY BJ2">
+          <div class="expandir-imagen"></div>
+        </div>
+        <div class="image-class" onclick="openLightbox(this)">
+          <img src="Imagenes/CINDYBJ2/CBJ2_3.jpg" alt="CINDY BJ2">
+          <div class="expandir-imagen"></div>
+        </div>
+        <div class="image-class" onclick="openLightbox(this)">
+          <img src="Imagenes/CINDYBJ2/CBJ2_4.jpg" alt="CINDY BJ2">
+          <div class="expandir-imagen"></div>
+        </div>
+        <div class="image-class" onclick="openLightbox(this)">
+          <img src="Imagenes/CINDYBJ2/CBJ2_5.jpg" alt="CINDY BJ2">
+          <div class="expandir-imagen"></div>
+        </div>
+        <div class="image-class" onclick="openLightbox(this)">
+          <img src="Imagenes/CINDYBJ2/CBJ2_6.jpg" alt="CINDY BJ2">
+          <div class="expandir-imagen"></div>
+        </div>
+        <div class="image-class" onclick="openLightbox(this)">
+          <img src="Imagenes/CINDYBJ2/CBJ2_7.jpg" alt="CINDY BJ2">
+          <div class="expandir-imagen"></div>
+        </div>
       </div>
-      <div class="image-class" onclick="openLightbox(this)">
-        <img src="Imagenes/CINDYBJ2/CBJ2_2.jpg" alt="CINDY BJ2">
-        <div class="expandir-imagen"></div>
-      </div>
-      <div class="image-class" onclick="openLightbox(this)">
-        <img src="Imagenes/CINDYBJ2/CBJ2_3.jpg" alt="CINDY BJ2">
-        <div class="expandir-imagen"></div>
-      </div>
-      <div class="image-class" onclick="openLightbox(this)">
-        <img src="Imagenes/CINDYBJ2/CBJ2_4.jpg" alt="CINDY BJ2">
-        <div class="expandir-imagen"></div>
-      </div>
-      <div class="image-class" onclick="openLightbox(this)">
-        <img src="Imagenes/CINDYBJ2/CBJ2_5.jpg" alt="CINDY BJ2">
-        <div class="expandir-imagen"></div>
-      </div>
-      <div class="image-class" onclick="openLightbox(this)">
-        <img src="Imagenes/CINDYBJ2/CBJ2_6.jpg" alt="CINDY BJ2">
-        <div class="expandir-imagen"></div>
-      </div>
-      <div class="image-class" onclick="openLightbox(this)">
-        <img src="Imagenes/CINDYBJ2/CBJ2_7.jpg" alt="CINDY BJ2">
-        <div class="expandir-imagen"></div>
-      </div>
-      <div class="image-class" onclick="openLightbox(this)">
-        <img src="Imagenes/CINDYBJ2/CBJ2_8.jpg" alt="CINDY BJ2">
-        <div class="expandir-imagen"></div>
-      </div>
-    </div>
-    <!-- VIDEO -->
-     <div class="video-container">
+      <!-- VIDEO -->
+      <div class="video-container">
         <div class="video-preview" onclick="openVideo('Videos/Demo_CINDYBJ2.mp4')">
           <div class="video-title">DEMO</div>
           <!-- Canvas como thumbnail + imagen de fallback -->
@@ -179,108 +181,94 @@
         </div>
       </div>
 
-    <div class="project-description">
-      <p>Robot de dos ruedas controlado por celular.</p>
+      <div class="project-description">
+        <p>Robot de dos ruedas controlado por celular.</p>
 
-      <!-- Botón para PDF -->
-      <button class="pdf-button" onclick="openPdf('PDFs/P_Cindy BJ2.pdf')">
-        <i class="fas fa-file-pdf"></i> Ver PDF
-      </button>
+        <!-- Botón para PDF -->
+        <button class="pdf-button" onclick="openPdf('PDFs/P_Cindy BJ2.pdf')">
+          <i class="fas fa-file-pdf"></i> Ver PDF
+        </button>
 
-      <!-- Tecnologías utilizadas -->
-      <div class="technologies">
-        <h4>Tecnologías utilizadas</h4>
-        <div class="tech-bubbles">
-          <div class="tech-bubble"><i class="fas fa-cube"></i>
-            <svg id='SolidWorks_24' width='24' height='24' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'
-              xmlns:xlink='http://www.w3.org/1999/xlink'>
-              <rect width='24' height='24' stroke='none' fill='#000000' opacity='0' />
-              <g transform="matrix(0.42 0 0 0.42 12 12)">
-                <g style="opacity:1">
-                  <g transform="matrix(1 0 0 1 -9.5 3)">
-                    <path
-                      style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(221,44,0); fill-rule: nonzero; opacity: 1;"
-                      transform=" translate(-14.5, -27)" d="M 24 44 L 5 36 L 5 10 L 24 16 L 24 44 z"
-                      stroke-linecap="round" />
-                  </g>
-                  <g transform="matrix(1 0 0 1 9.5 3)">
-                    <path
-                      style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(165,32,5); fill-rule: nonzero; opacity: 1;"
-                      transform=" translate(-33.5, -27)" d="M 24 44 L 43 36 L 43 10 L 24 16 L 24 44 z"
-                      stroke-linecap="round" />
-                  </g>
-                  <g transform="matrix(1 0 0 1 0 -14)">
-                    <path
-                      style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(255,61,0); fill-rule: nonzero; opacity: 1;"
-                      transform=" translate(-24, -10)" d="M 5 10 L 24 4 L 43 10 L 24 16 L 5 10 z"
-                      stroke-linecap="round" />
-                  </g>
-                  <g transform="matrix(1 0 0 1 1 2)">
-                    <path
-                      style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1;"
-                      transform=" translate(-25, -26)"
-                      d="M 36.538 29.214 L 38.183 16.631 L 40 16 L 37.562 32.738 L 35.775 33.475 L 33.696999999999996 22.547 L 31.537999999999997 35.223 L 29.653 36 L 27 20.516 L 28.987000000000002 19.825999999999997 L 30.75 31.486999999999995 L 32.885 18.471999999999994 L 34.489 17.914999999999996 L 36.538 29.214 z M 16.855 31.103 C 16.855 30.779 16.819 30.477 16.746 30.198 C 16.673 29.919 16.54 29.638 16.346999999999998 29.357 C 16.153999999999996 29.076 15.888999999999998 28.78 15.552999999999997 28.468 C 15.216999999999997 28.157 14.786999999999997 27.804 14.262999999999998 27.411 C 13.690999999999999 26.987000000000002 13.165999999999999 26.547 12.685999999999998 26.092000000000002 C 12.207999999999998 25.638 11.796999999999999 25.161 11.453999999999999 24.661 C 11.111999999999998 24.162000000000003 10.844 23.632 10.650999999999998 23.071 C 10.457999999999998 22.51 10.361999999999998 21.91 10.361999999999998 21.270000000000003 C 10.361999999999998 20.637000000000004 10.461999999999998 20.088000000000005 10.662999999999998 19.621000000000002 C 10.863999999999999 19.153000000000002 11.147999999999998 18.783 11.514999999999999 18.51 C 11.883 18.237000000000002 12.323999999999998 18.072000000000003 12.841 18.018 C 13.36 17.963 13.934999999999999 18.035 14.568999999999999 18.233 C 15.248999999999999 18.446 15.863999999999999 18.769000000000002 16.410999999999998 19.202 C 16.959999999999997 19.636000000000003 17.424999999999997 20.139000000000003 17.805999999999997 20.71 C 18.188 21.283 18.480999999999998 21.900000000000002 18.685999999999996 22.562 C 18.890999999999995 23.225 18.992999999999995 23.894000000000002 18.992999999999995 24.569000000000003 L 16.855999999999995 23.862000000000002 C 16.855999999999995 23.472 16.809999999999995 23.098000000000003 16.716999999999995 22.740000000000002 C 16.624999999999996 22.383000000000003 16.482999999999993 22.054000000000002 16.292999999999996 21.753000000000004 C 16.102999999999994 21.453000000000003 15.862999999999996 21.190000000000005 15.573999999999996 20.965000000000003 C 15.284999999999997 20.740000000000002 14.944999999999997 20.565000000000005 14.551999999999996 20.439000000000004 C 14.182999999999996 20.320000000000004 13.863999999999995 20.272000000000002 13.594999999999995 20.295000000000005 C 13.326999999999995 20.318000000000005 13.103999999999996 20.398000000000007 12.926999999999996 20.537000000000006 C 12.749999999999996 20.675000000000008 12.618999999999996 20.865000000000006 12.534999999999997 21.106000000000005 C 12.450999999999997 21.346000000000004 12.408999999999997 21.622000000000007 12.408999999999997 21.934000000000005 C 12.408999999999997 22.521000000000004 12.616999999999997 23.079000000000004 13.033999999999997 23.610000000000003 C 13.451999999999996 24.143000000000004 14.092999999999996 24.722 14.958999999999998 25.351000000000003 C 15.640999999999998 25.846000000000004 16.235 26.341 16.738 26.836000000000002 C 17.243 27.333000000000002 17.663999999999998 27.845000000000002 18.000999999999998 28.37 C 18.337999999999997 28.897000000000002 18.589 29.447000000000003 18.753999999999998 30.019000000000002 C 18.917 30.592 19 31.201 19 31.846 C 19 32.528 18.896 33.104 18.688 33.573 C 18.480999999999998 34.042 18.186 34.396 17.804 34.636 C 17.423 34.876000000000005 16.964 34.996 16.426 34.999 C 15.889999999999999 35.002 15.294999999999998 34.881 14.641999999999998 34.638000000000005 C 14.062999999999997 34.423 13.494999999999997 34.107000000000006 12.937999999999997 33.693000000000005 C 12.382999999999997 33.28000000000001 11.886999999999997 32.786 11.448999999999996 32.209 C 11.012999999999996 31.634000000000004 10.661999999999995 30.989000000000004 10.396999999999997 30.274000000000004 C 10.132 29.562 10 28.789 10 27.956 L 12.041 28.679 C 12.041 29.177999999999997 12.107000000000001 29.63 12.24 30.035999999999998 C 12.373000000000001 30.441999999999997 12.555 30.801 12.786 31.113 C 13.017999999999999 31.426 13.292 31.692 13.61 31.913 C 13.927999999999999 32.134 14.272 32.313 14.642 32.447 C 15.373 32.713 15.924999999999999 32.718 16.296 32.461000000000006 C 16.668 32.204 16.855 31.75 16.855 31.103 z"
-                      stroke-linecap="round" />
+        <!-- Tecnologías utilizadas -->
+        <div class="technologies">
+          <h4>Tecnologías utilizadas</h4>
+          <div class="tech-bubbles">
+            <div class="tech-bubble"><i class="fas fa-cube"></i>
+              <svg id='SolidWorks_24' width='24' height='24' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'
+                xmlns:xlink='http://www.w3.org/1999/xlink'>
+                <rect width='24' height='24' stroke='none' fill='#000000' opacity='0' />
+                <g transform="matrix(0.42 0 0 0.42 12 12)">
+                  <g style="opacity:1">
+                    <g transform="matrix(1 0 0 1 -9.5 3)">
+                      <path
+                        style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(221,44,0); fill-rule: nonzero; opacity: 1;"
+                        transform=" translate(-14.5, -27)" d="M 24 44 L 5 36 L 5 10 L 24 16 L 24 44 z"
+                        stroke-linecap="round" />
+                    </g>
+                    <g transform="matrix(1 0 0 1 9.5 3)">
+                      <path
+                        style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(165,32,5); fill-rule: nonzero; opacity: 1;"
+                        transform=" translate(-33.5, -27)" d="M 24 44 L 43 36 L 43 10 L 24 16 L 24 44 z"
+                        stroke-linecap="round" />
+                    </g>
+                    <g transform="matrix(1 0 0 1 0 -14)">
+                      <path
+                        style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(255,61,0); fill-rule: nonzero; opacity: 1;"
+                        transform=" translate(-24, -10)" d="M 5 10 L 24 4 L 43 10 L 24 16 L 5 10 z"
+                        stroke-linecap="round" />
+                    </g>
+                    <g transform="matrix(1 0 0 1 1 2)">
+                      <path
+                        style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1;"
+                        transform=" translate(-25, -26)"
+                        d="M 36.538 29.214 L 38.183 16.631 L 40 16 L 37.562 32.738 L 35.775 33.475 L 33.696999999999996 22.547 L 31.537999999999997 35.223 L 29.653 36 L 27 20.516 L 28.987000000000002 19.825999999999997 L 30.75 31.486999999999995 L 32.885 18.471999999999994 L 34.489 17.914999999999996 L 36.538 29.214 z M 16.855 31.103 C 16.855 30.779 16.819 30.477 16.746 30.198 C 16.673 29.919 16.54 29.638 16.346999999999998 29.357 C 16.153999999999996 29.076 15.888999999999998 28.78 15.552999999999997 28.468 C 15.216999999999997 28.157 14.786999999999997 27.804 14.262999999999998 27.411 C 13.690999999999999 26.987000000000002 13.165999999999999 26.547 12.685999999999998 26.092000000000002 C 12.207999999999998 25.638 11.796999999999999 25.161 11.453999999999999 24.661 C 11.111999999999998 24.162000000000003 10.844 23.632 10.650999999999998 23.071 C 10.457999999999998 22.51 10.361999999999998 21.91 10.361999999999998 21.270000000000003 C 10.361999999999998 20.637000000000004 10.461999999999998 20.088000000000005 10.662999999999998 19.621000000000002 C 10.863999999999999 19.153000000000002 11.147999999999998 18.783 11.514999999999999 18.51 C 11.883 18.237000000000002 12.323999999999998 18.072000000000003 12.841 18.018 C 13.36 17.963 13.934999999999999 18.035 14.568999999999999 18.233 C 15.248999999999999 18.446 15.863999999999999 18.769000000000002 16.410999999999998 19.202 C 16.959999999999997 19.636000000000003 17.424999999999997 20.139000000000003 17.805999999999997 20.71 C 18.188 21.283 18.480999999999998 21.900000000000002 18.685999999999996 22.562 C 18.890999999999995 23.225 18.992999999999995 23.894000000000002 18.992999999999995 24.569000000000003 L 16.855999999999995 23.862000000000002 C 16.855999999999995 23.472 16.809999999999995 23.098000000000003 16.716999999999995 22.740000000000002 C 16.624999999999996 22.383000000000003 16.482999999999993 22.054000000000002 16.292999999999996 21.753000000000004 C 16.102999999999994 21.453000000000003 15.862999999999996 21.190000000000005 15.573999999999996 20.965000000000003 C 15.284999999999997 20.740000000000002 14.944999999999997 20.565000000000005 14.551999999999996 20.439000000000004 C 14.182999999999996 20.320000000000004 13.863999999999995 20.272000000000002 13.594999999999995 20.295000000000005 C 13.326999999999995 20.318000000000005 13.103999999999996 20.398000000000007 12.926999999999996 20.537000000000006 C 12.749999999999996 20.675000000000008 12.618999999999996 20.865000000000006 12.534999999999997 21.106000000000005 C 12.450999999999997 21.346000000000004 12.408999999999997 21.622000000000007 12.408999999999997 21.934000000000005 C 12.408999999999997 22.521000000000004 12.616999999999997 23.079000000000004 13.033999999999997 23.610000000000003 C 13.451999999999996 24.143000000000004 14.092999999999996 24.722 14.958999999999998 25.351000000000003 C 15.640999999999998 25.846000000000004 16.235 26.341 16.738 26.836000000000002 C 17.243 27.333000000000002 17.663999999999998 27.845000000000002 18.000999999999998 28.37 C 18.337999999999997 28.897000000000002 18.589 29.447000000000003 18.753999999999998 30.019000000000002 C 18.917 30.592 19 31.201 19 31.846 C 19 32.528 18.896 33.104 18.688 33.573 C 18.480999999999998 34.042 18.186 34.396 17.804 34.636 C 17.423 34.876000000000005 16.964 34.996 16.426 34.999 C 15.889999999999999 35.002 15.294999999999998 34.881 14.641999999999998 34.638000000000005 C 14.062999999999997 34.423 13.494999999999997 34.107000000000006 12.937999999999997 33.693000000000005 C 12.382999999999997 33.28000000000001 11.886999999999997 32.786 11.448999999999996 32.209 C 11.012999999999996 31.634000000000004 10.661999999999995 30.989000000000004 10.396999999999997 30.274000000000004 C 10.132 29.562 10 28.789 10 27.956 L 12.041 28.679 C 12.041 29.177999999999997 12.107000000000001 29.63 12.24 30.035999999999998 C 12.373000000000001 30.441999999999997 12.555 30.801 12.786 31.113 C 13.017999999999999 31.426 13.292 31.692 13.61 31.913 C 13.927999999999999 32.134 14.272 32.313 14.642 32.447 C 15.373 32.713 15.924999999999999 32.718 16.296 32.461000000000006 C 16.668 32.204 16.855 31.75 16.855 31.103 z"
+                        stroke-linecap="round" />
+                    </g>
                   </g>
                 </g>
-              </g>
-            </svg> SolidWorks
+              </svg> SolidWorks
+            </div>
+            <div class="tech-bubble"><i class="fas fa-microchip"></i> Arduino IDE</div>
+            <div class="tech-bubble"><i class="fas fa-wifi"></i> ESP32</div>
           </div>
-          <div class="tech-bubble"><i class="fas fa-microchip"></i> Arduino IDE</div>
-          <div class="tech-bubble"><i class="fas fa-wifi"></i> ESP32</div>
         </div>
-      </div>
 
-      <!-- Tecnologías del equipo -->
-      <div class="technologies">
-        <h4>Tecnologías utilizadas por el equipo</h4>
-        <div class="tech-bubbles">
-          <div class="tech-bubble"><i class="fab fa-apple"></i> Xcode</div>
-          <div class="tech-bubble"><i class="fas fa-code"></i> Swift</div>
-          <div class="tech-bubble"><i class="fas fa-film"></i> Adobe Animate</div>
+        <!-- Tecnologías del equipo -->
+        <div class="technologies">
+          <h4>Tecnologías utilizadas por el equipo</h4>
+          <div class="tech-bubbles">
+            <div class="tech-bubble"><i class="fab fa-apple"></i> Xcode</div>
+            <div class="tech-bubble"><i class="fas fa-code"></i> Swift</div>
+            <div class="tech-bubble"><i class="fas fa-film"></i> Adobe Animate</div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- Lightbox para imágenes -->
-  <div id="lightbox" class="lightbox" onclick="closeLightbox()">
-    <span class="close-btn" onclick="event.stopPropagation(); closeLightbox()">&times;</span>
-    <img id="lightbox-img" class="lightbox-content">
-  </div>
+    <!-- Lightbox para imágenes -->
+    <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+      <span class="close-btn" onclick="event.stopPropagation(); closeLightbox()">&times;</span>
+      <img id="lightbox-img" class="lightbox-content">
+    </div>
 
-  <!-- Lightbox para video -->
-  <div id="video-lightbox" class="lightbox" onclick="closeVideo()">
-    <span class="close-btn" onclick="event.stopPropagation(); closeVideo()">&times;</span>
-    <video id="video-player" class="lightbox-content" controls>
-      <source src="" type="video/mp4">
-    </video>
-  </div>
-</main>
+    <!-- Lightbox para video -->
+    <div id="video-lightbox" class="lightbox" onclick="closeVideo()">
+      <span class="close-btn" onclick="event.stopPropagation(); closeVideo()">&times;</span>
+      <video id="video-player" class="lightbox-content" controls>
+        <source src="" type="video/mp4">
+      </video>
+    </div>
+  </main>
 
-<script src="script.js"></script>
+  <script src="script.js"></script>
 
- <!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx FOOTER xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
+  <!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx FOOTER xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
   <footer class="site-footer">
     <div class="footer-container">
       <div class="footer-content">
         <p class="footer-email">
           <!-- ICON ENVELOPE -->
-          <svg id='Envelope_24' width='24' height='24' viewBox='0 0 24 24'
-            xmlns='http://www.w3.org/2000/svg'><!-- Definición del gradiente lineal -->
-            <defs>
-              <linearGradient id="envelope-gradient" x1="100%" y1="100%" x2="0%" y2="0%">
-                <stop offset="0%" stop-color="#27e2ff" /> <!-- Cyan -->
-                <stop offset="100%" stop-color="#7e22ce" /> <!-- Morado -->
-              </linearGradient>
-            </defs>
-            <g transform="matrix(1 0 0 1 12 12)"><!-- Path con fill de gradiente -->
-              <path
-                style="stroke: none; stroke-width: 1; fill: url(#envelope-gradient); fill-rule: nonzero; opacity: 1;"
-                transform=" translate(-12, -12)"
-                d="M 4 4 C 2.897 4 2 4.897 2 6 L 2 18 C 2 19.103 2.897 20 4 20 L 20 20 C 21.103 20 22 19.103 22 18 L 22 6 C 22 4.897 21.103 4 20 4 L 4 4 z M 4 6 L 20 6 L 20 6.0058594 L 12 11 L 4 6.0039062 L 4 6 z M 4 8.0039062 L 12 13 L 20 8.0058594 L 20.001953 18 L 4 18 L 4 8.0039062 z"
-                stroke-linecap="round" />
-            </g>
+          <svg id='Envelope_24' width='24' height='24' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'><!-- Definición del gradiente lineal --> <defs> <linearGradient id="envelope-gradient" x1="100%" y1="100%" x2="0%" y2="0%"> <stop offset="0%" stop-color="#27e2ff" /> <!-- Cyan --> <stop offset="100%" stop-color="#7e22ce" /> <!-- Morado --> </linearGradient> </defs> <g transform="matrix(1 0 0 1 12 12)"><!-- Path con fill de gradiente --> <path style="stroke: none; stroke-width: 1; fill: url(#envelope-gradient); fill-rule: nonzero; opacity: 1;" transform=" translate(-12, -12)" d="M 4 4 C 2.897 4 2 4.897 2 6 L 2 18 C 2 19.103 2.897 20 4 20 L 20 20 C 21.103 20 22 19.103 22 18 L 22 6 C 22 4.897 21.103 4 20 4 L 4 4 z M 4 6 L 20 6 L 20 6.0058594 L 12 11 L 4 6.0039062 L 4 6 z M 4 8.0039062 L 12 13 L 20 8.0058594 L 20.001953 18 L 4 18 L 4 8.0039062 z" stroke-linecap="round" /> </g>
           </svg>
           joel.lugo.chvz@outlook.com
         </p>
