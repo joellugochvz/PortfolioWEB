@@ -1,111 +1,132 @@
 console.log("Sitio cargado correctamente");
-// Actualizar año en el footer
-document.querySelector('.current-year').textContent = new Date().getFullYear();
+console.log("Ancho del viewport:", window.innerWidth);
 
-  //COPIAR CORREO AL PORTAPAPELES CON ICONO EMAIL
+document.addEventListener("DOMContentLoaded", function () {
+  // Agrega clase si JS está activo
+  document.documentElement.classList.add('js-enabled');
+
+  // =============================================
+  // MANEJADORES DE EVENTOS GLOBALES
+  // =============================================
+  document.addEventListener('click', function (event) {
+    const lightbox = document.getElementById('lightbox');
+    const videoLightbox = document.getElementById('video-lightbox');
+
+    if (event.target === lightbox) {
+      closeLightbox();
+    } else if (event.target === videoLightbox) {
+      closeVideo();
+    }
+  });
+});
+
+// =============================================
+// FUNCIÓN PARA COPIAR CORREO
+// =============================================
 function copiarCorreo(event) {
   const correo = "joel.lugo.chvz@outlook.com";
+  const msg = document.getElementById("copiado-msg");
+
   navigator.clipboard.writeText(correo).then(() => {
-    const msg = document.getElementById("copiado-msg");
+    // Posicionamiento seguro con límites de pantalla
+    const offsetX = 70;
+    const offsetY = 70;
 
-    // Posiciona el span cerca del cursor
-      const offsetX = 70; // separacion horizontal respecto al mouse
-      const offsetY = 70; // separacion vertical respecto al mouse
-      msg.style.left = `${event.pageX + offsetX}px`;
-      msg.style.top = `${event.pageY + offsetY}px`;
+    const x = Math.min(
+      event.pageX + offsetX,
+      window.innerWidth - msg.offsetWidth - 10
+    );
 
-      msg.classList.add("visible");
-    // Oculta el mensaje después de tiempo
+    const y = Math.min(
+      event.pageY + offsetY,               // Posición Y del clic + desplazamiento
+      window.innerHeight - msg.offsetHeight - 10  // Límite inferior de la pantalla
+    );
+
+    msg.style.left = `${x}px`;
+    msg.style.top = `${y}px`;
+    msg.classList.add("visible");
+    console.log("Coordenada MSG:", msg.style.top); // Verás esto en la consola
+    console.log("Coordenada y:", event.pageY); // Verás esto en la consola
+
     setTimeout(() => {
       msg.classList.remove("visible");
-    }, 1200);
+    }, 1000);
   }).catch(err => {
     alert("Error al copiar al portapapeles.");
     console.error("Error:", err);
   });
 }
 
-// Lightbox para imágenes
+// =============================================
+// LIGHTBOX PARA IMÁGENES
+// =============================================
 function openLightbox(element) {
   const lightbox = document.getElementById('lightbox');
   const lightboxImg = document.getElementById('lightbox-img');
-  lightboxImg.src = element.querySelector('img').src;
+  const img = element.querySelector('img');
+
+  if (!lightbox || !lightboxImg || !img) {
+    console.error("Elementos del lightbox no encontrados");
+    return;
+  }
+
+  lightboxImg.src = img.src;
   lightbox.style.display = 'flex';
   document.body.style.overflow = 'hidden';
 }
 
 function closeLightbox() {
-  document.getElementById('lightbox').style.display = 'none';
-  document.body.style.overflow = 'auto';
+  const lightbox = document.getElementById('lightbox');
+  if (lightbox) {
+    lightbox.style.display = 'none';
+    document.body.style.overflow = 'auto';
+  }
 }
 
-// Lightbox para video
+// =============================================
+// LIGHTBOX PARA VIDEO
+// =============================================
 function openVideo(videoSrc) {
   const videoLightbox = document.getElementById('video-lightbox');
   const videoPlayer = document.getElementById('video-player');
+
+  if (!videoLightbox || !videoPlayer) {
+    console.error("Elementos del video lightbox no encontrados");
+    return;
+  }
+
   videoPlayer.src = videoSrc;
   videoLightbox.style.display = 'flex';
   document.body.style.overflow = 'hidden';
-  videoPlayer.play();
+
+  videoPlayer.play().catch(e => {
+    console.error("Error al reproducir video:", e);
+  });
 }
 
 function closeVideo() {
   const videoPlayer = document.getElementById('video-player');
-  videoPlayer.pause();
-  document.getElementById('video-lightbox').style.display = 'none';
-  document.body.style.overflow = 'auto';
-}
-
-// Abrir PDF
-function openPdf(pdfUrl) {
-  window.open(pdfUrl, '_blank');
-}
-
-// Cerrar al hacer clic fuera del contenido
-window.onclick = function (event) {
-  const lightbox = document.getElementById('lightbox');
   const videoLightbox = document.getElementById('video-lightbox');
 
-  if (event.target === lightbox) {
-    closeLightbox();
+  if (videoPlayer) {
+    videoPlayer.pause();
+    videoPlayer.currentTime = 0;
   }
 
-  if (event.target === videoLightbox) {
-    closeVideo();
+  if (videoLightbox) {
+    videoLightbox.style.display = 'none';
+    document.body.style.overflow = 'auto';
   }
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-  // Marcar que JS está activo
-  document.documentElement.classList.add('js-enabled');
+// =============================================
+// FUNCIÓN PARA ABRIR PDF
+// =============================================
+function openPdf(pdfUrl) {
+  if (!pdfUrl) {
+    console.error("URL del PDF no proporcionada");
+    return;
+  }
+  window.open(pdfUrl, '_blank', 'noopener,noreferrer');
+}
 
-  const video = document.createElement('video');
-  const canvas = document.querySelector('#video-thumbnail');
-  const ctx = canvas.getContext('2d');
-
-  video.src = 'Videos/Demo_App_Audi.mp4';
-  video.muted = true; // Necesario para autoplay en algunos navegadores
-  video.playsInline = true;
-
-  // Configurar canvas con las mismas dimensiones del contenedor
-  const preview = document.querySelector('.video-preview');
-  canvas.width = preview.offsetWidth;
-  canvas.height = preview.offsetHeight;
-
-  video.addEventListener('loadedmetadata', function () {
-    // Capturar frame en el segundo 2 (ajustable)
-    video.currentTime = Math.min(2, video.duration);
-  });
-
-  video.addEventListener('seeked', function () {
-    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-  });
-
-  // Forzar carga (importante para CORS)
-  video.load();
-
-  // Fallback si hay error
-  video.addEventListener('error', function () {
-    document.documentElement.classList.remove('js-enabled');
-  });
-});

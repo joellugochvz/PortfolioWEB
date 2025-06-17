@@ -180,7 +180,7 @@ body {
   pointer-events: none;
   opacity: 0;
   transform: translate(-50%, -50%);
-  transition: opacity 0.5s ease-in;
+  transition: opacity 0.35s ease-out;
   z-index: 9999;
   font-size: 0.9rem;
 }
@@ -188,8 +188,9 @@ body {
   opacity: 0.8;
 }
 
-
-/* xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx PROYECTOS xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx */
+/* ======================================================================== */
+/* SECCIÓN PROYECTOS */
+/* ======================================================================== */
 .projects-section {
   padding: 10px;
   background: linear-gradient(to bottom right,
@@ -203,7 +204,7 @@ body {
   box-shadow: 0 0 100px #000000;
 }
 
-/* TÍTULO SECCIÓN DE PROYECTOS */
+/* =========================== TÍTULO SECCIÓN DE PROYECTOS ==================== */
 .projects-section h2 {
   font-family: 'Inter', sans-serif;
   font-weight: 700;
@@ -217,7 +218,7 @@ body {
   color: transparent;
 }
 
-/* RECUADROS DE PROYECTOS */
+/* =============================== RECUADROS DE PROYECTOS ==================== */
 .project-card {
   max-width: 1600px;
   margin-inline: auto;
@@ -252,7 +253,7 @@ body {
   padding: 1.5rem;
 }
 
-/* IMÁGENES DE CADA PROYECTO */
+/* ============================= IMÁGENES DE CADA PROYECTO ========================== */
 .project-images {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -293,9 +294,9 @@ body {
   }
 }
 
-/* .image-class:hover img {
+.image-class:hover img {
   transform: scale(1.1);
-} */
+}
 /* .expandir-imagen {
   position: absolute;
   top: 0;
@@ -326,8 +327,9 @@ body {
   color: #cccccc;
 }
 
-
+/* ======================================================================== */
 /* FOOTER */
+/* ======================================================================== */
 .site-footer {
   background: repeating-linear-gradient(50deg, #351053, #050007);
   padding: 48px 0;
@@ -337,19 +339,16 @@ body {
   /*COLORACIÓN DE BORDE*/
   box-shadow: 0 -5px 20px rgba(39, 226, 255, 0.3);
 }
-
 .footer-container {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
   padding: 0 24px;
 }
-
 .footer-content {
   display: flex;
   flex-direction: column;
   gap: 24px;
 }
-
 @media (min-width: 768px) {
   .footer-content {
     flex-direction: row;
@@ -358,6 +357,7 @@ body {
   }
 }
 
+/* ============================= FOOTER EMAIL =================================== */
 .footer-email {
   color: #8a8a8a;
   background: linear-gradient(to right, #1ca6bb, #7e22ce);
@@ -369,19 +369,17 @@ body {
   justify-content: center;
   gap: 8px;
 }
-
 @media (min-width: 768px) {
   .footer-email {
     justify-content: flex-start;
   }
 }
-
+/* ============================= FOOTER BOLT ICON =================================== */
 .bolt-icon {
   display: flex;
   align-items: center;
   justify-content: center;
 }
-
 @media (min-width: 768px) {
   .bolt-icon {
     justify-content: flex-end;
@@ -391,7 +389,9 @@ body {
 /* xxxxxxxxxxxXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXxxXXXXXXxxxxxxxxxxxxxxxxxxxxxxxxxxxxx */
 
 
-/* Botón PDF */
+/* ======================================================================== */
+/* BOTÓN PDF */
+/* ======================================================================== */
 .pdf-button {
   background-color: #ff3b30;
   color: white;
@@ -412,7 +412,9 @@ body {
   transform: scale(1.05);
 }
 
-/* Contenedor de video */
+/* ======================================================================== */
+/* CONTENEDOR VIDEO */
+/* ======================================================================== */
 .video-container {
   margin: 0px 0;
 }
@@ -438,7 +440,6 @@ body {
 }
 
 /* Estilos para ambos tipos de thumbnail */
-.video-thumbnail,
 .video-fallback {
   width: 100%;
   height: 100%;
@@ -447,22 +448,8 @@ body {
   transition: transform 0.3s ease;
 }
 
-.video-preview:hover .video-thumbnail,
 .video-preview:hover .video-fallback {
   transform: scale(1.03);
-}
-
-/* Solo mostrar canvas cuando JS funcione */
-.video-thumbnail {
-  display: none;
-}
-
-.js-enabled .video-thumbnail {
-  display: block;
-}
-
-.js-enabled .video-fallback {
-  display: none;
 }
 
 .play-button {
@@ -484,7 +471,9 @@ body {
 
 
 
-/* Tecnologías */
+/* ======================================================================== */
+/* TECHNOLOGIES LITTLE CONTAINERS */
+/* ======================================================================== */
 .technologies {
   margin-top: 25px;
 }
@@ -498,22 +487,29 @@ body {
 .tech-bubbles {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 12px;
   justify-content: center;
 }
 
 .tech-bubble {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.1); /* valor por defecto si JS no corre */
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 20px;
-  padding: 8px 15px;
+  padding: 1px 15px;
+  padding-right: 17px;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  font-size: 0.rem;
+  gap: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
   font-family: 'Satoshi', sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+
+/* ======================================================================== */
+/* FUNCTIONALITIES WITH .JS */
+/* ======================================================================== */
 /* Lightbox */
 .lightbox {
   display: none;
@@ -527,9 +523,7 @@ body {
   justify-content: center;
   align-items: center;
   backdrop-filter: blur(10px);
-
 }
-
 .lightbox-content {
   max-width: 90%;
   max-height: 90%;
