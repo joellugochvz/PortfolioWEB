@@ -198,7 +198,7 @@ body {
 /* SECCIÓN PROYECTOS ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 /* ======================================================================== */
 .projects-section {
-  padding: 30px;
+  padding-top: 30px;
   background: linear-gradient(to bottom right,
       #261944,
       #5e139b,
@@ -209,7 +209,6 @@ body {
   text-align: center;
   box-shadow: 0 0 100px #000000;
 }
-
 .projects-section h2 {
   font-family: 'Inter', sans-serif;
   font-weight: 700;
@@ -225,7 +224,7 @@ body {
 
 /* =============================== RECUADROS DE PROYECTOS ==================== */
 .project-card {
-  max-width: 80vw;
+  max-width: 95vw;
   margin-inline: auto;
   background-color: rgba(0, 0, 0, 0.438);
   backdrop-filter: blur(8px);
@@ -235,9 +234,14 @@ body {
   padding: 30px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 15px;
   margin-block-end: 2rem;
   transition: 1000ms ease;
+}
+@media (min-width:768px) {
+  .project-card {
+    max-width: 80vw;
+  }
 }
 
 .project-card:hover {
@@ -275,30 +279,35 @@ body {
 /* ======================================================================== */
 .body-carousel {
   background-color: #00000081;
-  /* overflow-x: hidden; */
+  overflow-x: hidden;
   font-family: Arial, sans-serif;
   border-radius: 20px;
   justify-items: center;
-  width: 60vw;
-  margin: 0 auto;
+  /* width: 60vw; */
+  /* margin: 0 auto; */
+
   box-shadow: 0 0 30px #000000;
+}
+@media (min-width:768px) {
+  .body-carousel {
+    margin: auto;
+    max-width: 60vw;
+  }
 }
 
 .gallery-container {
   position: relative;
-  width: 60vw;
+  /* width: 60vw; */
   height: 70vh;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 20px;
+  /* border-radius: 20px; */
 }
 
 .carousel {
   display: flex;
-  /* display: grid; */
-  /* grid-auto-flow: column; */
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   width: 100%;
@@ -310,6 +319,10 @@ body {
 .carousel::-webkit-scrollbar {
   display: none;
 }
+/* @media (min-width:768px) {
+  .body-carousel {
+    margin: 0%;
+  } */
 
 .slide {
   flex: none;
@@ -338,7 +351,7 @@ body {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 4rem;
+  font-size: 3rem;
   color: rgba(255, 255, 255, 0.3);
   background-color: rgba(0, 0, 0, 0);
   border: #050007;
@@ -350,11 +363,11 @@ body {
 }
 
 .nav-button.left {
-  left: 1rem;
+  left: -1rem;
 }
 
 .nav-button.right {
-  right: 1rem;
+  right: -1rem;
 }
 
 .nav-button:disabled {
@@ -365,7 +378,7 @@ body {
 
 .nav-button:hover {
   text-shadow: 0 0 7px #00000083;
-  font-size: 4.3rem;
+  font-size: 3.3rem;
   color: rgba(255, 255, 255, 1);
   transition: text-shadow 0.3s ease, font-size 0.4s ease, color 0.4s ease;
 }
