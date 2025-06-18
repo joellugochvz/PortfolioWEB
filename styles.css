@@ -7,12 +7,13 @@
 :root {
   /* Valores fluidos con límites usando clamp() */
   font-size: clamp(14px, 1.2vw, 16px); /* Móvil: 14px, Escritorio: hasta 16px */
-  line-height: 1.3; /* Sin unidades para escalar con el font-size */
+  line-height: 1.35; /* Sin unidades para escalar con el font-size */
 }
 
 @media (max-width: 48rem) { /* 768px / 16px = 48rem (consistente con rem) */
   :root {
     font-size: 14px; /* Fuerza 14px en móviles pequeños (opcional) */
+    line-height: 1.1;
   }
 }
 
