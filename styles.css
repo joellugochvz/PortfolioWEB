@@ -4,6 +4,17 @@
   padding: 0;
   box-sizing: border-box;
 }
+:root {
+  /* Valores fluidos con límites usando clamp() */
+  font-size: clamp(14px, 1.2vw, 16px); /* Móvil: 14px, Escritorio: hasta 16px */
+  line-height: 1.5; /* Sin unidades para escalar con el font-size */
+}
+
+@media (max-width: 48rem) { /* 768px / 16px = 48rem (consistente con rem) */
+  :root {
+    font-size: 14px; /* Fuerza 14px en móviles pequeños (opcional) */
+  }
+}
 
 body {
   font-family: sans-serif;
@@ -28,12 +39,12 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 1400px;
-  gap: 30px;
+  max-width: 88rem;
+  gap: 1.5rem;
   text-align: center;
 }
 
-@media (min-width: 800px) {
+@media (min-width: 880px) {
   .header-content {
     flex-direction: row;
     align-items: center;
@@ -49,10 +60,11 @@ body {
   overflow: hidden;
   width: 18vw;
   height: 18vw;
+  /* min-width: 18vw; */
   box-shadow: 2px 3px 20px #22d3eece;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 880px) {
   .profile-picture {
     width: 200px;
     height: 200px;
@@ -69,31 +81,32 @@ body {
 /* HEADER TEXT FORMATS */
 .profile-info h1 {
   font-family: 'Inter', sans-serif;
-  font-size: 2.0rem;
+  font-size: clamp(2.3rem,5vw,4.2rem);
   background: linear-gradient(to right, #0bdeff, #166fff, #22d3ee);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
   margin-bottom: 10px;
 }
-@media (min-width: 800px) {
+/* @media (min-width: 880px) {
   .profile-info h1{
       font-size: 4rem;
   }
-}
+} */
 
 .profile-info h2 {
   font-family: 'Inter', sans-serif;
   font-weight: 400;
-  font-size: 1.1rem;
+  /* font-size: 1.1rem; */
+  font-size: clamp(1.1rem,4vw,1.6rem);
   color: #e5e5e5;
   margin-bottom: 20px;
 }
-@media (min-width: 800px) {
+/* @media (min-width: 880px) {
   .profile-info h2{
       font-size: 1.6rem;
   }
-}
+} */
 
 #DiplomaICON {
   width: 1.5rem;
@@ -113,15 +126,16 @@ body {
 
 .profile-info p {
   font-family: 'Satoshi', sans-serif;
-  font-size: 1.2rem;
+  /* font-size: 1.2rem; */
+  font-size: clamp(1.5rem,2.9vw,2rem);
   max-width: 900px;
   margin-bottom: 25px;
 }
-@media (min-width: 800px) {
+/* @media (min-width: 880px) {
   .profile-info p {
-  font-size: 0.8rem;
+  font-size: 2rem;
   }
-}
+} */
 
 /* ICONS LINKS */
 .social-links {
@@ -130,7 +144,7 @@ body {
   justify-content: center;
 }
 
-@media (min-width:800px) {
+@media (min-width:880px) {
   .social-links {
     justify-content: flex-start;
   }
@@ -148,7 +162,7 @@ body {
   transition: 0.9s cubic-bezier(.62, .15, .39, .89);
 }
 
-@media (min-width:800px) {
+@media (min-width:880px) {
   .icon {
     width: 70px;
     height: 70px;
