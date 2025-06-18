@@ -69,7 +69,7 @@ body {
 /* HEADER TEXT FORMATS */
 .profile-info h1 {
   font-family: 'Inter', sans-serif;
-  font-size: 2.3rem;
+  font-size: 2.0rem;
   background: linear-gradient(to right, #0bdeff, #166fff, #22d3ee);
   -webkit-background-clip: text;
   background-clip: text;
@@ -85,7 +85,7 @@ body {
 .profile-info h2 {
   font-family: 'Inter', sans-serif;
   font-weight: 400;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   color: #e5e5e5;
   margin-bottom: 20px;
 }
@@ -113,7 +113,7 @@ body {
 
 .profile-info p {
   font-family: 'Satoshi', sans-serif;
-  font-size: 1.35rem;
+  font-size: 1.2rem;
   max-width: 900px;
   margin-bottom: 25px;
 }
