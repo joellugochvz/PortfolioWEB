@@ -145,11 +145,16 @@ function updateButtons() {
   prevBtn.disabled = currentIndex === 0;
   nextBtn.disabled = currentIndex === slides.length - 1;
 }
-
+// console.log("Slideslength", slides.length);
+// console.log("Current Inderx", currentIndex);
 function scrollToSlide(index) {
   const slide = slides[index];
   if (slide) {
-    slide.scrollIntoView({ behavior: "smooth", inline: "center" });
+    // Desplaza solo el contenedor del carrusel, no la página
+    carousel.scrollTo({
+      left: slide.offsetLeft - (carousel.clientWidth / 2 - slide.clientWidth / 2),
+      behavior: "smooth"
+    });
     currentIndex = index;
     updateButtons();
   }
@@ -186,4 +191,40 @@ carousel.addEventListener("scroll", () => {
 });
 
 updateButtons();
-scrollToSlide(0);
+
+
+
+// =============================================
+// SCROLL-POINTS
+// =============================================
+const slideGallery = document.querySelector(".slide");
+const thumbnailContainer = document.querySelector(".scroll-points");
+const slideCount = slides.length;
+const slideWidth = 540;
+
+const highlightThumbnail = () => {
+  thumbnailContainer
+    .querySelectorAll("div.highlighted")
+    .forEach((el) => el.classList.remove("highlighted"));
+  const index = Math.floor(slideGallery.scrollLeft / slideWidth);
+  thumbnailContainer
+    .querySelector(`div[data-id="${index}"]`)
+    .classList.add("highlighted");
+};
+
+const scrollToElement = (el) => {
+  const index = parseInt(el.dataset.id, 10);
+  slideGallery.scrollTo(index * slideWidth, 0);
+};
+
+thumbnailContainer.innerHTML += [...slides]
+  .map((slide, i) => `<div data-id="${i}"></div>`)
+  .join("");
+
+thumbnailContainer.querySelectorAll("div").forEach((el) => {
+  el.addEventListener("click", () => scrollToElement(el));
+});
+
+slideGallery.addEventListener("scroll", (e) => highlightThumbnail());
+
+highlightThumbnail();
