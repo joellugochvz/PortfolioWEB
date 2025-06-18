@@ -101,29 +101,29 @@ body {
   /* font-size: 1.1rem; */
   font-size: clamp(1.1rem,4.1vw,1.7rem);
   color: #e5e5e5;
-  margin-bottom: 20px;
+  margin-bottom: 0.8rem;
+  text-align: center;
 }
 /* @media (min-width: 880px) {
   .profile-info h2{
       font-size: 1.6rem;
   }
 } */
+  #DiplomaICON {
+    width: 1.5rem;
+    /* Tamaño relativo al texto */
+    height: 1.5rem;
+    vertical-align: middle;
+    /* Alineación vertical */
+    margin-right: 1px;
+    /* Espaciado derecho */
+  }
 
-#DiplomaICON {
-  width: 1.5rem;
-  /* Tamaño relativo al texto */
-  height: 1.5rem;
-  vertical-align: middle;
-  /* Alineación vertical */
-  margin-right: 1px;
-  /* Espaciado derecho */
-}
-
-/* Definición del gradiente (debes agregarlo dentro del SVG) */
-#DiplomaICON {
-  --gradient-start: #ec21ff;
-  --gradient-end: #27e2ff;
-}
+  /* Definición del gradiente (debes agregarlo dentro del SVG) */
+  #DiplomaICON {
+    --gradient-start: #ec21ff;
+    --gradient-end: #27e2ff;
+  }
 
 .profile-info p {
   font-family: 'Satoshi', sans-serif;
