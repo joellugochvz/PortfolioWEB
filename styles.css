@@ -677,8 +677,8 @@ body {
 .tech-bubbles {
   display: flex;
   flex-wrap: wrap;
-  row-gap: 22px;
-  column-gap: 16px;
+  row-gap: 19px;
+  column-gap: 18px;
   justify-content: center;
 }
 
