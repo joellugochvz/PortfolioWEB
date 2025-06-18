@@ -96,92 +96,46 @@
       <!-- PICTURES CAROUSEL -->
       <!-- =================================================================================== -->
       <div class="body-carousel">
+        
       <div class="gallery-container">
         <button class="nav-button left" onclick="prevSlide()" id="prevBtn">❮</button>
         <div class="carousel" id="carousel">
-          <div class="slide" data-description="Primera imagen">
-            <img src="https://picsum.photos/id/1067/1080/1440" alt="Imagen 1" />
+          <div class="slide" data-description="Slide 1" onclick="openLightbox(this)">
+            <img src="Imagenes/App Audi/AudiApp01.jpg"/><div id="descriptionOverlay" class="description-overlay"></div>  
           </div>
-          <div class="slide" data-description="Quinta imagen">
-            <img src="https://cdn.pixabay.com/photo/2023/09/24/07/00/mountains-8272227_1280.jpg" alt="Imagen 5" />
+          <div class="slide" data-description="Slide 2" onclick="openLightbox(this)">
+            <img src="Imagenes/App Audi/AudiApp04.jpg"/>
           </div>
-          <div class="slide" data-description="Segunda imagen">
-            <img src="https://cdn.pixabay.com/photo/2025/06/11/07/18/wildlife-9653797_960_720.jpg" alt="Imagen 2" />
+          <div class="slide" data-description="Slide 3" onclick="openLightbox(this)">
+            <img src="Imagenes/App Audi/AudiApp03.jpg"/>
           </div>
-          <div class="slide" data-description="Tercera imagen">
-            <img src="https://picsum.photos/id/188/1080/1440" alt="Imagen 3" />
+          <div class="slide" data-description="Slide 4" onclick="openLightbox(this)">
+            <img src="Imagenes/App Audi/AudiApp09.jpg">
           </div>
-          <div class="slide" data-description="Cuarta imagen">
-            <img src="https://cdn.pixabay.com/photo/2025/06/03/17/42/building-9639806_960_720.jpg" alt="Imagen 4" />
+          <div class="slide" data-description="Slide 5" onclick="openLightbox(this)">
+            <img src="Imagenes/App Audi/AudiApp06.jpg"/>
           </div>
-          <div class="slide" data-description="Quinta imagen">
-            <img src="https://picsum.photos/id/257/1080/1440" alt="Imagen 5" />
+          <div class="slide" data-description="Slide 6" onclick="openLightbox(this)">
+            <img src="Imagenes/App Audi/AudiApp05.jpg">
           </div>
-          <div class="slide" data-description="Quinta imagen">
-            <img src="https://cdn.pixabay.com/photo/2025/04/24/08/07/spa-9554878_960_720.jpg" alt="Imagen 5" />
+          <div class="slide" data-description="Slide 7" onclick="openLightbox(this)">
+            <img src="Imagenes/App Audi/AudiApp10.jpg"/>
           </div>
-          <div class="slide" data-description="Quinta imagen">
-            <img src="https://cdn.pixabay.com/photo/2025/02/12/10/55/cat-9401282_1280.jpg" alt="Imagen 5" />
+          <div class="slide" data-description="Slide 8" onclick="openLightbox(this)">
+            <img src="Imagenes/App Audi/AudiApp08.jpg">
           </div>
-          <div class="slide" data-description="Quinta imagen">
-            <img src="https://cdn.pixabay.com/photo/2019/04/12/11/46/antelope-4121962_960_720.jpg" alt="Imagen 5" />
-          </div>
-          <div class="slide" data-description="Quinta imagen">
-            <img src="https://cdn.pixabay.com/photo/2025/05/11/22/31/man-9594075_1280.jpg" alt="Imagen 5" />
+          <div class="slide" data-description="Slide 9" onclick="openLightbox(this)">
+            <img src="Imagenes/App Audi/AudiApp07.jpg"/>
           </div>
         </div>
         <button class="nav-button right" onclick="nextSlide()" id="nextBtn">❯</button>
       </div>
+      <div class="scroll-points"></div>
       </div>
 
-      <div id="descriptionOverlay" class="description-overlay"></div>
-
       <!-- =================================================================================== -->
-      <!-- PICTURES OFICIAL -->
-      <!-- =================================================================================== -->
-      <div class="project-images">
-        <div class="image-class" onclick="openLightbox(this)">
-          <img src="Imagenes/App Audi/AudiApp01.jpg" alt="App Audi">
-          <div class="expandir-imagen"></div>
-        </div>
-        <div class="image-class" onclick="openLightbox(this)">
-          <img src="Imagenes/App Audi/AudiApp08.jpg" alt="App Audi">
-          <div class="expandir-imagen"></div>
-        </div>
-        <div class="image-class" onclick="openLightbox(this)">
-          <img src="Imagenes/App Audi/AudiApp05.jpg" alt="App Audi">
-          <div class="expandir-imagen"></div>
-        </div>
-        <div class="image-class" onclick="openLightbox(this)">
-          <img src="Imagenes/App Audi/AudiApp03.jpg" alt="App Audi">
-          <div class="expandir-imagen"></div>
-        </div>
-        <div class="image-class" onclick="openLightbox(this)">
-          <img src="Imagenes/App Audi/AudiApp06.jpg" alt="App Audi">
-          <div class="expandir-imagen"></div>
-        </div>
-        <div class="image-class" onclick="openLightbox(this)">
-          <img src="Imagenes/App Audi/AudiApp07.jpg" alt="App Audi">
-          <div class="expandir-imagen"></div>
-        </div>
-        <div class="image-class" onclick="openLightbox(this)">
-          <img src="Imagenes/App Audi/AudiApp02.jpg" alt="App Audi">
-          <div class="expandir-imagen"></div>
-        </div>
-        <div class="image-class" onclick="openLightbox(this)">
-          <img src="Imagenes/App Audi/AudiApp10.jpg" alt="App Audi">
-          <div class="expandir-imagen"></div>
-        </div>
-        <div class="image-class" onclick="openLightbox(this)">
-          <img src="Imagenes/App Audi/AudiApp04.jpg" alt="App Audi">
-          <div class="expandir-imagen"></div>
-        </div>
-        <div class="image-class" onclick="openLightbox(this)">
-          <img src="Imagenes/App Audi/AudiApp09.jpg" alt="App Audi">
-          <div class="expandir-imagen"></div>
-        </div>
-      </div>
       <!-- VIDEO -->
+      <!-- =================================================================================== -->
       <div class="video-container">
         <div class="video-preview" onclick="openVideo('Videos/Demo_App_Audi.mp4')">
           <div class="video-title">WATCH DEMO</div>
@@ -526,6 +480,11 @@
     <div class="project-card">
       <h3>Two-Wheeled Robot</h3>
       <h3>'CINDY BJ2'</h3>
+      <!-- =================================================================================== -->
+      <!-- PICTURES CAROUSEL -->
+      <!-- =================================================================================== -->
+      
+
       <div class="project-images">
         <div class="image-class" onclick="openLightbox(this)">
           <img src="Imagenes/CINDYBJ2/CBJ2_1.jpg" alt="CINDY BJ2">

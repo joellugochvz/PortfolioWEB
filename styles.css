@@ -295,23 +295,6 @@ body {
   border-radius: 20px;
 }
 
-.scroll-points{
-  display: flex;
-  gap: 5px;
-  justify-content: center;
-  margin-top: 1%;
-}
-.scroll-points div {
-  width: 8px;
-  height: 8px;
-  cursor: pointer;
-  background: #aaaaaa7a;
-  border-radius: 100%;
-}
-.scroll-points div.highlighted {
-  background-color: #c2c2c2c0;
-}
-
 .carousel {
   display: flex;
   /* display: grid; */
@@ -345,6 +328,7 @@ body {
   max-height: 100%;
   object-fit: contain;
   cursor: pointer;
+  border-radius: 3%;
 }
 .slide > div {
   scroll-snap-align: start;
@@ -385,8 +369,36 @@ body {
   color: rgba(255, 255, 255, 1);
   transition: text-shadow 0.3s ease, font-size 0.4s ease, color 0.4s ease;
 }
+.scroll-points {
+  display:flex;
+  gap: 5px;
+  justify-content: center;
+  margin-top: 1%;
+  overflow-x:auto;
+  width: 300px;
+  /* margin: 0 auto; */
+  /* position: relative; */
+  scroll-behavior: smooth;
+  /* padding: 10px 0; */
+  /* mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent); */
+  /* -webkit-mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent); */
+  /* scrollbar-width: none;  */
+}
+.scroll-points::-webkit-scrollbar {
+  display: none;
+}
+.scroll-points div {
+  width: 8px;
+  height: 8px;
+  cursor: pointer;
+  background: #aaaaaa7a;
+  border-radius: 100%;
+}
+.scroll-points div.highlighted {
+  background-color: #c2c2c2c0;
+}
 .description-overlay {
-  position: absolute;
+  /* position: absolute; */
   bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
@@ -397,6 +409,7 @@ body {
   display: none;
   z-index: 20;
 }
+
 
 .slide::before,
 .slide::after {

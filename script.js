@@ -197,16 +197,17 @@ updateButtons();
 // =============================================
 // SCROLL-POINTS
 // =============================================
-const slideGallery = document.querySelector(".slide");
+const slideGallery = document.querySelector(".carousel");
+const carouselslides = slideGallery.querySelectorAll("div");
 const thumbnailContainer = document.querySelector(".scroll-points");
-const slideCount = slides.length;
-const slideWidth = 540;
+const slideCount = carouselslides.length;
+const slideWidth = slides[0].offsetWidth;
 
 const highlightThumbnail = () => {
   thumbnailContainer
     .querySelectorAll("div.highlighted")
     .forEach((el) => el.classList.remove("highlighted"));
-  const index = Math.floor(slideGallery.scrollLeft / slideWidth);
+  const index = Math.round(slideGallery.scrollLeft / slideWidth);
   thumbnailContainer
     .querySelector(`div[data-id="${index}"]`)
     .classList.add("highlighted");
@@ -215,9 +216,10 @@ const highlightThumbnail = () => {
 const scrollToElement = (el) => {
   const index = parseInt(el.dataset.id, 10);
   slideGallery.scrollTo(index * slideWidth, 0);
+  
 };
 
-thumbnailContainer.innerHTML += [...slides]
+thumbnailContainer.innerHTML += [...carouselslides]
   .map((slide, i) => `<div data-id="${i}"></div>`)
   .join("");
 
