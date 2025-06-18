@@ -285,7 +285,8 @@ body {
   font-family: 'Inter', sans-serif;
   font-size: 25px;
   font-weight: 600;
-  background: linear-gradient(to bottom right, #ffffff, #ffffff);
+  background: linear-gradient(to right, #27e2ff, #7e22ce) 1;
+  /*background: linear-gradient(to bottom right, #ffffff, #ffffff);*/
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -677,7 +678,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   row-gap: 22px;
-  column-gap: 20px;
+  column-gap: 16px;
   justify-content: center;
 }
 
