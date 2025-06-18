@@ -33,6 +33,7 @@ body {
   justify-content: center;
   padding: 80px 20px;
   min-height: 100vh;
+  max-height: 100vh;
   background: linear-gradient(65deg, #8512c7, #410e5f, #000000);
 }
 
@@ -40,7 +41,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 88rem;
+  /* max-width: 88rem; */
   gap: 1.4rem;
   text-align: center;
 }
@@ -50,7 +51,7 @@ body {
     flex-direction: row;
     align-items: center;
     text-align: left;
-    gap: 70px;
+    gap: 4.7rem;
   }
 }
 
@@ -59,18 +60,19 @@ body {
   border: 4px solid #33e2fd;
   border-radius: 50%;
   overflow: hidden;
-  width: 18vw;
-  height: 18vw;
-  /* min-width: 18vw; */
+  /* width: 22rem; */
+  width: clamp(15rem,22vw,26rem);
+  /* height: 22rem; */
+  height: clamp(15rem,22vw,26rem);
   box-shadow: 2px 3px 20px #22d3eece;
 }
 
-@media (max-width: 880px) {
+/* @media (max-width: 880px) {
   .profile-picture {
     width: 200px;
     height: 200px;
   }
-}
+} */
 
 .profile-picture img {
   width: 100%;
@@ -153,7 +155,7 @@ body {
 
 .icon {
   width: clamp(4.5rem,3.9vw,4.9rem);
-  height: clamp(4.5rem,3.5vw,4.9rem);
+  height: clamp(4.5rem,3.9vw,4.9rem);
 
   border-radius: 50%;
   background-color: #444;
