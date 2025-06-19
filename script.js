@@ -175,6 +175,7 @@ function initCarousel({ carouselId, slideClass, prevBtnId, nextBtnId, overlayId,
       });
       currentIndex = index;
       updateButtons();
+      //Después se define highlightThumbnail
       highlightThumbnail();
     }
   };
@@ -200,15 +201,7 @@ function initCarousel({ carouselId, slideClass, prevBtnId, nextBtnId, overlayId,
   // ===================== BUTTONS ACTIONS ===============================
   prevBtn.addEventListener("click", () => scrollToSlide(currentIndex - 1));
   nextBtn.addEventListener("click", () => scrollToSlide(currentIndex + 1));
-
-  slides.forEach((slide) => {
-    slide.addEventListener("click", () => {
-      overlay.textContent = slide.dataset.description;
-      overlay.style.display = "block";
-      setTimeout(() => (overlay.style.display = "none"), 3000);
-    });
-  });
-
+  //Scroll
   carousel.addEventListener("scroll", () => {
     const newIndex = Math.round(carousel.scrollLeft / slides[0].offsetWidth);
     currentIndex = newIndex;
@@ -216,6 +209,18 @@ function initCarousel({ carouselId, slideClass, prevBtnId, nextBtnId, overlayId,
     highlightThumbnail(); 
   });
 
+  // =============================== CLICK ACTIONS =========================
+  // Para ver descripciones de imágenes
+  // slides.forEach((slide,i) => {
+  //   slide.addEventListener("click", () => {
+  //     overlay.textContent = slide.dataset.description;
+  //     overlay.style.display = "block";
+  //     setTimeout(() => (overlay.style.display = "none"), 3000);
+  //   });
+  // });
+
+
+  //Actualiza configuración inicial de botones Carousel
   updateButtons();
   // Resalta el punto inicial al cargar
   highlightThumbnail(); 
