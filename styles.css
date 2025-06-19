@@ -33,7 +33,7 @@ body {
   justify-content: center;
   padding: 80px 20px;
   min-height: 100vh;
-  max-height: 100vh;
+  /* max-height: 100vh; */
   background: linear-gradient(65deg, #8512c7, #410e5f, #000000);
 }
 
@@ -643,9 +643,10 @@ body {
 }
 
 .project-description p {
+  margin-top: 1.1rem;
   font-family: 'Inter', sans-serif;
   font-weight: 400;
-  font-size: 1rem;
+  font-size: clamp(1.3rem,1.2vw,1.5rem);
   color: #cccccc;
 }
 
@@ -656,19 +657,21 @@ body {
   background: linear-gradient(-255deg, #ff0808, #800202);
   color: white;
   border: none;
-  /* width: 9rem; */
-  padding: 10px 20px;
+  width: clamp(9.5rem,12vw,20rem);
+  height: clamp(3rem, 2.5vw, 4rem);
+  /* padding: 10px 20px; */
   border-radius: 8px;
   cursor: pointer;
+  font-family: 'Inter';
   font-weight: 500;
-  margin: 15px 0;
+  font-size: clamp(1rem, 1.3vw, 1.4rem);
+  margin-top: 1.2rem;
   transition: all 0.3s;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
   box-shadow: 2px 3px 3px #050007;
-  font-family: 'Inter';
   transition: 0.4s ease;
 }
 
