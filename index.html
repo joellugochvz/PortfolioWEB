@@ -119,11 +119,11 @@
       <div class="body-carousel">
 
         <div class="gallery-container">
-          <button class="nav-button left" onclick="prevSlide()" id="prevBtn">❮</button>
-          <div class="carousel" id="carousel">
+          <button class="nav-button left" onclick="prevSlide()" id="prevBtn-1">❮</button>
+          <div class="carousel" id="carousel-1">
             <div class="slide" data-description="Slide 1" onclick="openLightbox(this)">
               <img src="Imagenes/App Audi/AudiApp01.jpg" />
-              <div id="descriptionOverlay" class="description-overlay"></div>
+              <div class="description-overlay" id="descriptionOverlay-1"></div>
             </div>
             <div class="slide" data-description="Slide 2" onclick="openLightbox(this)">
               <img src="Imagenes/App Audi/AudiApp04.jpg" />
@@ -150,9 +150,9 @@
               <img src="Imagenes/App Audi/AudiApp07.jpg" />
             </div>
           </div>
-          <button class="nav-button right" onclick="nextSlide()" id="nextBtn">❯</button>
+          <button class="nav-button right" onclick="nextSlide()" id="nextBtn-1">❯</button>
         </div>
-        <div class="scroll-points"></div>
+        <div class="scroll-points" id="scroll-points-1"></div>
       </div>
 
 
@@ -549,39 +549,38 @@
       <!-- =================================================================================== -->
       <!-- PICTURES CAROUSEL -->
       <!-- =================================================================================== -->
+      <div class="body-carousel">
 
-
-      <div class="project-images">
-        <div class="image-class" onclick="openLightbox(this)">
-          <img src="Imagenes/CINDYBJ2/CBJ2_1.jpg" alt="CINDY BJ2">
-          <div class="expandir-imagen"></div>
+        <div class="gallery-container">
+          <button class="nav-button left" onclick="prevSlide()" id="prevBtn-2">❮</button>
+          <div class="carousel" id="carousel-2">
+            <div class="slide" data-description="Slide 1" onclick="openLightbox(this)">
+              <img src="Imagenes/CINDYBJ2/CBJ2_1.jpg" />
+              <div class="description-overlay" id="descriptionOverlay-2"></div>
+            </div>
+            <div class="slide" data-description="Slide 2" onclick="openLightbox(this)">
+              <img src="Imagenes/CINDYBJ2/CBJ2_2.jpg" />
+            </div>
+            <div class="slide" data-description="Slide 3" onclick="openLightbox(this)">
+              <img src="Imagenes/CINDYBJ2/CBJ2_3.jpg" />
+            </div>
+            <div class="slide" data-description="Slide 4" onclick="openLightbox(this)">
+              <img src="Imagenes/CINDYBJ2/CBJ2_4.jpg">
+            </div>
+            <div class="slide" data-description="Slide 5" onclick="openLightbox(this)">
+              <img src="Imagenes/CINDYBJ2/CBJ2_5.jpg" />
+            </div>
+            <div class="slide" data-description="Slide 6" onclick="openLightbox(this)">
+              <img src="Imagenes/CINDYBJ2/CBJ2_6.jpg">
+            </div>
+            <div class="slide" data-description="Slide 7" onclick="openLightbox(this)">
+              <img src="Imagenes/CINDYBJ2/CBJ2_7.jpg" />
+            </div>
+          </div>
+          <button class="nav-button right" onclick="nextSlide()" id="nextBtn-2">❯</button>
         </div>
-        <div class="image-class" onclick="openLightbox(this)">
-          <img src="Imagenes/CINDYBJ2/CBJ2_2.jpg" alt="CINDY BJ2">
-          <div class="expandir-imagen"></div>
-        </div>
-        <div class="image-class" onclick="openLightbox(this)">
-          <img src="Imagenes/CINDYBJ2/CBJ2_3.jpg" alt="CINDY BJ2">
-          <div class="expandir-imagen"></div>
-        </div>
-        <div class="image-class" onclick="openLightbox(this)">
-          <img src="Imagenes/CINDYBJ2/CBJ2_4.jpg" alt="CINDY BJ2">
-          <div class="expandir-imagen"></div>
-        </div>
-        <div class="image-class" onclick="openLightbox(this)">
-          <img src="Imagenes/CINDYBJ2/CBJ2_5.jpg" alt="CINDY BJ2">
-          <div class="expandir-imagen"></div>
-        </div>
-        <div class="image-class" onclick="openLightbox(this)">
-          <img src="Imagenes/CINDYBJ2/CBJ2_6.jpg" alt="CINDY BJ2">
-          <div class="expandir-imagen"></div>
-        </div>
-        <div class="image-class" onclick="openLightbox(this)">
-          <img src="Imagenes/CINDYBJ2/CBJ2_7.jpg" alt="CINDY BJ2">
-          <div class="expandir-imagen"></div>
-        </div>
+        <div class="scroll-points" id="scroll-points-2"></div>
       </div>
-
 
       <div class="project-description">
         <h5>How It Came to Life?</h5>

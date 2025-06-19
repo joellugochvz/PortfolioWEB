@@ -133,100 +133,91 @@ function openPdf(pdfUrl) {
 // =================================================================
 // PCTURES CAROUSEL
 // =================================================================
-const carousel = document.getElementById("carousel");
-const slides = document.querySelectorAll(".slide");
-const descriptionOverlay = document.getElementById("descriptionOverlay");
-const prevBtn = document.getElementById("prevBtn");
-const nextBtn = document.getElementById("nextBtn");
-
-let currentIndex = 0;
-
-function updateButtons() {
-  prevBtn.disabled = currentIndex === 0;
-  nextBtn.disabled = currentIndex === slides.length - 1;
-}
-// console.log("Slideslength", slides.length);
-// console.log("Current Inderx", currentIndex);
-function scrollToSlide(index) {
-  const slide = slides[index];
-  if (slide) {
-    // Desplaza solo el contenedor del carrusel, no la página
-    carousel.scrollTo({
-      left: slide.offsetLeft - (carousel.clientWidth / 2 - slide.clientWidth / 2),
-      behavior: "smooth"
-    });
-    currentIndex = index;
-    updateButtons();
-  }
-}
-
-function prevSlide() {
-  if (currentIndex > 0) {
-    scrollToSlide(currentIndex - 1);
-  }
-}
-
-function nextSlide() {
-  if (currentIndex < slides.length - 1) {
-    scrollToSlide(currentIndex + 1);
-  }
-}
-
-slides.forEach((slide, index) => {
-  slide.addEventListener("click", () => {
-    const desc = slide.dataset.description;
-    descriptionOverlay.textContent = desc;
-    descriptionOverlay.style.display = "block";
-
-    setTimeout(() => {
-      descriptionOverlay.style.display = "none";
-    }, 3000);
-  });
+// Definiciones Para galería 1
+initCarousel({
+  carouselId: "carousel-1",
+  slideClass: "slide",
+  prevBtnId: "prevBtn-1",
+  nextBtnId: "nextBtn-1",
+  overlayId: "descriptionOverlay-1",
+  scrollPointsId: "scroll-points-1"
+});
+// Definiciones Para galería 2
+initCarousel({
+  carouselId: "carousel-2",
+  slideClass: "slide",
+  prevBtnId: "prevBtn-2",
+  nextBtnId: "nextBtn-2",
+  overlayId: "descriptionOverlay-2",
+  scrollPointsId: "scroll-points-2"
 });
 
-carousel.addEventListener("scroll", () => {
-  const newIndex = Math.round(carousel.scrollLeft / carousel.clientWidth);
-  currentIndex = newIndex;
-  updateButtons();
-});
-
-updateButtons();
-
-
-
-// =============================================
-// SCROLL-POINTS
-// =============================================
-const slideGallery = document.querySelector(".carousel");
-const carouselslides = slideGallery.querySelectorAll("div");
-const thumbnailContainer = document.querySelector(".scroll-points");
-const slideCount = carouselslides.length;
-const slideWidth = slides[0].offsetWidth;
-
-const highlightThumbnail = () => {
-  thumbnailContainer
-    .querySelectorAll("div.highlighted")
-    .forEach((el) => el.classList.remove("highlighted"));
-  const index = Math.round(slideGallery.scrollLeft / slideWidth);
-  thumbnailContainer
-    .querySelector(`div[data-id="${index}"]`)
-    .classList.add("highlighted");
-};
-
-const scrollToElement = (el) => {
-  const index = parseInt(el.dataset.id, 10);
-  slideGallery.scrollTo(index * slideWidth, 0);
+function initCarousel({ carouselId, slideClass, prevBtnId, nextBtnId, overlayId, scrollPointsId}) {
+  const carousel = document.getElementById(carouselId);
+  const slides = carousel.querySelectorAll(`.${slideClass}`);
+  const prevBtn = document.getElementById(prevBtnId);
+  const nextBtn = document.getElementById(nextBtnId);
+  const overlay = document.getElementById(overlayId);
+  const scrollPoints = document.getElementById(scrollPointsId);
   
-};
+  let currentIndex = 0;
 
-thumbnailContainer.innerHTML += [...carouselslides]
-  .map((slide, i) => `<div data-id="${i}"></div>`)
-  .join("");
+  const updateButtons = () => {
+    prevBtn.disabled = currentIndex === 0;
+    nextBtn.disabled = currentIndex === slides.length - 1;
+  };
 
-thumbnailContainer.querySelectorAll("div").forEach((el) => {
-  el.addEventListener("click", () => scrollToElement(el));
-});
+  const scrollToSlide = (index) => {
+    if (slides[index]) {
+      carousel.scrollTo({
+        left: slides[index].offsetLeft - (carousel.clientWidth / 2 - slides[index].clientWidth / 2),
+        behavior: "smooth"
+      });
+      currentIndex = index;
+      updateButtons();
+      highlightThumbnail();
+    }
+  };
 
-slideGallery.addEventListener("scroll", (e) => highlightThumbnail());
+  // ===================== SCROLL POINTS (MINIATURAS) =====================
+  // 1. Crear los puntos
+  scrollPoints.innerHTML = [...slides]
+    .map((slide, i) => `<div data-id="${i}"></div>`)
+    .join("");
+  // 2. Escuchar clics en los puntos
+  scrollPoints.querySelectorAll("div").forEach((el) => {
+    el.addEventListener("click", () => scrollToSlide(parseInt(el.dataset.id, 10)));
+  });
+  // 3. Resaltar el punto activo
+  const highlightThumbnail = () => {
+    scrollPoints.querySelectorAll("div.highlighted").forEach(el => el.classList.remove("highlighted"));
+    const index = Math.round(carousel.scrollLeft / slides[0].offsetWidth);
+    const activeDot = scrollPoints.querySelector(`div[data-id="${index}"]`);
+    if (activeDot) activeDot.classList.add("highlighted");
+  };
+  
+  // ===================== EVENTOS Y FUNCIONALIDAD =====================
+  // ===================== BUTTONS ACTIONS ===============================
+  prevBtn.addEventListener("click", () => scrollToSlide(currentIndex - 1));
+  nextBtn.addEventListener("click", () => scrollToSlide(currentIndex + 1));
 
-highlightThumbnail();
+  slides.forEach((slide) => {
+    slide.addEventListener("click", () => {
+      overlay.textContent = slide.dataset.description;
+      overlay.style.display = "block";
+      setTimeout(() => (overlay.style.display = "none"), 3000);
+    });
+  });
+
+  carousel.addEventListener("scroll", () => {
+    const newIndex = Math.round(carousel.scrollLeft / slides[0].offsetWidth);
+    currentIndex = newIndex;
+    updateButtons();
+    highlightThumbnail(); 
+  });
+
+  updateButtons();
+  // Resalta el punto inicial al cargar
+  highlightThumbnail(); 
+
+}

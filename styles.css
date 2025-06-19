@@ -384,10 +384,6 @@ body {
   display: none;
 }
 
-/* @media (min-width:768px) {
-  .body-carousel {
-    margin: 0%;
-  } */
 
 .slide {
   flex: none;
@@ -503,71 +499,6 @@ body {
   opacity: 0.4;
 }
 
-
-/* ============================= IMÁGENES DE CADA PROYECTO ========================== */
-.project-images {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 0.5rem;
-  /* width: 90%; */
-  /* padding-inline: 5vw; */
-  /* padding: 2.5rem; */
-}
-
-.image-class {
-  overflow: hidden;
-  height: 220px;
-  border-radius: 5%;
-}
-
-.image-class img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-@media(max-width:1000px) {
-  .image-class {
-    max-height: 130px;
-  }
-
-  .project-images {
-    grid-template-columns: repeat(3, auto);
-  }
-}
-
-@media(max-width:300px) {
-  .image-class {
-    max-height: 100px;
-  }
-
-  .project-images {
-    grid-template-columns: repeat(1, 1fr);
-  }
-}
-
-.image-class:hover img {
-  transform: scale(1.1);
-}
-
-/* .expandir-imagen {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0,0,0,0.4);
-  opacity: 0;
-  color: white;
-  font-size: 2rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: opacity 0.3s ease;
-} */
-/* .image-class:hover .expandir-imagen {
-  opacity: 1;
-} */
 /* ======================================================================== */
 /* CONTENEDOR VIDEO */
 /* ======================================================================== */
