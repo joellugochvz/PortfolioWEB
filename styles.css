@@ -4,15 +4,21 @@
   padding: 0;
   box-sizing: border-box;
 }
+
 :root {
   /* Valores fluidos con límites usando clamp() */
-  font-size: clamp(14px, 1.2vw, 16px); /* Móvil: 14px, Escritorio: hasta 16px */
-  line-height: 1.35; /* Sin unidades para escalar con el font-size */
+  font-size: clamp(14px, 1.2vw, 16px);
+  /* Móvil: 14px, Escritorio: hasta 16px */
+  line-height: 1.35;
+  /* Sin unidades para escalar con el font-size */
 }
 
-@media (max-width: 48rem) { /* 768px / 16px = 48rem (consistente con rem) */
+@media (max-width: 48rem) {
+
+  /* 768px / 16px = 48rem (consistente con rem) */
   :root {
-    font-size: 14px; /* Fuerza 14px en móviles pequeños (opcional) */
+    font-size: 14px;
+    /* Fuerza 14px en móviles pequeños (opcional) */
     line-height: 1.1;
   }
 }
@@ -61,9 +67,9 @@ body {
   border-radius: 50%;
   overflow: hidden;
   /* width: 22rem; */
-  width: clamp(15rem,22vw,26rem);
+  width: clamp(15rem, 22vw, 26rem);
   /* height: 22rem; */
-  height: clamp(15rem,22vw,26rem);
+  height: clamp(15rem, 22vw, 26rem);
   box-shadow: 2px 3px 20px #22d3eece;
 }
 
@@ -84,13 +90,14 @@ body {
 /* HEADER TEXT FORMATS */
 .profile-info h1 {
   font-family: 'Inter', sans-serif;
-  font-size: clamp(2.3rem,5vw,4.2rem);
+  font-size: clamp(2.3rem, 5vw, 4.2rem);
   background: linear-gradient(to right, #0bdeff, #166fff, #22d3ee);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
   margin-bottom: 10px;
 }
+
 /* @media (min-width: 880px) {
   .profile-info h1{
       font-size: 4rem;
@@ -101,39 +108,41 @@ body {
   font-family: 'Inter', sans-serif;
   font-weight: 500;
   /* font-size: 1.1rem; */
-  font-size: clamp(1.1rem,4.1vw,1.8rem);
+  font-size: clamp(1.1rem, 4.1vw, 1.8rem);
   color: #e5e5e5;
   margin-bottom: 0.8rem;
   text-align: center;
 }
+
 /* @media (min-width: 880px) {
   .profile-info h2{
       font-size: 1.6rem;
   }
 } */
-  #DiplomaICON {
-    width: 1.5rem;
-    /* Tamaño relativo al texto */
-    height: 1.5rem;
-    vertical-align: middle;
-    /* Alineación vertical */
-    margin-right: 1px;
-    /* Espaciado derecho */
-  }
+#DiplomaICON {
+  width: 1.5rem;
+  /* Tamaño relativo al texto */
+  height: 1.5rem;
+  vertical-align: middle;
+  /* Alineación vertical */
+  margin-right: 1px;
+  /* Espaciado derecho */
+}
 
-  /* Definición del gradiente (debes agregarlo dentro del SVG) */
-  #DiplomaICON {
-    --gradient-start: #ec21ff;
-    --gradient-end: #27e2ff;
-  }
+/* Definición del gradiente (debes agregarlo dentro del SVG) */
+#DiplomaICON {
+  --gradient-start: #ec21ff;
+  --gradient-end: #27e2ff;
+}
 
 .profile-info p {
   font-family: 'Satoshi', sans-serif;
   /* font-size: 1.2rem; */
-  font-size: clamp(1.4rem,2.9vw,2rem);
+  font-size: clamp(1.4rem, 2.9vw, 2rem);
   max-width: 56rem;
   margin-bottom: 1.5rem;
 }
+
 /* @media (min-width: 880px) {
   .profile-info p {
   font-size: 2rem;
@@ -154,8 +163,8 @@ body {
 }
 
 .icon {
-  width: clamp(4.5rem,3.9vw,4.9rem);
-  height: clamp(4.5rem,3.9vw,4.9rem);
+  width: clamp(4.5rem, 3.9vw, 4.9rem);
+  height: clamp(4.5rem, 3.9vw, 4.9rem);
 
   border-radius: 50%;
   background-color: #444;
@@ -247,12 +256,12 @@ body {
 /* ======================================================================== */
 .projects-section {
   padding-block: 30px;
-  background: linear-gradient(to bottom right,
+  background: repeating-linear-gradient(to bottom right,
       #261944,
       #5e139b,
       #64209c,
-      #3a115c,
-      #000000);
+      #471570,
+      #261944 90%);
   /* background-attachment: fixed; */
   text-align: center;
   box-shadow: 0 0 100px #000000;
@@ -261,7 +270,7 @@ body {
 .projects-section h2 {
   font-family: 'Inter', sans-serif;
   font-weight: 700;
-  font-size: 2.3rem;
+  font-size: clamp(2.3rem, 3vw, 4rem);
   margin-top: 30px;
   margin-bottom: 40px;
   background: repeating-linear-gradient(-200deg, #ffc400, #e7ff0b, #ee6f34 100%);
@@ -278,6 +287,7 @@ body {
   background-color: rgba(0, 0, 0, 0.438);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
+  box-shadow: -0.7vw 2vw 5vw #000000;
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 16px;
   padding: 30px;
@@ -285,7 +295,7 @@ body {
   flex-direction: column;
   gap: 15px;
   margin-block-end: 2rem;
-  transition: 1000ms ease;
+  transition: 800ms ease;
 }
 
 @media (min-width:768px) {
@@ -295,20 +305,25 @@ body {
 }
 
 .project-card:hover {
-  background-color: rgba(0, 0, 0, 0.550);
-  transition: 300ms ease-in-out;
+  background-color: rgba(0, 0, 0, 0.370);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  transition: 500ms ease;
 }
 
 .project-card h3 {
-  font-family: 'Inter', sans-serif;
-  font-size: 25px;
-  font-weight: 600;
-  background: linear-gradient(to right, #27e2ff, #7e22ce) 1;
-  /*background: linear-gradient(to bottom right, #ffffff, #ffffff);*/
+  font-family: 'Fredoka', sans-serif;
+  font-size: clamp(2.2rem, 2.6vw, 3.1rem);
+  /* font-size: 2.2vw; */
+  font-weight: 500;
+  background: repeating-linear-gradient(60deg,
+      rgb(3, 133, 209) 0%,
+      rgb(68, 233, 255),
+      rgb(0, 255, 234),
+      rgb(68, 233, 255),
+      rgb(3, 133, 209) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  color: #4addf7;
   display: flex;
   flex-direction: column;
   row-gap: 15px;
@@ -318,10 +333,6 @@ body {
 }
 
 #LogosProjects {
-  /* position: absolute; */
-  /* translate: -30% -50%; */
-  /* top: 5%; */
-  /* translate: 40% 30%; */
   filter: brightness(1.4);
 }
 
@@ -329,7 +340,7 @@ body {
 /* PICTURES CAROUSEL ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 /* ======================================================================== */
 .body-carousel {
-  background-color: #00000081;
+  background-color: #0000009a;
   overflow-x: hidden;
   font-family: Arial, sans-serif;
   border-radius: 20px;
@@ -581,7 +592,7 @@ body {
 .video-title {
   font-family: 'Inter', sans-serif;
   font-weight: 600;
-  font-size:large;
+  font-size: large;
   text-shadow: 0 0px 3px #000000, 0 3px 5px #000000;
   position: absolute;
   left: 0;
@@ -637,18 +648,85 @@ body {
   color: #ff0000ad;
 }
 
-.project-description h3 {
-  font-size: 1.8rem;
-  margin-bottom: 10px;
+/* ======================================================================== */
+/* PROJECTS DESCRIPTION (TEXTS) */
+/* ======================================================================== */
+.project-description {
+  padding-inline: clamp(0.2rem, 1vw, 2rem);
+  /* padding-inline: 15rem; */
+}
+
+@media (min-width:768px) {
+  .project-description {
+    padding-inline: clamp(1.7rem, 6vw, 12rem);
+    /* padding-inline: clamp(0.2rem, 6vw, 10rem);
+     */
+  }
+}
+
+.project-description h4 {
+  font-family: 'Fredoka', sans-serif;
+  font-size: clamp(2.4rem, 2.6vw, 4rem);
+  font-weight: 300;
+  background: repeating-linear-gradient(60deg,
+      rgb(3, 133, 209) 0%,
+      rgb(68, 233, 255),
+      rgb(0, 255, 234),
+      rgb(68, 233, 255),
+      rgb(3, 133, 209) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+  align-items: center;
 }
 
 .project-description p {
-  margin-top: 1.1rem;
+  margin-bottom: 1rem;
   font-family: 'Inter', sans-serif;
-  font-weight: 400;
-  font-size: clamp(1.3rem,1.2vw,1.5rem);
+  font-weight: 500;
+  font-size: clamp(1.2rem, 1.3vw, 1.7rem);
   color: #cccccc;
 }
+
+.project-description h5 {
+  margin-bottom: 1rem;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-style: italic;
+  font-size: clamp(1.5rem, 2.1vw, 2.1rem);
+  /* color: #cccccc; */
+    background: repeating-linear-gradient(60deg,
+      rgb(3, 133, 209) 0%,
+      rgb(68, 255, 208),
+      rgb(0, 255, 64),
+      rgb(68, 255, 224),
+      rgb(3, 133, 209) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.project-description li {
+  margin-bottom: 1rem;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: clamp(1.15rem, 1.2vw, 1.5rem);
+  color: #cccccc;
+  list-style-type: disc;
+  text-align: justify;
+  /* max-width: 200vw; */
+  /* transform: translateX(5px);
+  transition: 1s ease; */
+}
+
+/* li:hover {
+  color: #ffffff;
+  transform: translateX(5px);
+  transition: 1s ease;
+} */
 
 /* ======================================================================== */
 /* BOTÓN PDF */
@@ -657,20 +735,20 @@ body {
   background: linear-gradient(-255deg, #ff0808, #800202);
   color: white;
   border: none;
-  width: clamp(9.5rem,12vw,20rem);
+  width: clamp(9.5rem, 12vw, 20rem);
   height: clamp(3rem, 2.5vw, 4rem);
-  /* padding: 10px 20px; */
+
   border-radius: 8px;
   cursor: pointer;
-  font-family: 'Inter';
-  font-weight: 500;
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 400;
   font-size: clamp(1rem, 1.3vw, 1.4rem);
   margin-top: 1.2rem;
   transition: all 0.3s;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 0.6rem;
   box-shadow: 2px 3px 3px #050007;
   transition: 0.4s ease;
 }
@@ -686,13 +764,23 @@ body {
 /* TECHNOLOGIES LITTLE CONTAINERS */
 /* ======================================================================== */
 .technologies {
-  margin-top: 25px;
+  margin-top: 1.1rem;
 }
 
 .technologies h4 {
-  font-size: 1.2rem;
-  margin-bottom: 30px;
-  color: #e0e0e0;
+  font-weight: 300;
+  font-family: 'Fredoka',sans-serif;
+  background: repeating-linear-gradient(60deg,
+      rgb(3, 133, 209) 0%,
+      rgb(68, 233, 255),
+      rgb(0, 255, 234),
+      rgb(68, 233, 255),
+      rgb(3, 133, 209) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-size: clamp(2rem, 2.2vw, 3.5rem);
+  margin-bottom: 1.3rem;
 }
 
 .tech-bubbles {
@@ -701,6 +789,10 @@ body {
   row-gap: 19px;
   column-gap: 18px;
   justify-content: center;
+  margin-bottom: 0.9rem;
+  font-family: 'Gruppo', sans-serif;
+  font-weight:bolder;
+  font-size: clamp(1.15rem,1vw,1.35rem);
 }
 
 .tech-bubble-powerapps {
@@ -713,9 +805,6 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  font-family: 'Satoshi', sans-serif;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
@@ -728,9 +817,6 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  font-family: 'Inter', sans-serif;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
@@ -743,9 +829,6 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  font-family: 'Inter', sans-serif;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
@@ -758,9 +841,6 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  font-family: 'Inter', sans-serif;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
@@ -773,9 +853,6 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  font-family: 'Inter', sans-serif;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
@@ -788,9 +865,6 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  font-family: 'Inter', sans-serif;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
@@ -803,9 +877,6 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  font-family: 'Inter', sans-serif;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
@@ -818,9 +889,6 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  font-family: 'Inter', sans-serif;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
@@ -833,9 +901,6 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  font-family: 'Inter', sans-serif;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
