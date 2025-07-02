@@ -11,14 +11,63 @@ document.addEventListener("DOMContentLoaded", function () {
   document.addEventListener('click', function (event) {
     const lightbox = document.getElementById('lightbox');
     const videoLightbox = document.getElementById('video-lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
 
     if (event.target === lightbox) {
       closeLightbox();
     } else if (event.target === videoLightbox) {
       closeVideo();
     }
+    
+    // Don't close lightbox when clicking on the image itself
+    if (event.target === lightboxImg) {
+      event.stopPropagation();
+    }
   });
+
+  // Keyboard navigation for lightbox
+  document.addEventListener('keydown', function(event) {
+    const lightbox = document.getElementById('lightbox');
+    if (lightbox && lightbox.style.display === 'flex') {
+      switch(event.key) {
+        case 'ArrowLeft':
+          event.preventDefault();
+          prevLightboxImage();
+          break;
+        case 'ArrowRight':
+          event.preventDefault();
+          nextLightboxImage();
+          break;
+        case 'Escape':
+          event.preventDefault();
+          closeLightbox();
+          break;
+        case ' ': // Spacebar for zoom
+          event.preventDefault();
+          toggleZoom();
+          break;
+      }
+    }
+  });
+
+  // Add profile picture animation
+  const profilePicture = document.querySelector('.profile-picture img');
+  if (profilePicture) {
+    profilePicture.addEventListener('click', function() {
+      profilePicture.classList.add('spinning-coin');
+      setTimeout(() => {
+        profilePicture.classList.remove('spinning-coin');
+      }, 5000);
+    });
+  }
 });
+
+// =============================================
+// CAROUSEL GLOBAL VARIABLES
+// =============================================
+let currentLightboxCarousel = null;
+let currentLightboxIndex = 0;
+let allCarousels = [];
 
 // =============================================
 // FUNCIÓN PARA COPIAR CORREO
@@ -58,29 +107,104 @@ function copiarCorreo(event) {
 }
 
 // =============================================
-// LIGHTBOX PARA IMÁGENES
+// ENHANCED LIGHTBOX PARA IMÁGENES
 // =============================================
-function openLightbox(element) {
+function openLightbox(element, carouselData = null, slideIndex = 0) {
   const lightbox = document.getElementById('lightbox');
   const lightboxImg = document.getElementById('lightbox-img');
-  const img = element.querySelector('img');
-
-  if (!lightbox || !lightboxImg || !img) {
+  
+  if (!lightbox || !lightboxImg) {
     console.error("Elementos del lightbox no encontrados");
     return;
   }
 
-  lightboxImg.src = img.src;
+  if (carouselData) {
+    currentLightboxCarousel = carouselData;
+    currentLightboxIndex = slideIndex;
+  } else {
+    // Fallback for direct element call
+    const img = element.querySelector('img');
+    if (!img) return;
+    
+    currentLightboxCarousel = {
+      slides: [{ src: img.src, description: element.dataset.description || '' }]
+    };
+    currentLightboxIndex = 0;
+  }
+
+  updateLightboxImage();
   lightbox.style.display = 'flex';
   document.body.style.overflow = 'hidden';
+  
+  // Reset zoom
+  lightboxImg.classList.remove('zoomed');
+}
+
+function updateLightboxImage() {
+  const lightboxImg = document.getElementById('lightbox-img');
+  const lightboxDescription = document.getElementById('lightbox-description');
+  const prevBtn = document.getElementById('lightbox-prev');
+  const nextBtn = document.getElementById('lightbox-next');
+  const counter = document.getElementById('lightbox-counter');
+  
+  if (currentLightboxCarousel && currentLightboxCarousel.slides[currentLightboxIndex]) {
+    const currentSlide = currentLightboxCarousel.slides[currentLightboxIndex];
+    lightboxImg.src = currentSlide.src;
+    
+    if (lightboxDescription) {
+      lightboxDescription.textContent = currentSlide.description || '';
+    }
+    
+    if (counter) {
+      counter.textContent = `${currentLightboxIndex + 1} / ${currentLightboxCarousel.slides.length}`;
+    }
+    
+    // Update navigation buttons
+    if (prevBtn) {
+      prevBtn.style.display = currentLightboxCarousel.slides.length > 1 ? 'block' : 'none';
+      prevBtn.disabled = currentLightboxIndex === 0;
+    }
+    if (nextBtn) {
+      nextBtn.style.display = currentLightboxCarousel.slides.length > 1 ? 'block' : 'none';
+      nextBtn.disabled = currentLightboxIndex === currentLightboxCarousel.slides.length - 1;
+    }
+  }
+}
+
+function prevLightboxImage() {
+  if (currentLightboxCarousel && currentLightboxIndex > 0) {
+    currentLightboxIndex--;
+    updateLightboxImage();
+  }
+}
+
+function nextLightboxImage() {
+  if (currentLightboxCarousel && currentLightboxIndex < currentLightboxCarousel.slides.length - 1) {
+    currentLightboxIndex++;
+    updateLightboxImage();
+  }
+}
+
+function toggleZoom() {
+  const lightboxImg = document.getElementById('lightbox-img');
+  lightboxImg.classList.toggle('zoomed');
 }
 
 function closeLightbox() {
   const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+  
   if (lightbox) {
     lightbox.style.display = 'none';
     document.body.style.overflow = 'auto';
   }
+  
+  if (lightboxImg) {
+    lightboxImg.classList.remove('zoomed');
+  }
+  
+  currentLightboxCarousel = null;
+  currentLightboxIndex = 0;
 }
 
 // =============================================
@@ -131,7 +255,7 @@ function openPdf(pdfUrl) {
 }
 
 // =================================================================
-// PCTURES CAROUSEL
+// PICTURES CAROUSEL
 // =================================================================
 // Definiciones Para galería 1
 initCarousel({
@@ -161,6 +285,17 @@ function initCarousel({ carouselId, slideClass, prevBtnId, nextBtnId, overlayId,
   const scrollPoints = document.getElementById(scrollPointsId);
   
   let currentIndex = 0;
+  let clickTimer = null;
+
+  // Store carousel data for lightbox navigation
+  const carouselData = {
+    slides: Array.from(slides).map(slide => ({
+      src: slide.querySelector('img').src,
+      description: slide.dataset.description || ''
+    }))
+  };
+  
+  allCarousels.push(carouselData);
 
   const updateButtons = () => {
     prevBtn.disabled = currentIndex === 0;
@@ -175,7 +310,6 @@ function initCarousel({ carouselId, slideClass, prevBtnId, nextBtnId, overlayId,
       });
       currentIndex = index;
       updateButtons();
-      //Después se define highlightThumbnail
       highlightThumbnail();
     }
   };
@@ -209,20 +343,43 @@ function initCarousel({ carouselId, slideClass, prevBtnId, nextBtnId, overlayId,
     highlightThumbnail(); 
   });
 
-  // =============================== CLICK ACTIONS =========================
-  // Para ver descripciones de imágenes
-  // slides.forEach((slide,i) => {
-  //   slide.addEventListener("click", () => {
-  //     overlay.textContent = slide.dataset.description;
-  //     overlay.style.display = "block";
-  //     setTimeout(() => (overlay.style.display = "none"), 3000);
-  //   });
-  // });
-
+  // =============================== ENHANCED CLICK ACTIONS =========================
+  // Single click: Show description, Double click: Open lightbox
+  slides.forEach((slide, i) => {
+    slide.addEventListener("click", (e) => {
+      if (clickTimer) {
+        // Double click detected
+        clearTimeout(clickTimer);
+        clickTimer = null;
+        
+        // Open lightbox with navigation
+        openLightbox(slide, carouselData, i);
+      } else {
+        // Single click - wait to see if there's a double click
+        clickTimer = setTimeout(() => {
+          clickTimer = null;
+          
+          // Show description overlay
+          if (overlay && slide.dataset.description) {
+            overlay.textContent = slide.dataset.description;
+            overlay.style.display = "block";
+            overlay.style.opacity = "1";
+            
+            // Hide after 3 seconds
+            setTimeout(() => {
+              overlay.style.opacity = "0";
+              setTimeout(() => {
+                overlay.style.display = "none";
+              }, 300);
+            }, 3000);
+          }
+        }, 250); // Delay to detect double clicks
+      }
+    });
+  });
 
   //Actualiza configuración inicial de botones Carousel
   updateButtons();
   // Resalta el punto inicial al cargar
   highlightThumbnail(); 
-
 }
