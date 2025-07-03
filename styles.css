@@ -93,7 +93,7 @@ body {
 }
 
 /* Spinning coin animation */
-.profile-picture.spinning-coin {
+.profile-picture.spinning-coin img {
   animation: spinning-coin 2s ease-in-out;
 }
 
