@@ -52,12 +52,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Add profile picture animation
   const profilePicture = document.querySelector('.profile-picture img');
-  if (profilePicture) {
+  const profilePictureContainer = document.querySelector('.profile-picture');
+  if (profilePicture && profilePictureContainer) {
     profilePicture.addEventListener('click', function() {
+      // Add both spinning and bouncing animations
       profilePicture.classList.add('spinning-coin');
+      profilePictureContainer.classList.add('bouncing-ball');
       setTimeout(() => {
         profilePicture.classList.remove('spinning-coin');
-      }, 5000);
+        profilePictureContainer.classList.remove('bouncing-ball');
+      }, 2000);
     });
   }
 });
