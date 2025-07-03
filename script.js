@@ -55,11 +55,11 @@ document.addEventListener("DOMContentLoaded", function () {
   const profilePictureContainer = document.querySelector('.profile-picture');
   if (profilePicture && profilePictureContainer) {
     profilePicture.addEventListener('click', function() {
-      // Add both spinning and bouncing animations
-      profilePicture.classList.add('spinning-coin');
+      // Add both spinning and bouncing animations to the container
+      profilePictureContainer.classList.add('spinning-coin');
       profilePictureContainer.classList.add('bouncing-ball');
       setTimeout(() => {
-        profilePicture.classList.remove('spinning-coin');
+        profilePictureContainer.classList.remove('spinning-coin');
         profilePictureContainer.classList.remove('bouncing-ball');
       }, 2000);
     });
