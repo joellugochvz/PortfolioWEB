@@ -613,15 +613,20 @@ body {
   height: 100%;
   color: #00ffff;
   fill: #00ffff;
+  stroke: #00ffff;
   filter: drop-shadow(0 0 8px rgba(0, 255, 255, 0.6));
 }
 
 .hand-icon path {
   fill: #00ffff !important;
+  stroke: #00ffff !important;
+  color: #00ffff !important;
 }
 
 .hand-icon * {
   fill: #00ffff !important;
+  stroke: #00ffff !important;
+  color: #00ffff !important;
 }
 
 .single-click .hand-icon {
