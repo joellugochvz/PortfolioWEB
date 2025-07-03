@@ -375,6 +375,10 @@ function initCarousel({ carouselId, slideClass, prevBtnId, nextBtnId, overlayId,
   
   allCarousels.push(carouselData);
 
+  // Ensure carousel starts at the first image
+  carousel.scrollLeft = 0;
+  currentIndex = 0;
+
   const updateButtons = () => {
     prevBtn.disabled = currentIndex === 0;
     nextBtn.disabled = currentIndex === slides.length - 1;
@@ -497,5 +501,23 @@ function initCarousel({ carouselId, slideClass, prevBtnId, nextBtnId, overlayId,
   //Actualiza configuración inicial de botones Carousel
   updateButtons();
   // Resalta el punto inicial al cargar
-  highlightThumbnail(); 
+  highlightThumbnail();
+
+  // Additional fix for carousel positioning after DOM is fully rendered
+  requestAnimationFrame(() => {
+    carousel.scrollLeft = 0;
+    currentIndex = 0;
+    updateButtons();
+    highlightThumbnail();
+    
+    // Extra fallback with small delay
+    setTimeout(() => {
+      if (carousel.scrollLeft !== 0) {
+        carousel.scrollLeft = 0;
+        currentIndex = 0;
+        updateButtons();
+        highlightThumbnail();
+      }
+    }, 50);
+  }); 
 }
