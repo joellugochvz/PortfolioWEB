@@ -354,6 +354,39 @@ function initCarousel({ carouselId, slideClass, prevBtnId, nextBtnId, overlayId,
     highlightThumbnail(); 
   });
 
+  // Prevent carousel from interfering with page scroll
+  carousel.addEventListener("wheel", (e) => {
+    // If it's a vertical scroll (normal page scrolling) and not shift+scroll
+    if (Math.abs(e.deltaY) > Math.abs(e.deltaX) && !e.shiftKey) {
+      // Don't let the carousel capture the event
+      e.preventDefault();
+      // Manually scroll the page instead
+      window.scrollBy(0, e.deltaY);
+    }
+    // If shift+scroll or horizontal scroll, allow carousel to handle it normally
+  }, { passive: false });
+
+  // Prevent touch scroll interference on mobile
+  let touchStartY = 0;
+  let touchStartX = 0;
+  
+  carousel.addEventListener("touchstart", (e) => {
+    touchStartY = e.touches[0].clientY;
+    touchStartX = e.touches[0].clientX;
+  }, { passive: true });
+
+  carousel.addEventListener("touchmove", (e) => {
+    const touchY = e.touches[0].clientY;
+    const touchX = e.touches[0].clientX;
+    const deltaY = touchStartY - touchY;
+    const deltaX = touchStartX - touchX;
+    
+    // If it's primarily a vertical scroll, prevent carousel interference
+    if (Math.abs(deltaY) > Math.abs(deltaX) && Math.abs(deltaY) > 10) {
+      e.preventDefault();
+    }
+  }, { passive: false });
+
   // =============================== ENHANCED CLICK ACTIONS =========================
   // Single click: Show description, Double click: Open lightbox
   slides.forEach((slide, i) => {

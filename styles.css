@@ -92,69 +92,9 @@ body {
   transform: scale(1.05);
 }
 
-/* Combined spinning and bouncing animation */
-.profile-picture.spinning-coin.bouncing-ball {
-  animation: spinning-bouncing 2s ease-in-out;
-}
-
-@keyframes spinning-bouncing {
-  0% {
-    transform: rotateY(0deg) scale(1) translateY(0px);
-  }
-  15% {
-    transform: rotateY(108deg) scale(1.05) translateY(-30px);
-  }
-  25% {
-    transform: rotateY(180deg) scale(1.1) translateY(-15px);
-  }
-  30% {
-    transform: rotateY(216deg) scale(1.15) translateY(0px);
-  }
-  45% {
-    transform: rotateY(324deg) scale(1.18) translateY(-20px);
-  }
-  50% {
-    transform: rotateY(360deg) scale(1.2) translateY(-10px);
-  }
-  60% {
-    transform: rotateY(432deg) scale(1.15) translateY(0px);
-  }
-  75% {
-    transform: rotateY(540deg) scale(1.1) translateY(-10px);
-  }
-  90% {
-    transform: rotateY(648deg) scale(1.05) translateY(0px);
-  }
-  100% {
-    transform: rotateY(720deg) scale(1) translateY(0px);
-  }
-}
-
-/* Individual animations as fallback */
-.profile-picture.spinning-coin:not(.bouncing-ball) {
-  animation: spinning-coin 2s ease-in-out;
-}
-
-.profile-picture.bouncing-ball:not(.spinning-coin) {
+/* Bouncing ball animation for the container */
+.profile-picture.bouncing-ball {
   animation: bouncing-ball 2s ease-out;
-}
-
-@keyframes spinning-coin {
-  0% {
-    transform: rotateY(0deg) scale(1);
-  }
-  25% {
-    transform: rotateY(180deg) scale(1.1);
-  }
-  50% {
-    transform: rotateY(360deg) scale(1.2);
-  }
-  75% {
-    transform: rotateY(540deg) scale(1.1);
-  }
-  100% {
-    transform: rotateY(720deg) scale(1);
-  }
 }
 
 @keyframes bouncing-ball {
