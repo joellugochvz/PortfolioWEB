@@ -284,9 +284,11 @@ function initCarousel({ carouselId, slideClass, prevBtnId, nextBtnId, overlayId,
   const prevBtn = document.getElementById(prevBtnId);
   const nextBtn = document.getElementById(nextBtnId);
   const scrollPoints = document.getElementById(scrollPointsId);
+  const galleryContainer = carousel.parentElement;
   
   let currentIndex = 0;
   let clickTimer = null;
+  let instructionsShown = false;
 
   // Add description overlay to each slide if it doesn't exist
   slides.forEach((slide, index) => {
@@ -297,6 +299,71 @@ function initCarousel({ carouselId, slideClass, prevBtnId, nextBtnId, overlayId,
       slide.appendChild(overlay);
     }
   });
+
+  // Create instructions overlay
+  const instructionsOverlay = document.createElement('div');
+  instructionsOverlay.className = 'carousel-instructions';
+  
+  // Detect if device supports touch
+  const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+  const clickText = isTouchDevice ? 'tap' : 'click';
+  const doubleClickText = isTouchDevice ? 'double tap' : 'double click';
+  
+  instructionsOverlay.innerHTML = `
+    <div class="instruction-item">
+      <div class="hand-animation single-click">
+        <svg class="hand-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M13.75 5.25C13.75 3.45507 12.2949 2 10.5 2C8.70507 2 7.25 3.45507 7.25 5.25V12.25H6.75C5.64543 12.25 4.75 13.1454 4.75 14.25V15.25C4.75 16.3546 5.64543 17.25 6.75 17.25H8.25V20.25C8.25 21.3546 9.14543 22.25 10.25 22.25H17.25C18.3546 22.25 19.25 21.3546 19.25 20.25V12.25C19.25 10.4551 17.7949 9 16 9H15.75V5.25C15.75 3.45507 14.2949 2 12.5 2C11.8096 2 11.1851 2.26124 10.7127 2.70026"/>
+        </svg>
+      </div>
+      <span>Single ${clickText} to show description</span>
+    </div>
+    <div class="instruction-item">
+      <div class="hand-animation double-click">
+        <svg class="hand-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M13.75 5.25C13.75 3.45507 12.2949 2 10.5 2C8.70507 2 7.25 3.45507 7.25 5.25V12.25H6.75C5.64543 12.25 4.75 13.1454 4.75 14.25V15.25C4.75 16.3546 5.64543 17.25 6.75 17.25H8.25V20.25C8.25 21.3546 9.14543 22.25 10.25 22.25H17.25C18.3546 22.25 19.25 21.3546 19.25 20.25V12.25C19.25 10.4551 17.7949 9 16 9H15.75V5.25C15.75 3.45507 14.2949 2 12.5 2C11.8096 2 11.1851 2.26124 10.7127 2.70026"/>
+        </svg>
+      </div>
+      <span>${doubleClickText} to view full image</span>
+    </div>
+  `;
+  galleryContainer.appendChild(instructionsOverlay);
+
+  // Function to hide instructions
+  const hideInstructions = () => {
+    if (!instructionsShown) return;
+    instructionsOverlay.classList.remove('show');
+    setTimeout(() => {
+      instructionsOverlay.style.display = 'none';
+    }, 600);
+  };
+
+  // Function to show instructions
+  const showInstructions = () => {
+    if (instructionsShown) return;
+    instructionsShown = true;
+    instructionsOverlay.style.display = 'flex';
+    setTimeout(() => {
+      instructionsOverlay.classList.add('show');
+    }, 100);
+    
+    // Auto-hide after 5 seconds
+    setTimeout(hideInstructions, 5000);
+  };
+
+  // Intersection Observer to detect when carousel comes into view
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !instructionsShown) {
+        showInstructions();
+      }
+    });
+  }, { threshold: 0.3 });
+
+  observer.observe(galleryContainer);
+
+  // Hide instructions on any click in the carousel
+  galleryContainer.addEventListener('click', hideInstructions, { once: true });
 
   // Store carousel data for lightbox navigation
   const carouselData = {
