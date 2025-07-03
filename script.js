@@ -312,21 +312,8 @@ function initCarousel({ carouselId, slideClass, prevBtnId, nextBtnId, overlayId,
   instructionsOverlay.innerHTML = `
     <div class="instruction-item">
       <div class="hand-animation single-click">
-        <svg class="hand-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-          <!-- Palm -->
-          <ellipse cx="40" cy="65" rx="15" ry="20" fill="currentColor"/>
-          <!-- Thumb -->
-          <ellipse cx="25" cy="55" rx="6" ry="12" fill="currentColor" transform="rotate(-30 25 55)"/>
-          <!-- Index finger (pointing) -->
-          <ellipse cx="45" cy="35" rx="5" ry="15" fill="currentColor"/>
-          <!-- Middle finger -->
-          <ellipse cx="40" cy="30" rx="4" ry="12" fill="currentColor"/>
-          <!-- Ring finger -->
-          <ellipse cx="35" cy="32" rx="4" ry="10" fill="currentColor"/>
-          <!-- Pinky -->
-          <ellipse cx="30" cy="35" rx="3" ry="8" fill="currentColor"/>
-          <!-- Click indicator -->
-          <circle cx="45" cy="25" r="3" fill="#27e2ff" opacity="0.8"/>
+        <svg class="hand-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M13.75 5.25C13.75 3.45507 12.2949 2 10.5 2C8.70507 2 7.25 3.45507 7.25 5.25V12.25H6.75C5.64543 12.25 4.75 13.1454 4.75 14.25V15.25C4.75 16.3546 5.64543 17.25 6.75 17.25H8.25V20.25C8.25 21.3546 9.14543 22.25 10.25 22.25H17.25C18.3546 22.25 19.25 21.3546 19.25 20.25V12.25C19.25 10.4551 17.7949 9 16 9H15.75V5.25C15.75 3.45507 14.2949 2 12.5 2C11.8096 2 11.1851 2.26124 10.7127 2.70026"/>
         </svg>
       </div>
       <span>Single ${clickText} to show description</span>
