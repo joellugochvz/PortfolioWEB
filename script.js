@@ -55,11 +55,9 @@ document.addEventListener("DOMContentLoaded", function () {
   const profilePictureContainer = document.querySelector('.profile-picture');
   if (profilePicture && profilePictureContainer) {
     profilePicture.addEventListener('click', function() {
-      // Add both spinning and bouncing animations to the container
-      profilePictureContainer.classList.add('spinning-coin');
+      // Add only bouncing animation to the container
       profilePictureContainer.classList.add('bouncing-ball');
       setTimeout(() => {
-        profilePictureContainer.classList.remove('spinning-coin');
         profilePictureContainer.classList.remove('bouncing-ball');
       }, 2000);
     });
