@@ -285,11 +285,20 @@ function initCarousel({ carouselId, slideClass, prevBtnId, nextBtnId, overlayId,
   const slides = carousel.querySelectorAll(`.${slideClass}`);
   const prevBtn = document.getElementById(prevBtnId);
   const nextBtn = document.getElementById(nextBtnId);
-  const overlay = document.getElementById(overlayId);
   const scrollPoints = document.getElementById(scrollPointsId);
   
   let currentIndex = 0;
   let clickTimer = null;
+
+  // Add description overlay to each slide if it doesn't exist
+  slides.forEach((slide, index) => {
+    if (!slide.querySelector('.description-overlay')) {
+      const overlay = document.createElement('div');
+      overlay.className = 'description-overlay';
+      overlay.id = `${overlayId}-${index}`;
+      slide.appendChild(overlay);
+    }
+  });
 
   // Store carousel data for lightbox navigation
   const carouselData = {
@@ -363,19 +372,24 @@ function initCarousel({ carouselId, slideClass, prevBtnId, nextBtnId, overlayId,
         clickTimer = setTimeout(() => {
           clickTimer = null;
           
-          // Show description overlay
+          // Show description overlay for this specific slide
+          const overlay = slide.querySelector('.description-overlay');
           if (overlay && slide.dataset.description) {
+            // Hide any other active overlays in this carousel first
+            slides.forEach(s => {
+              const otherOverlay = s.querySelector('.description-overlay');
+              if (otherOverlay && otherOverlay !== overlay) {
+                otherOverlay.classList.remove('show');
+              }
+            });
+
             overlay.textContent = slide.dataset.description;
-            overlay.style.display = "block";
-            overlay.style.opacity = "1";
+            overlay.classList.add('show');
             
-            // Hide after 3 seconds
+            // Hide after 5 seconds
             setTimeout(() => {
-              overlay.style.opacity = "0";
-              setTimeout(() => {
-                overlay.style.display = "none";
-              }, 300);
-            }, 3000);
+              overlay.classList.remove('show');
+            }, 5000);
           }
         }, 250); // Delay to detect double clicks
       }
