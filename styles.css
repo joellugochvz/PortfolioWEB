@@ -544,13 +544,7 @@ body {
 }
 
 
-.slide::before,
-.slide::after {
-  content: '';
-  flex: none;
-  width: 10%;
-  opacity: 0.4;
-}
+/* Removed pseudo-elements that were causing mobile layout issues */
 
 /* ======================================================================== */
 /* CONTENEDOR VIDEO */
