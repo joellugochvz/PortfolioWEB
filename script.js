@@ -424,7 +424,7 @@ function initCarousel({ carouselId, slideClass, prevBtnId, nextBtnId, overlayId,
     updateButtons();
     highlightThumbnail(); 
   });
-
+// =================================================================
   // Prevent carousel from interfering with page scroll
   carousel.addEventListener("wheel", (e) => {
     // If it's a vertical scroll (normal page scrolling) and not shift+scroll
