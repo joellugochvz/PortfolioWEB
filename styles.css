@@ -641,7 +641,7 @@ body {
 }
 
 @keyframes single-click-animation {
-  0%, 40%, 100% {
+  0%, 10%, 40%, 100% {
     transform: scale(1.2);
     filter: drop-shadow(0 0 8px rgba(39, 226, 255, 0.5));
   }
@@ -652,25 +652,13 @@ body {
 }
 
 @keyframes double-click-animation {
-  0%, 50%, 100% {
+  0%, 20%, 40%, 50%, 100% {
     transform: scale(1.2);
     filter: drop-shadow(0 0 8px rgba(39, 226, 255, 0.5));
   }
-  10% {
+  10%, 30% {
     transform: scale(0.9);
     filter: drop-shadow(0 0 0.7rem rgb(255, 255, 255)) drop-shadow(0 0 0.7rem rgba(255, 255, 255, 0.3));
-  }
-  20% {
-    transform: scale(1.2);
-    filter: drop-shadow(0 0 8px rgba(39, 226, 255, 0.5));
-  }
-  30% {
-    transform: scale(0.9);
-    filter: drop-shadow(0 0 0.7rem rgb(255, 255, 255)) drop-shadow(0 0 0.7rem rgba(255, 255, 255, 0.3));
-  }
-  40% {
-    transform: scale(1.1);
-    filter: drop-shadow(0 0 8px rgba(39, 226, 255, 0.5));
   }
 }
 
