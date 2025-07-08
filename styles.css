@@ -434,7 +434,7 @@ body {
   height: 100%;
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
-  touch-action: pan-y;
+  /*touch-action: pan-y;*/
   scrollbar-width: none;
 }
 
