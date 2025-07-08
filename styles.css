@@ -445,10 +445,6 @@ body {
   border-radius: 3%;
 }
 
-/* .slide>div {
-  scroll-snap-align: start;
-} */
-
 .nav-button {
   position: absolute;
   top: 50%;
