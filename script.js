@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", function () {
       profilePictureContainer.classList.add('bouncing-ball');
       setTimeout(() => {
         profilePictureContainer.classList.remove('bouncing-ball');
-      }, 2000);
+      }, 1000);
     });
   }
 });
@@ -137,7 +137,8 @@ function openLightbox(element, carouselData = null, slideIndex = 0) {
   updateLightboxImage();
   lightbox.style.display = 'flex';
   document.body.style.overflow = 'hidden';
-  
+  //Habilitar Image Dragging and zoom
+  enableLightboxImageDragging();
   // Reset zoom
   lightboxImg.classList.remove('zoomed');
 }
@@ -190,6 +191,15 @@ function nextLightboxImage() {
 function toggleZoom() {
   const lightboxImg = document.getElementById('lightbox-img');
   lightboxImg.classList.toggle('zoomed');
+
+  if (!lightboxImg.classList.contains('zoomed')) {
+    // Reset position
+    currentX = 0;
+    currentY = 0;
+    lightboxImg.style.transform = 'scale(1)';
+  } else {
+    lightboxImg.style.transform = `translate(0px, 0px) scale(2)`;
+  }
 }
 
 function closeLightbox() {
@@ -203,10 +213,86 @@ function closeLightbox() {
   
   if (lightboxImg) {
     lightboxImg.classList.remove('zoomed');
+    lightboxImg.style.transform = 'scale(1)';
+    currentX = 0;
+    currentY = 0;
   }
-  
+
   currentLightboxCarousel = null;
   currentLightboxIndex = 0;
+}
+
+
+// =============================================
+// LIGHTBOX PARA IMÁGENES GRABBING AND ZOOM
+// =============================================
+function enableLightboxImageDragging() {
+  const lightboxImg = document.getElementById('lightbox-img');
+  let isDragging = false;
+  let startX, startY;
+  let currentX = 0;
+  let currentY = 0;
+
+  if (!lightboxImg) return;
+
+  // Mouse
+  lightboxImg.addEventListener('mousedown', (e) => {
+    if (!lightboxImg.classList.contains('zoomed')) return;
+    isDragging = true;
+    startX = e.clientX - currentX;
+    startY = e.clientY - currentY;
+    lightboxImg.style.cursor = 'grabbing';
+  });
+
+  document.addEventListener('mouseup', () => {
+    isDragging = false;
+    if (lightboxImg.classList.contains('zoomed')) {
+      lightboxImg.style.cursor = 'grab';
+    } else {
+      lightboxImg.style.cursor = 'zoom-in';
+    }
+  });
+
+  document.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    e.preventDefault();
+    currentX = e.clientX - startX;
+    currentY = e.clientY - startY;
+    lightboxImg.style.transform = `translate(${currentX}px, ${currentY}px) scale(2)`;
+  });
+
+  // Touch
+  lightboxImg.addEventListener('touchstart', (e) => {
+    if (!lightboxImg.classList.contains('zoomed')) return;
+    isDragging = true;
+    const touch = e.touches[0];
+    startX = touch.clientX - currentX;
+    startY = touch.clientY - currentY;
+  });
+
+  lightboxImg.addEventListener('touchend', () => {
+    isDragging = false;
+  });
+
+  lightboxImg.addEventListener('touchmove', (e) => {
+    if (!isDragging) return;
+    const touch = e.touches[0];
+    currentX = touch.clientX - startX;
+    currentY = touch.clientY - startY;
+    lightboxImg.style.transform = `translate(${currentX}px, ${currentY}px) scale(2)`;
+  });
+
+  // Reset position when zoom is toggled off
+  lightboxImg.addEventListener('click', () => {
+    if (!lightboxImg.classList.contains('zoomed')) {
+      currentX = 0;
+      currentY = 0;
+      lightboxImg.style.transform = 'none';
+      lightboxImg.style.cursor = 'zoom-in';
+    } else {
+      lightboxImg.style.cursor = 'grab';
+    }
+  });
 }
 
 // =============================================
@@ -289,42 +375,6 @@ function initCarousel({ carouselId, slideClass, prevBtnId, nextBtnId, overlayId,
   let currentIndex = 0;
   let clickTimer = null;
   let instructionsShown = false;
-
-//=======================================================================
-//=======================================================================
-//=======================================================================
-  // Centrado inicial del primer slide
-  // function scrollToIndex(index) {
-  //   if (!slides[index]) return;
-  //   const slide = slides[index];
-  //   const offsetLeft = slide.offsetLeft;
-  //   carousel.scrollTo({ left: offsetLeft, behavior: 'smooth' });
-  // }
-
-  // scrollToIndex(0); // Alinear al primer slide al iniciar
-
-  // // Snap automático al slide más cercano después del scroll
-  // let isScrolling;
-  // carousel.addEventListener('scroll', () => {
-  //   window.clearTimeout(isScrolling);
-  //   isScrolling = setTimeout(() => {
-  //     const closestIndex = getClosestSlideIndex();
-  //     scrollToIndex(closestIndex);
-  //   }, 100); // Esperar un momento tras el scroll antes de ajustar
-  // });
-
-  // function getClosestSlideIndex() {
-  //   let closest = 0;
-  //   let minDiff = Infinity;
-  //   slides.forEach((slide, i) => {
-  //     const diff = Math.abs(carousel.scrollLeft - slide.offsetLeft);
-  //     if (diff < minDiff) {
-  //       minDiff = diff;
-  //       closest = i;
-  //     }
-  //   });
-  //   return closest;
-  // }
 
 //=======================================================================
 //=======================================================================
