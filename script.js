@@ -290,6 +290,40 @@ function initCarousel({ carouselId, slideClass, prevBtnId, nextBtnId, overlayId,
   let clickTimer = null;
   let instructionsShown = false;
 
+  // Centrado inicial del primer slide
+  function scrollToIndex(index) {
+    if (!slides[index]) return;
+    const slide = slides[index];
+    const offsetLeft = slide.offsetLeft;
+    carousel.scrollTo({ left: offsetLeft, behavior: 'smooth' });
+  }
+
+  scrollToIndex(0); // Alinear al primer slide al iniciar
+
+  // Snap automático al slide más cercano después del scroll
+  let isScrolling;
+  carousel.addEventListener('scroll', () => {
+    window.clearTimeout(isScrolling);
+    isScrolling = setTimeout(() => {
+      const closestIndex = getClosestSlideIndex();
+      scrollToIndex(closestIndex);
+    }, 100); // Esperar un momento tras el scroll antes de ajustar
+  });
+
+  function getClosestSlideIndex() {
+    let closest = 0;
+    let minDiff = Infinity;
+    slides.forEach((slide, i) => {
+      const diff = Math.abs(carousel.scrollLeft - slide.offsetLeft);
+      if (diff < minDiff) {
+        minDiff = diff;
+        closest = i;
+      }
+    });
+    return closest;
+  }
+
+
   // Add description overlay to each slide if it doesn't exist
   slides.forEach((slide, index) => {
     if (!slide.querySelector('.description-overlay')) {
