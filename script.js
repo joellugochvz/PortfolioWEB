@@ -310,7 +310,7 @@ function initCarousel({ carouselId, slideClass, prevBtnId, nextBtnId, overlayId,
     isScrolling = setTimeout(() => {
       const closestIndex = getClosestSlideIndex();
       scrollToIndex(closestIndex);
-    }, 100); // Esperar un momento tras el scroll antes de ajustar
+    }, 300); // Esperar un momento tras el scroll antes de ajustar
   });
 
   function getClosestSlideIndex() {
