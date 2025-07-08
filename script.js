@@ -398,7 +398,7 @@ function initCarousel({ carouselId, slideClass, prevBtnId, nextBtnId, overlayId,
   // Detect if device supports touch
   const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
   const clickText = isTouchDevice ? 'tap' : 'click';
-  const doubleClickText = isTouchDevice ? 'double tap' : 'double click';
+  const doubleClickText = isTouchDevice ? 'Double tap' : 'Double click';
   
   instructionsOverlay.innerHTML = `
     <div class="instruction-item">
@@ -582,7 +582,7 @@ function initCarousel({ carouselId, slideClass, prevBtnId, nextBtnId, overlayId,
             // Hide after 5 seconds
             setTimeout(() => {
               overlay.classList.remove('show');
-            }, 5000);
+            }, 8000);
           }
         }, 250); // Delay to detect double clicks
       }
