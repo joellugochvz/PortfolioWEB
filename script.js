@@ -310,7 +310,7 @@ function initCarousel({ carouselId, slideClass, prevBtnId, nextBtnId, overlayId,
     isScrolling = setTimeout(() => {
       const closestIndex = getClosestSlideIndex();
       scrollToIndex(closestIndex);
-    }, 300); // Esperar un momento tras el scroll antes de ajustar
+    }, 100); // Esperar un momento tras el scroll antes de ajustar
   });
 
   function getClosestSlideIndex() {
@@ -386,7 +386,7 @@ function initCarousel({ carouselId, slideClass, prevBtnId, nextBtnId, overlayId,
     instructionsOverlay.style.display = 'flex';
     setTimeout(() => {
       instructionsOverlay.classList.add('show');
-    }, 200);
+    }, 100);
     
     // Auto-hide after 10 seconds
     setTimeout(hideInstructions, 8000);
