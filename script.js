@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
     } else if (event.target === videoLightbox) {
       closeVideo();
     }
-    
+
     // Don't close lightbox when clicking on the image itself
     if (event.target === lightboxImg) {
       event.stopPropagation();
@@ -26,10 +26,10 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // Keyboard navigation for lightbox
-  document.addEventListener('keydown', function(event) {
+  document.addEventListener('keydown', function (event) {
     const lightbox = document.getElementById('lightbox');
     if (lightbox && lightbox.style.display === 'flex') {
-      switch(event.key) {
+      switch (event.key) {
         case 'ArrowLeft':
           event.preventDefault();
           prevLightboxImage();
@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const profilePicture = document.querySelector('.profile-picture img');
   const profilePictureContainer = document.querySelector('.profile-picture');
   if (profilePicture && profilePictureContainer) {
-    profilePicture.addEventListener('click', function() {
+    profilePicture.addEventListener('click', function () {
       // Add only bouncing animation to the container
       profilePictureContainer.classList.add('bouncing-ball');
       setTimeout(() => {
@@ -114,7 +114,7 @@ function copiarCorreo(event) {
 function openLightbox(element, carouselData = null, slideIndex = 0) {
   const lightbox = document.getElementById('lightbox');
   const lightboxImg = document.getElementById('lightbox-img');
-  
+
   if (!lightbox || !lightboxImg) {
     console.error("Elementos del lightbox no encontrados");
     return;
@@ -127,7 +127,7 @@ function openLightbox(element, carouselData = null, slideIndex = 0) {
     // Fallback for direct element call
     const img = element.querySelector('img');
     if (!img) return;
-    
+
     currentLightboxCarousel = {
       slides: [{ src: img.src, description: element.dataset.description || '' }]
     };
@@ -137,7 +137,7 @@ function openLightbox(element, carouselData = null, slideIndex = 0) {
   updateLightboxImage();
   lightbox.style.display = 'flex';
   document.body.style.overflow = 'hidden';
-  
+
   // Reset zoom
   lightboxImg.classList.remove('zoomed');
 }
@@ -148,19 +148,19 @@ function updateLightboxImage() {
   const prevBtn = document.getElementById('lightbox-prev');
   const nextBtn = document.getElementById('lightbox-next');
   const counter = document.getElementById('lightbox-counter');
-  
+
   if (currentLightboxCarousel && currentLightboxCarousel.slides[currentLightboxIndex]) {
     const currentSlide = currentLightboxCarousel.slides[currentLightboxIndex];
     lightboxImg.src = currentSlide.src;
-    
+
     if (lightboxDescription) {
       lightboxDescription.textContent = currentSlide.description || '';
     }
-    
+
     if (counter) {
       counter.textContent = `${currentLightboxIndex + 1} / ${currentLightboxCarousel.slides.length}`;
     }
-    
+
     // Update navigation buttons
     if (prevBtn) {
       prevBtn.style.display = currentLightboxCarousel.slides.length > 1 ? 'block' : 'none';
@@ -195,16 +195,16 @@ function toggleZoom() {
 function closeLightbox() {
   const lightbox = document.getElementById('lightbox');
   const lightboxImg = document.getElementById('lightbox-img');
-  
+
   if (lightbox) {
     lightbox.style.display = 'none';
     document.body.style.overflow = 'auto';
   }
-  
+
   if (lightboxImg) {
     lightboxImg.classList.remove('zoomed');
   }
-  
+
   currentLightboxCarousel = null;
   currentLightboxIndex = 0;
 }
@@ -278,21 +278,21 @@ initCarousel({
   scrollPointsId: "scroll-points-2"
 });
 
-function initCarousel({ carouselId, slideClass, prevBtnId, nextBtnId, overlayId, scrollPointsId}) {
+function initCarousel({ carouselId, slideClass, prevBtnId, nextBtnId, overlayId, scrollPointsId }) {
   const carousel = document.getElementById(carouselId);
   const slides = carousel.querySelectorAll(`.${slideClass}`);
   const prevBtn = document.getElementById(prevBtnId);
   const nextBtn = document.getElementById(nextBtnId);
   const scrollPoints = document.getElementById(scrollPointsId);
   const galleryContainer = carousel.parentElement;
-  
+
   let currentIndex = 0;
   let clickTimer = null;
   let instructionsShown = false;
 
-//=======================================================================
-//=======================================================================
-//=======================================================================
+  //=======================================================================
+  //=======================================================================
+  //=======================================================================
   // Centrado inicial del primer slide
   function scrollToIndex(index) {
     if (!slides[index]) return;
@@ -326,9 +326,9 @@ function initCarousel({ carouselId, slideClass, prevBtnId, nextBtnId, overlayId,
     return closest;
   }
 
-//=======================================================================
-//=======================================================================
-//=======================================================================
+  //=======================================================================
+  //=======================================================================
+  //=======================================================================
 
 
   // Add description overlay to each slide if it doesn't exist
@@ -344,12 +344,12 @@ function initCarousel({ carouselId, slideClass, prevBtnId, nextBtnId, overlayId,
   // Create instructions overlay
   const instructionsOverlay = document.createElement('div');
   instructionsOverlay.className = 'carousel-instructions';
-  
+
   // Detect if device supports touch
   const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
   const clickText = isTouchDevice ? 'tap' : 'click';
   const doubleClickText = isTouchDevice ? 'double tap' : 'double click';
-  
+
   instructionsOverlay.innerHTML = `
     <div class="instruction-item">
       <div class="hand-animation single-click">
@@ -387,7 +387,7 @@ function initCarousel({ carouselId, slideClass, prevBtnId, nextBtnId, overlayId,
     setTimeout(() => {
       instructionsOverlay.classList.add('show');
     }, 100);
-    
+
     // Auto-hide after 10 seconds
     setTimeout(hideInstructions, 8000);
   };
@@ -413,7 +413,7 @@ function initCarousel({ carouselId, slideClass, prevBtnId, nextBtnId, overlayId,
       description: slide.dataset.description || ''
     }))
   };
-  
+
   allCarousels.push(carouselData);
 
   // Ensure carousel starts at the first image
@@ -453,7 +453,7 @@ function initCarousel({ carouselId, slideClass, prevBtnId, nextBtnId, overlayId,
     const activeDot = scrollPoints.querySelector(`div[data-id="${index}"]`);
     if (activeDot) activeDot.classList.add("highlighted");
   };
-  
+
   // ===================== EVENTOS Y FUNCIONALIDAD =====================
   // ===================== BUTTONS ACTIONS ===============================
   prevBtn.addEventListener("click", () => scrollToSlide(currentIndex - 1));
@@ -463,9 +463,9 @@ function initCarousel({ carouselId, slideClass, prevBtnId, nextBtnId, overlayId,
     const newIndex = Math.round(carousel.scrollLeft / slides[0].offsetWidth);
     currentIndex = newIndex;
     updateButtons();
-    highlightThumbnail(); 
+    highlightThumbnail();
   });
-// =================================================================
+  // =================================================================
   // Prevent carousel from interfering with page scroll
   carousel.addEventListener("wheel", (e) => {
     // If it's a vertical scroll (normal page scrolling) and not shift+scroll
@@ -481,23 +481,22 @@ function initCarousel({ carouselId, slideClass, prevBtnId, nextBtnId, overlayId,
   // Prevent touch scroll interference on mobile
   let touchStartY = 0;
   let touchStartX = 0;
-  
+
   carousel.addEventListener("touchstart", (e) => {
     touchStartY = e.touches[0].clientY;
     touchStartX = e.touches[0].clientX;
   }, { passive: true });
 
   carousel.addEventListener("touchmove", (e) => {
-    const touchY = e.touches[0].clientY;
-    const touchX = e.touches[0].clientX;
-    const deltaY = touchStartY - touchY;
-    const deltaX = touchStartX - touchX;
-    
-    // If it's primarily a vertical scroll, prevent carousel interference
-    if (Math.abs(deltaY) > Math.abs(deltaX) && Math.abs(deltaY) > 10) {
-      e.preventDefault();
+    const diffY = Math.abs(e.touches[0].clientY - startY);
+    const diffX = Math.abs(e.touches[0].clientX - startX);
+
+    if (diffY > diffX) {
+      // Movimiento es más vertical que horizontal, dejar que la página lo maneje
+      e.stopPropagation(); // No cancela, solo evita conflictos en bubbling
+      return;
     }
-  }, { passive: false });
+  }, { passive: true });
 
   // =============================== ENHANCED CLICK ACTIONS =========================
   // Single click: Show description, Double click: Open lightbox
@@ -507,14 +506,14 @@ function initCarousel({ carouselId, slideClass, prevBtnId, nextBtnId, overlayId,
         // Double click detected
         clearTimeout(clickTimer);
         clickTimer = null;
-        
+
         // Open lightbox with navigation
         openLightbox(slide, carouselData, i);
       } else {
         // Single click - wait to see if there's a double click
         clickTimer = setTimeout(() => {
           clickTimer = null;
-          
+
           // Show description overlay for this specific slide
           const overlay = slide.querySelector('.description-overlay');
           if (overlay && slide.dataset.description) {
@@ -528,7 +527,7 @@ function initCarousel({ carouselId, slideClass, prevBtnId, nextBtnId, overlayId,
 
             overlay.textContent = slide.dataset.description;
             overlay.classList.add('show');
-            
+
             // Hide after 5 seconds
             setTimeout(() => {
               overlay.classList.remove('show');
@@ -550,7 +549,7 @@ function initCarousel({ carouselId, slideClass, prevBtnId, nextBtnId, overlayId,
     currentIndex = 0;
     updateButtons();
     highlightThumbnail();
-    
+
     // Extra fallback with small delay
     setTimeout(() => {
       if (carousel.scrollLeft !== 0) {
@@ -560,5 +559,5 @@ function initCarousel({ carouselId, slideClass, prevBtnId, nextBtnId, overlayId,
         highlightThumbnail();
       }
     }, 50);
-  }); 
+  });
 }
