@@ -1226,15 +1226,15 @@ body {
     font-size: 2rem;
     padding: 10px 15px;
   }
-  
+
   .lightbox-nav.prev {
     left: 15px;
   }
-  
+
   .lightbox-nav.next {
     right: 15px;
   }
-  
+
   .close-btn {
     top: 15px;
     right: 15px;
@@ -1242,7 +1242,7 @@ body {
     width: 50px;
     height: 50px;
   }
-  
+
   .lightbox-content.zoomed {
     transform: scale(1.5);
   }
