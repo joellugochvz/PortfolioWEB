@@ -290,6 +290,9 @@ function initCarousel({ carouselId, slideClass, prevBtnId, nextBtnId, overlayId,
   let clickTimer = null;
   let instructionsShown = false;
 
+//=======================================================================
+//=======================================================================
+//=======================================================================
   // Centrado inicial del primer slide
   function scrollToIndex(index) {
     if (!slides[index]) return;
@@ -322,6 +325,10 @@ function initCarousel({ carouselId, slideClass, prevBtnId, nextBtnId, overlayId,
     });
     return closest;
   }
+
+//=======================================================================
+//=======================================================================
+//=======================================================================
 
 
   // Add description overlay to each slide if it doesn't exist
@@ -382,7 +389,7 @@ function initCarousel({ carouselId, slideClass, prevBtnId, nextBtnId, overlayId,
     }, 100);
     
     // Auto-hide after 10 seconds
-    setTimeout(hideInstructions, 10000);
+    setTimeout(hideInstructions, 8000);
   };
 
   // Intersection Observer to detect when carousel comes into view
