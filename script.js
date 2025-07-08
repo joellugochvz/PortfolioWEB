@@ -198,7 +198,7 @@ function toggleZoom() {
     currentY = 0;
     lightboxImg.style.transform = 'scale(1)';
   } else {
-    lightboxImg.style.transform = `translate(0px, 0px) scale(2)`;
+    lightboxImg.style.transform = `translate(0px, 0px) scale(3)`; //Cambiar ZOOM
   }
 }
 
@@ -439,7 +439,7 @@ function initCarousel({ carouselId, slideClass, prevBtnId, nextBtnId, overlayId,
     }, 100);
     
     // Auto-hide after 10 seconds
-    setTimeout(hideInstructions, 8000);
+    setTimeout(hideInstructions, 10000);
   };
 
   // Intersection Observer to detect when carousel comes into view
