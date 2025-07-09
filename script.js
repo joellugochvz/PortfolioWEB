@@ -174,33 +174,67 @@ function updateLightboxImage() {
   const nextBtn = document.getElementById('lightbox-next');
   const counter = document.getElementById('lightbox-counter');
 
+  if (!currentLightboxCarousel || !currentLightboxCarousel.slides[currentLightboxIndex]) return;
+
+  const currentSlide = currentLightboxCarousel.slides[currentLightboxIndex];
+
+  // Resetear zoom y posición
   if (lightboxImg) {
     lightboxImg.classList.remove('zoomed');
-    lightboxImg.style.transform = 'translate(0, 0) scale(1)'; // Resetear transform
+    lightboxImg.style.transform = 'translate(0, 0) scale(1)';
   }
 
-  if (currentLightboxCarousel && currentLightboxCarousel.slides[currentLightboxIndex]) {
-    const currentSlide = currentLightboxCarousel.slides[currentLightboxIndex];
+  // 1. Aplicar fade-out a la imagen actual
+  if (lightboxImg) {
+    lightboxImg.style.opacity = '0';
+    lightboxImg.style.transition = 'opacity 0.3s ease-in-out';
+  }
+
+  // 2. Esperar a que termine el fade-out antes de cambiar la imagen
+  setTimeout(() => {
+    // Cambiar la fuente y otros elementos
     lightboxImg.src = currentSlide.src;
 
+    // Resetear la transición y aplicar fade-in
+    lightboxImg.style.transition = 'opacity 0.3s ease-in-out';
+    lightboxImg.style.opacity = '1';
+
+    // Actualizar descripción, contador y botones
     if (lightboxDescription) {
       lightboxDescription.textContent = currentSlide.description || '';
+      lightboxDescription.style.opacity = '0';
+      lightboxDescription.style.transition = 'opacity 0.3s ease-in-out';
+      setTimeout(() => {
+        lightboxDescription.style.opacity = '1';
+      }, 10);
     }
+
+    // Cargar la siguiente/anterior imagen en segundo plano
+    const nextIndex = currentLightboxIndex + 1;
+    if (currentLightboxCarousel.slides[nextIndex]) {
+      const nextImg = new Image();
+      nextImg.src = currentLightboxCarousel.slides[nextIndex].src;
+    }
+    
+    //EFECTO DE CARGA
+    lightboxImg.onload = function () {
+      lightboxImg.style.opacity = '1'; // Fade-in solo cuando la imagen esté cargada
+    };
 
     if (counter) {
       counter.textContent = `${currentLightboxIndex + 1} / ${currentLightboxCarousel.slides.length}`;
     }
 
-    // Update navigation buttons
     if (prevBtn) {
       prevBtn.style.display = currentLightboxCarousel.slides.length > 1 ? 'block' : 'none';
       prevBtn.disabled = currentLightboxIndex === 0;
     }
+
     if (nextBtn) {
       nextBtn.style.display = currentLightboxCarousel.slides.length > 1 ? 'block' : 'none';
       nextBtn.disabled = currentLightboxIndex === currentLightboxCarousel.slides.length - 1;
     }
-  }
+  }, 100); // Duración del fade-out (debe coincidir con la transición CSS)
 }
 
 function prevLightboxImage() {
