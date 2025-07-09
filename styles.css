@@ -395,6 +395,10 @@ body {
   justify-content: center;
   align-items: center;
   transition: transform 0.5s ease;
+  
+  user-select: none; /* Evita selección de texto */
+  outline: none; /* Elimina el borde de enfoque */
+  -webkit-tap-highlight-color: transparent; /* Para móviles */
 }
 
 .slide img {
