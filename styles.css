@@ -436,6 +436,7 @@ body {
   -webkit-overflow-scrolling: touch;
   /* touch-action: pan-y; */
   scrollbar-width: none;
+  user-select:none;
 }
 
 .carousel::-webkit-scrollbar {
