@@ -453,6 +453,7 @@ body {
   justify-content: center;
   align-items: center;
   transition: transform 0.5s ease;
+  user-select:none;
 }
 
 .slide img {
@@ -461,7 +462,6 @@ body {
   object-fit: contain;
   cursor: pointer;
   border-radius: 3%;
-  user-select:none;
 }
 
 .nav-button {
