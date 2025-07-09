@@ -575,10 +575,10 @@ function initCarousel({ carouselId, slideClass, prevBtnId, nextBtnId, overlayId,
 // =================================================================
 
   // =============================== ENHANCED CLICK ACTIONS =========================
-  galleryContainer.addEventListener('click', (e) => { e.preventDefault()});
   
   slides.forEach((slide, i) => {
     slide.addEventListener("click", (e) => {
+      e.preventDefault(); //Evita el resaltado nativo
       if (clickTimer) {
         // Double click detected
         clearTimeout(clickTimer);
