@@ -170,7 +170,6 @@ function updateLightboxImage() {
   setTimeout(() => {
     lightboxImg.src = currentSlide.src;
 
-    // Aplica fade-in desde la dirección opuesta
     lightboxImg.classList.remove('fade-out-left', 'fade-out-right');
 
     // Fuerza reflow para que la clase .show se active correctamente
