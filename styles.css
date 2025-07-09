@@ -82,11 +82,10 @@ body {
   height: 100%;
   object-fit: cover;
   cursor: pointer;
-  transition: transform 0.3s ease;
 }
 
-.profile-picture img:hover {
-  transform: scale(1.00);
+.profile-picture:hover {
+  transform: scale(1.0);
 }
 
 /* Bouncing ball animation for the container */
@@ -95,32 +94,8 @@ body {
 }
 
 @keyframes bouncing-ball {
-/* 
-  0% {
-    transform: translateY(0px);
-  }
-  15% {
-    transform: translateY(-30px);
-  }
-  30% {
-    transform: translateY(0px);
-  }
-  45% {
-    transform: translateY(-20px);
-  }
-  60% {
-    transform: translateY(0px);
-  }
-  75% {
-    transform: translateY(-10px);
-  }
-  90% {
-    transform: translateY(0px);
-  }
-  100% {
-    transform: translateY(0px);
-  } */
-  0% {
+
+  0%, 15%, 100% {
     transform: rotate(0deg);
   }
 
@@ -128,20 +103,12 @@ body {
     transform: rotate(10deg);
   }
 
-  15% {
-    transform: rotate(0deg);
-  }
-
   20% {
-    transform: rotate(-18deg);
+    transform: rotate(-15deg);
   }
 
   60% {
     transform: rotate(8deg);
-  }
-
-  100% {
-    transform: rotate(0deg);
   }
 }
 
@@ -157,12 +124,6 @@ body {
   margin-bottom: 10px;
 }
 
-/* @media (min-width: 880px) {
-  .profile-info h1{
-      font-size: 4rem;
-  }
-} */
-
 .profile-info h2 {
   font-family: 'Inter', sans-serif;
   font-weight: 500;
@@ -173,11 +134,6 @@ body {
   text-align: center;
 }
 
-/* @media (min-width: 880px) {
-  .profile-info h2{
-      font-size: 1.6rem;
-  }
-} */
 #DiplomaICON {
   width: 1.5rem;
   /* Tamaño relativo al texto */
