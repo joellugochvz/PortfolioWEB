@@ -144,41 +144,6 @@ function openLightbox(element, carouselData = null, slideIndex = 0) {
   lightboxImg.classList.remove('zoomed');
 }
 
-function enableLightboxSwipeNavigation() {
-  const lightboxImg = document.getElementById('lightbox-img');
-  let touchStartX = 0;
-  let touchEndX = 0;
-  let wheelTimeout;
-
-  // Función para saber si la imagen está ampliada
-  function isZoomed() {
-    return lightboxImg.style.transform && lightboxImg.style.transform.includes('scale(') && !lightboxImg.style.transform.includes('scale(1');
-  }
-
-  // Swipe con touch
-  lightboxImg.addEventListener('touchstart', (e) => {
-    if (isZoomed()) return;
-    touchStartX = e.changedTouches[0].screenX;
-  });
-
-  lightboxImg.addEventListener('touchend', (e) => {
-    if (isZoomed()) return;
-    touchEndX = e.changedTouches[0].screenX;
-    handleSwipeGesture(touchStartX, touchEndX);
-  });
-
-  function handleSwipeGesture(startX, endX) {
-    const swipeThreshold = 50;
-
-    if (endX < startX - swipeThreshold) {
-      nextLightboxImage();
-    } else if (endX > startX + swipeThreshold) {
-      prevLightboxImage();
-    }
-  }
-}
-
-
 function updateLightboxImage() {
   const lightboxImg = document.getElementById('lightbox-img');
   const lightboxDescription = document.getElementById('lightbox-description');
@@ -331,6 +296,38 @@ function enableLightboxImageDragging() {
   });
 }
 
+function enableLightboxSwipeNavigation() {
+  const lightboxImg = document.getElementById('lightbox-img');
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  // Función para saber si la imagen está ampliada
+  function isZoomed() {
+    return lightboxImg.style.transform && lightboxImg.style.transform.includes('scale(') && !lightboxImg.style.transform.includes('scale(1');
+  }
+
+  // Swipe con touch
+  lightboxImg.addEventListener('touchstart', (e) => {
+    if (isZoomed()) return;
+    touchStartX = e.changedTouches[0].screenX;
+  });
+
+  lightboxImg.addEventListener('touchend', (e) => {
+    if (isZoomed()) return;
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipeGesture(touchStartX, touchEndX);
+  });
+
+  function handleSwipeGesture(startX, endX) {
+    const swipeThreshold = 50;
+
+    if (endX < startX - swipeThreshold) {
+      nextLightboxImage();
+    } else if (endX > startX + swipeThreshold) {
+      prevLightboxImage();
+    }
+  }
+}
 // =============================================
 // LIGHTBOX PARA VIDEO
 // =============================================
