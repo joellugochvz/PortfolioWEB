@@ -69,7 +69,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // }
 
 
-  //======================== Para Dejar que la animación termine sin importar los clicks ====================
+  //======================== Para Dejar que la animación PROFILE PICTURE termine sin importar los clicks ====================
   let isAnimating = false;
 
   profilePicture.addEventListener('click', function () {
@@ -599,43 +599,67 @@ function initCarousel({ carouselId, slideClass, prevBtnId, nextBtnId, overlayId,
 
   // =============================== ENHANCED CLICK ACTIONS =========================
   // Single click: Show description, Double click: Open lightbox
-  slides.forEach((slide, i) => {
-    slide.addEventListener("click", (e) => {
-      if (clickTimer) {
-        // Double click detected
-        clearTimeout(clickTimer);
+const overlayTimers = new WeakMap(); // Controla timers por slide individual
+
+slides.forEach((slide, i) => {
+  slide.addEventListener("click", (e) => {
+    if (clickTimer) {
+      clearTimeout(clickTimer);
+      clickTimer = null;
+
+      // Doble clic → abrir lightbox
+      openLightbox(slide, carouselData, i);
+    } else {
+      clickTimer = setTimeout(() => {
         clickTimer = null;
 
-        // Open lightbox with navigation
-        openLightbox(slide, carouselData, i);
-      } else {
-        // Single click - wait to see if there's a double click
-        clickTimer = setTimeout(() => {
-          clickTimer = null;
+        const overlay = slide.querySelector('.description-overlay');
+        if (overlay && slide.dataset.description) {
+          // Si ya está visible, ocultarlo de inmediato
+          if (overlay.classList.contains('show')) {
+            overlay.classList.remove('show');
 
-          // Show description overlay for this specific slide
-          const overlay = slide.querySelector('.description-overlay');
-          if (overlay && slide.dataset.description) {
-            // Hide any other active overlays in this carousel first
-            slides.forEach(s => {
-              const otherOverlay = s.querySelector('.description-overlay');
-              if (otherOverlay && otherOverlay !== overlay) {
-                otherOverlay.classList.remove('show');
-              }
-            });
-
-            overlay.textContent = slide.dataset.description;
-            overlay.classList.add('show');
-
-            // Hide after 5 seconds
-            setTimeout(() => {
-              overlay.classList.remove('show');
-            }, 8000);
+            // Cancelar cualquier timer pendiente
+            const existingTimer = overlayTimers.get(overlay);
+            if (existingTimer) {
+              clearTimeout(existingTimer);
+              overlayTimers.delete(overlay);
+            }
+            return;
           }
-        }, 250); // Delay to detect double clicks
-      }
-    });
+
+          // Ocultar otros overlays activos
+          slides.forEach(s => {
+            const otherOverlay = s.querySelector('.description-overlay');
+            if (otherOverlay && otherOverlay !== overlay) {
+              otherOverlay.classList.remove('show');
+
+              // Cancelar sus timers también
+              const otherTimer = overlayTimers.get(otherOverlay);
+              if (otherTimer) {
+                clearTimeout(otherTimer);
+                overlayTimers.delete(otherOverlay);
+              }
+            }
+          });
+
+          // Mostrar overlay
+          overlay.textContent = slide.dataset.description;
+          overlay.classList.add('show');
+
+          // Programar ocultar luego de x segundos
+          const timerId = setTimeout(() => {
+            overlay.classList.remove('show');
+            overlayTimers.delete(overlay);
+          }, 10000);
+
+          overlayTimers.set(overlay, timerId);
+        }
+      }, 250); // Tiempo para detectar doble clic
+    }
   });
+});
+
 
   //Actualiza configuración inicial de botones Carousel
   updateButtons();
