@@ -1122,6 +1122,26 @@ body {
   cursor: grabbing;
 }
 
+/* --- Transiciones de opacidad y dirección --- */
+#lightbox-img.fade-out-left {
+  opacity: 0;
+  transform: translateX(-100%);
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+#lightbox-img.fade-out-right {
+  opacity: 0;
+  transform: translateX(100%);
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+/* Transición al volver a su estado normal */
+#lightbox-img.show {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 0.3s ease-in-out;
+}
+
 .close-btn {
   position: absolute;
   top: 20px;

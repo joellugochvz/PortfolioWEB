@@ -144,35 +144,60 @@ function openLightbox(element, carouselData = null, slideIndex = 0) {
   lightboxImg.classList.remove('zoomed');
 }
 
+let previousIndex = 0; // global
+
 function updateLightboxImage() {
   const lightboxImg = document.getElementById('lightbox-img');
   const lightboxDescription = document.getElementById('lightbox-description');
   const prevBtn = document.getElementById('lightbox-prev');
   const nextBtn = document.getElementById('lightbox-next');
   const counter = document.getElementById('lightbox-counter');
-  
-  if (currentLightboxCarousel && currentLightboxCarousel.slides[currentLightboxIndex]) {
-    const currentSlide = currentLightboxCarousel.slides[currentLightboxIndex];
+
+  if (!currentLightboxCarousel || !currentLightboxCarousel.slides[currentLightboxIndex]) return;
+
+  const currentSlide = currentLightboxCarousel.slides[currentLightboxIndex];
+
+  const isForward = currentLightboxIndex > previousIndex;
+  previousIndex = currentLightboxIndex;
+
+  // Remueve clases viejas
+  lightboxImg.classList.remove('fade-out-left', 'fade-out-right', 'show');
+
+  // Aplica clase fade-out
+  lightboxImg.classList.add(isForward ? 'fade-out-left' : 'fade-out-right');
+
+  // Después de la animación de salida, cambia la imagen
+  setTimeout(() => {
     lightboxImg.src = currentSlide.src;
-    
+
+    // Aplica fade-in desde la dirección opuesta
+    lightboxImg.classList.remove('fade-out-left', 'fade-out-right');
+
+    // Fuerza reflow para que la clase .show se active correctamente
+    void lightboxImg.offsetWidth;
+
+    // Mostrar imagen con transición a posición normal
+    lightboxImg.classList.add('show');
+
+    // Actualiza descripción, contador y botones
     if (lightboxDescription) {
       lightboxDescription.textContent = currentSlide.description || '';
     }
-    
+
     if (counter) {
       counter.textContent = `${currentLightboxIndex + 1} / ${currentLightboxCarousel.slides.length}`;
     }
-    
-    // Update navigation buttons
+
     if (prevBtn) {
       prevBtn.style.display = currentLightboxCarousel.slides.length > 1 ? 'block' : 'none';
       prevBtn.disabled = currentLightboxIndex === 0;
     }
+
     if (nextBtn) {
       nextBtn.style.display = currentLightboxCarousel.slides.length > 1 ? 'block' : 'none';
       nextBtn.disabled = currentLightboxIndex === currentLightboxCarousel.slides.length - 1;
     }
-  }
+  }, 300); // Coincide con la duración de la transición fade-out
 }
 
 function prevLightboxImage() {
