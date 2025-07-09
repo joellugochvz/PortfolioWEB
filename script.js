@@ -575,7 +575,8 @@ function initCarousel({ carouselId, slideClass, prevBtnId, nextBtnId, overlayId,
 // =================================================================
 
   // =============================== ENHANCED CLICK ACTIONS =========================
-  // Single click: Show description, Double click: Open lightbox
+  galleryContainer.addEventListener('click', (e) => { e.preventDefault()});
+  
   slides.forEach((slide, i) => {
     slide.addEventListener("click", (e) => {
       if (clickTimer) {
