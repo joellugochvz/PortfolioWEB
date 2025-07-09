@@ -71,14 +71,11 @@ body {
   /* height: 22rem; */
   height: clamp(15rem, 22vw, 26rem);
   box-shadow: 2px 3px 20px #22d3eece;
-}
 
-/* @media (max-width: 880px) {
-  .profile-picture {
-    width: 200px;
-    height: 200px;
-  }
-} */
+  -webkit-tap-highlight-color: transparent;/* Móviles */
+  user-select: none;/* Bloquea selección de texto */
+  outline: none;/* Quita borde de enfoque */
+}
 
 .profile-picture img {
   width: 100%;
@@ -98,7 +95,8 @@ body {
 }
 
 @keyframes bouncing-ball {
-  /* 0% {
+/* 
+  0% {
     transform: translateY(0px);
   }
   15% {
@@ -125,18 +123,23 @@ body {
   0% {
     transform: rotate(0deg);
   }
+
   10% {
     transform: rotate(10deg);
   }
+
   15% {
     transform: rotate(0deg);
   }
+
   20% {
     transform: rotate(-18deg);
   }
+
   60% {
     transform: rotate(8deg);
   }
+
   100% {
     transform: rotate(0deg);
   }
@@ -229,6 +232,10 @@ body {
   align-items: center;
   justify-content: center;
   transition: 0.9s cubic-bezier(.62, .15, .39, .89);
+
+  -webkit-tap-highlight-color: transparent; /* Móviles */
+  user-select: none; /* Bloquea selección de texto */
+  outline: none; /* Quita borde de enfoque */
 }
 
 /* @media (min-width:880px) {
@@ -453,6 +460,13 @@ body {
   justify-content: center;
   align-items: center;
   transition: transform 0.5s ease;
+
+  -webkit-tap-highlight-color: transparent;
+  /* Móviles */
+  user-select: none;
+  /* Bloquea selección de texto */
+  outline: none;
+  /* Quita borde de enfoque */
 }
 
 .slide img {
@@ -641,10 +655,15 @@ body {
 }
 
 @keyframes single-click-animation {
-  0%, 10%, 40%, 100% {
+
+  0%,
+  10%,
+  40%,
+  100% {
     transform: scale(1.2);
     filter: drop-shadow(0 0 8px rgba(39, 226, 255, 0.5));
   }
+
   25% {
     transform: scale(0.9);
     filter: drop-shadow(0 0 0.7rem rgb(255, 255, 255)) drop-shadow(0 0 0.7rem rgba(255, 255, 255, 0.3));
@@ -652,11 +671,18 @@ body {
 }
 
 @keyframes double-click-animation {
-  0%, 20%, 40%, 50%, 100% {
+
+  0%,
+  20%,
+  40%,
+  50%,
+  100% {
     transform: scale(1.2);
     filter: drop-shadow(0 0 8px rgba(39, 226, 255, 0.5));
   }
-  10%, 30% {
+
+  10%,
+  30% {
     transform: scale(0.9);
     filter: drop-shadow(0 0 0.7rem rgb(255, 255, 255)) drop-shadow(0 0 0.7rem rgba(255, 255, 255, 0.3));
   }
@@ -763,7 +789,7 @@ body {
   font-family: 'Fredoka', sans-serif;
   font-size: clamp(2.4rem, 2.6vw, 4rem);
   font-weight: 300;
-    background: repeating-linear-gradient(60deg,
+  background: repeating-linear-gradient(60deg,
       rgb(3, 133, 209) 0%,
       rgb(68, 255, 208),
       rgb(0, 255, 64),
@@ -866,7 +892,7 @@ body {
 
 .technologies h4 {
   font-weight: 300;
-  font-family: 'Fredoka',sans-serif;
+  font-family: 'Fredoka', sans-serif;
   background: repeating-linear-gradient(60deg,
       rgb(3, 133, 209) 0%,
       rgb(68, 233, 255),
@@ -888,8 +914,8 @@ body {
   justify-content: center;
   margin-bottom: 1.1rem;
   font-family: 'Gruppo', sans-serif;
-  font-weight:bolder;
-  font-size: clamp(1.15rem,1vw,1.35rem);
+  font-weight: bolder;
+  font-size: clamp(1.15rem, 1vw, 1.35rem);
 }
 
 .tech-bubble-powerapps {
@@ -1089,8 +1115,13 @@ body {
 }
 
 @keyframes lightbox-fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 .lightbox-image-container {
@@ -1139,7 +1170,8 @@ body {
 #lightbox-img.show {
   opacity: 1;
   transform: translateX(0);
-  transition: opacity 0.3s ease-in-out; /*Parece no hacer nada corrige en updatelighboximage js*/
+  transition: opacity 0.3s ease-in-out;
+  /*Parece no hacer nada corrige en updatelighboximage js*/
 }
 
 .close-btn {
@@ -1219,7 +1251,8 @@ body {
   text-align: center;
   max-width: 80%;
   border: 1px solid rgba(255, 255, 255, 0.2);
-  display: none; /*LO APAGUÉ A PROPÓSITO*/
+  display: none;
+  /*LO APAGUÉ A PROPÓSITO*/
 }
 
 .lightbox-counter {
