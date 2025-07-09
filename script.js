@@ -167,8 +167,6 @@ function openLightbox(element, carouselData = null, slideIndex = 0) {
   lightboxImg.classList.remove('zoomed');
 }
 
-let previousIndex = 0; // global
-
 function updateLightboxImage() {
   const lightboxImg = document.getElementById('lightbox-img');
   const lightboxDescription = document.getElementById('lightbox-description');
@@ -176,32 +174,15 @@ function updateLightboxImage() {
   const nextBtn = document.getElementById('lightbox-next');
   const counter = document.getElementById('lightbox-counter');
 
-  if (!currentLightboxCarousel || !currentLightboxCarousel.slides[currentLightboxIndex]) return;
+  if (lightboxImg) {
+    lightboxImg.classList.remove('zoomed');
+    lightboxImg.style.transform = 'translate(0, 0) scale(1)'; // Resetear transform
+  }
 
-  const currentSlide = currentLightboxCarousel.slides[currentLightboxIndex];
-
-  const isForward = currentLightboxIndex > previousIndex;
-  previousIndex = currentLightboxIndex;
-
-  // Remueve clases viejas
-  lightboxImg.classList.remove('fade-out-left', 'fade-out-right', 'show');
-
-  // Aplica clase fade-out
-  lightboxImg.classList.add(isForward ? 'fade-out-left' : 'fade-out-right');
-
-  // Después de la animación de salida, cambia la imagen
-  setTimeout(() => {
+  if (currentLightboxCarousel && currentLightboxCarousel.slides[currentLightboxIndex]) {
+    const currentSlide = currentLightboxCarousel.slides[currentLightboxIndex];
     lightboxImg.src = currentSlide.src;
 
-    lightboxImg.classList.remove('fade-out-left', 'fade-out-right');
-
-    // Fuerza reflow para que la clase .show se active correctamente
-    void lightboxImg.offsetWidth;
-
-    // Mostrar imagen con transición a posición normal
-    lightboxImg.classList.add('show');
-
-    // Actualiza descripción, contador y botones
     if (lightboxDescription) {
       lightboxDescription.textContent = currentSlide.description || '';
     }
@@ -210,16 +191,16 @@ function updateLightboxImage() {
       counter.textContent = `${currentLightboxIndex + 1} / ${currentLightboxCarousel.slides.length}`;
     }
 
+    // Update navigation buttons
     if (prevBtn) {
       prevBtn.style.display = currentLightboxCarousel.slides.length > 1 ? 'block' : 'none';
       prevBtn.disabled = currentLightboxIndex === 0;
     }
-
     if (nextBtn) {
       nextBtn.style.display = currentLightboxCarousel.slides.length > 1 ? 'block' : 'none';
       nextBtn.disabled = currentLightboxIndex === currentLightboxCarousel.slides.length - 1;
     }
-  }, 300); // Coincide con la duración de la transición fade-out
+  }
 }
 
 function prevLightboxImage() {
@@ -599,66 +580,66 @@ function initCarousel({ carouselId, slideClass, prevBtnId, nextBtnId, overlayId,
 
   // =============================== ENHANCED CLICK ACTIONS =========================
   // Single click: Show description, Double click: Open lightbox
-const overlayTimers = new WeakMap(); // Controla timers por slide individual
+  const overlayTimers = new WeakMap(); // Controla timers por slide individual
 
-slides.forEach((slide, i) => {
-  slide.addEventListener("click", (e) => {
-    if (clickTimer) {
-      clearTimeout(clickTimer);
-      clickTimer = null;
-
-      // Doble clic → abrir lightbox
-      openLightbox(slide, carouselData, i);
-    } else {
-      clickTimer = setTimeout(() => {
+  slides.forEach((slide, i) => {
+    slide.addEventListener("click", (e) => {
+      if (clickTimer) {
+        clearTimeout(clickTimer);
         clickTimer = null;
 
-        const overlay = slide.querySelector('.description-overlay');
-        if (overlay && slide.dataset.description) {
-          // Si ya está visible, ocultarlo de inmediato
-          if (overlay.classList.contains('show')) {
-            overlay.classList.remove('show');
+        // Doble clic → abrir lightbox
+        openLightbox(slide, carouselData, i);
+      } else {
+        clickTimer = setTimeout(() => {
+          clickTimer = null;
 
-            // Cancelar cualquier timer pendiente
-            const existingTimer = overlayTimers.get(overlay);
-            if (existingTimer) {
-              clearTimeout(existingTimer);
-              overlayTimers.delete(overlay);
-            }
-            return;
-          }
+          const overlay = slide.querySelector('.description-overlay');
+          if (overlay && slide.dataset.description) {
+            // Si ya está visible, ocultarlo de inmediato
+            if (overlay.classList.contains('show')) {
+              overlay.classList.remove('show');
 
-          // Ocultar otros overlays activos
-          slides.forEach(s => {
-            const otherOverlay = s.querySelector('.description-overlay');
-            if (otherOverlay && otherOverlay !== overlay) {
-              otherOverlay.classList.remove('show');
-
-              // Cancelar sus timers también
-              const otherTimer = overlayTimers.get(otherOverlay);
-              if (otherTimer) {
-                clearTimeout(otherTimer);
-                overlayTimers.delete(otherOverlay);
+              // Cancelar cualquier timer pendiente
+              const existingTimer = overlayTimers.get(overlay);
+              if (existingTimer) {
+                clearTimeout(existingTimer);
+                overlayTimers.delete(overlay);
               }
+              return;
             }
-          });
 
-          // Mostrar overlay
-          overlay.textContent = slide.dataset.description;
-          overlay.classList.add('show');
+            // Ocultar otros overlays activos
+            slides.forEach(s => {
+              const otherOverlay = s.querySelector('.description-overlay');
+              if (otherOverlay && otherOverlay !== overlay) {
+                otherOverlay.classList.remove('show');
 
-          // Programar ocultar luego de x segundos
-          const timerId = setTimeout(() => {
-            overlay.classList.remove('show');
-            overlayTimers.delete(overlay);
-          }, 10000);
+                // Cancelar sus timers también
+                const otherTimer = overlayTimers.get(otherOverlay);
+                if (otherTimer) {
+                  clearTimeout(otherTimer);
+                  overlayTimers.delete(otherOverlay);
+                }
+              }
+            });
 
-          overlayTimers.set(overlay, timerId);
-        }
-      }, 250); // Tiempo para detectar doble clic
-    }
+            // Mostrar overlay
+            overlay.textContent = slide.dataset.description;
+            overlay.classList.add('show');
+
+            // Programar ocultar luego de x segundos
+            const timerId = setTimeout(() => {
+              overlay.classList.remove('show');
+              overlayTimers.delete(overlay);
+            }, 10000);
+
+            overlayTimers.set(overlay, timerId);
+          }
+        }, 250); // Tiempo para detectar doble clic
+      }
+    });
   });
-});
 
 
   //Actualiza configuración inicial de botones Carousel
