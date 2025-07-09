@@ -436,7 +436,6 @@ body {
   -webkit-overflow-scrolling: touch;
   /* touch-action: pan-y; */
   scrollbar-width: none;
-  user-select:none;
 }
 
 .carousel::-webkit-scrollbar {
@@ -462,6 +461,7 @@ body {
   object-fit: contain;
   cursor: pointer;
   border-radius: 3%;
+  user-select:none;
 }
 
 .nav-button {
