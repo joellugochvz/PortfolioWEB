@@ -181,6 +181,7 @@ function updateLightboxImage() {
   // Resetear zoom y posición
   if (lightboxImg) {
     lightboxImg.classList.remove('zoomed');
+    lightboxImg.style.transition = 'transform 0.3s ease';
     lightboxImg.style.transform = 'translate(0, 0) scale(1)';
   }
 
@@ -215,7 +216,7 @@ function updateLightboxImage() {
       const nextImg = new Image();
       nextImg.src = currentLightboxCarousel.slides[nextIndex].src;
     }
-    
+
     //EFECTO DE CARGA
     lightboxImg.onload = function () {
       lightboxImg.style.opacity = '1'; // Fade-in solo cuando la imagen esté cargada
@@ -321,7 +322,7 @@ function enableLightboxImageDragging() {
     e.preventDefault();
     currentX = e.clientX - startX;
     currentY = e.clientY - startY;
-    lightboxImg.style.transform = `translate(${currentX}px, ${currentY}px) scale(2)`;
+    lightboxImg.style.transform = `translate(${currentX}px, ${currentY}px) scale(3)`; //ZOOM DRAGGING SCALE
   });
 
   // Touch
@@ -358,17 +359,21 @@ function enableLightboxImageDragging() {
   });
 }
 
+//FIXING SWIPE NAVIGATION IN INLIGHTBOX
+
+let swipeNavigationEnabled = false;
+
 function enableLightboxSwipeNavigation() {
+  if (swipeNavigationEnabled) return; // Evita múltiples listeners
+
   const lightboxImg = document.getElementById('lightbox-img');
   let touchStartX = 0;
   let touchEndX = 0;
 
-  // Función para saber si la imagen está ampliada
   function isZoomed() {
     return lightboxImg.style.transform && lightboxImg.style.transform.includes('scale(') && !lightboxImg.style.transform.includes('scale(1');
   }
 
-  // Swipe con touch
   lightboxImg.addEventListener('touchstart', (e) => {
     if (isZoomed()) return;
     touchStartX = e.changedTouches[0].screenX;
@@ -389,6 +394,8 @@ function enableLightboxSwipeNavigation() {
       prevLightboxImage();
     }
   }
+
+  swipeNavigationEnabled = true; // Marcar como activado
 }
 // =============================================
 // LIGHTBOX PARA VIDEO
