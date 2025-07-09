@@ -178,50 +178,39 @@ function updateLightboxImage() {
 
   const currentSlide = currentLightboxCarousel.slides[currentLightboxIndex];
 
-  // Resetear zoom y posición
   if (lightboxImg) {
+    // Remover zoom y resetear posición
     lightboxImg.classList.remove('zoomed');
-    lightboxImg.style.transition = 'transform 0.3s ease';
+    lightboxImg.style.transition = 'none';
     lightboxImg.style.transform = 'translate(0, 0) scale(1)';
-  }
-
-  // 1. Aplicar fade-out a la imagen actual
-  if (lightboxImg) {
     lightboxImg.style.opacity = '0';
-    lightboxImg.style.transition = 'opacity 0.3s ease-in-out';
   }
 
-  // 2. Esperar a que termine el fade-out antes de cambiar la imagen
-  setTimeout(() => {
-    // Cambiar la fuente y otros elementos
+  // ⚠️ Cargar imagen en segundo plano primero
+  const preloadImg = new Image();
+  preloadImg.onload = () => {
+    if (!lightboxImg) return;
+
+    // Una vez cargada, actualizar src y hacer fade-in
     lightboxImg.src = currentSlide.src;
 
-    // Resetear la transición y aplicar fade-in
+    // Forzar reflow para que transition funcione (hack necesario a veces)
+    void lightboxImg.offsetWidth;
+
     lightboxImg.style.transition = 'opacity 0.3s ease-in-out';
     lightboxImg.style.opacity = '1';
 
-    // Actualizar descripción, contador y botones
+    // Actualizar descripción con fade
     if (lightboxDescription) {
-      lightboxDescription.textContent = currentSlide.description || '';
       lightboxDescription.style.opacity = '0';
-      lightboxDescription.style.transition = 'opacity 0.3s ease-in-out';
       setTimeout(() => {
+        lightboxDescription.textContent = currentSlide.description || '';
+        lightboxDescription.style.transition = 'opacity 0.3s ease-in-out';
         lightboxDescription.style.opacity = '1';
-      }, 10);
+      }, 50);
     }
 
-    // Cargar la siguiente/anterior imagen en segundo plano
-    const nextIndex = currentLightboxIndex + 1;
-    if (currentLightboxCarousel.slides[nextIndex]) {
-      const nextImg = new Image();
-      nextImg.src = currentLightboxCarousel.slides[nextIndex].src;
-    }
-
-    //EFECTO DE CARGA
-    lightboxImg.onload = function () {
-      lightboxImg.style.opacity = '1'; // Fade-in solo cuando la imagen esté cargada
-    };
-
+    // Actualizar contador y botones
     if (counter) {
       counter.textContent = `${currentLightboxIndex + 1} / ${currentLightboxCarousel.slides.length}`;
     }
@@ -235,8 +224,18 @@ function updateLightboxImage() {
       nextBtn.style.display = currentLightboxCarousel.slides.length > 1 ? 'block' : 'none';
       nextBtn.disabled = currentLightboxIndex === currentLightboxCarousel.slides.length - 1;
     }
-  }, 100); // Duración del fade-out (debe coincidir con la transición CSS)
+  };
+
+  preloadImg.src = currentSlide.src; // Importante: set src DESPUÉS de definir onload
+
+  // Cargar siguiente imagen en caché (preload sin esperar)
+  const nextSlide = currentLightboxCarousel.slides[currentLightboxIndex + 1];
+  if (nextSlide) {
+    const nextImg = new Image();
+    nextImg.src = nextSlide.src;
+  }
 }
+
 
 function prevLightboxImage() {
   if (currentLightboxCarousel && currentLightboxIndex > 0) {
@@ -343,7 +342,7 @@ function enableLightboxImageDragging() {
     const touch = e.touches[0];
     currentX = touch.clientX - startX;
     currentY = touch.clientY - startY;
-    lightboxImg.style.transform = `translate(${currentX}px, ${currentY}px) scale(2)`;
+    lightboxImg.style.transform = `translate(${currentX}px, ${currentY}px) scale(3)`; //ZOOM DRAGGING SCALE
   });
 
   // Reset position when zoom is toggled off
@@ -359,7 +358,7 @@ function enableLightboxImageDragging() {
   });
 }
 
-//FIXING SWIPE NAVIGATION IN INLIGHTBOX
+//FIXING SWIPE NAVIGATION IN IN LIGHTBOX
 
 let swipeNavigationEnabled = false;
 
