@@ -52,12 +52,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Add profile picture animation
   const profilePicture = document.querySelector('.profile-picture img');
-  if (profilePicture) {
+  const profilePictureContainer = document.querySelector('.profile-picture');
+  if (profilePicture && profilePictureContainer) {
     profilePicture.addEventListener('click', function() {
-      profilePicture.classList.add('spinning-coin');
+      // Add only bouncing animation to the container
+      profilePictureContainer.classList.add('bouncing-ball');
       setTimeout(() => {
-        profilePicture.classList.remove('spinning-coin');
-      }, 5000);
+        profilePictureContainer.classList.remove('bouncing-ball');
+      }, 1000);
     });
   }
 });
@@ -135,10 +137,14 @@ function openLightbox(element, carouselData = null, slideIndex = 0) {
   updateLightboxImage();
   lightbox.style.display = 'flex';
   document.body.style.overflow = 'hidden';
-  
+  //Habilitar Image Dragging and zoom
+  enableLightboxImageDragging();
+  enableLightboxSwipeNavigation()
   // Reset zoom
   lightboxImg.classList.remove('zoomed');
 }
+
+let previousIndex = 0; // global
 
 function updateLightboxImage() {
   const lightboxImg = document.getElementById('lightbox-img');
@@ -146,29 +152,51 @@ function updateLightboxImage() {
   const prevBtn = document.getElementById('lightbox-prev');
   const nextBtn = document.getElementById('lightbox-next');
   const counter = document.getElementById('lightbox-counter');
-  
-  if (currentLightboxCarousel && currentLightboxCarousel.slides[currentLightboxIndex]) {
-    const currentSlide = currentLightboxCarousel.slides[currentLightboxIndex];
+
+  if (!currentLightboxCarousel || !currentLightboxCarousel.slides[currentLightboxIndex]) return;
+
+  const currentSlide = currentLightboxCarousel.slides[currentLightboxIndex];
+
+  const isForward = currentLightboxIndex > previousIndex;
+  previousIndex = currentLightboxIndex;
+
+  // Remueve clases viejas
+  lightboxImg.classList.remove('fade-out-left', 'fade-out-right', 'show');
+
+  // Aplica clase fade-out
+  lightboxImg.classList.add(isForward ? 'fade-out-left' : 'fade-out-right');
+
+  // Después de la animación de salida, cambia la imagen
+  setTimeout(() => {
     lightboxImg.src = currentSlide.src;
-    
+
+    lightboxImg.classList.remove('fade-out-left', 'fade-out-right');
+
+    // Fuerza reflow para que la clase .show se active correctamente
+    void lightboxImg.offsetWidth;
+
+    // Mostrar imagen con transición a posición normal
+    lightboxImg.classList.add('show');
+
+    // Actualiza descripción, contador y botones
     if (lightboxDescription) {
       lightboxDescription.textContent = currentSlide.description || '';
     }
-    
+
     if (counter) {
       counter.textContent = `${currentLightboxIndex + 1} / ${currentLightboxCarousel.slides.length}`;
     }
-    
-    // Update navigation buttons
+
     if (prevBtn) {
       prevBtn.style.display = currentLightboxCarousel.slides.length > 1 ? 'block' : 'none';
       prevBtn.disabled = currentLightboxIndex === 0;
     }
+
     if (nextBtn) {
       nextBtn.style.display = currentLightboxCarousel.slides.length > 1 ? 'block' : 'none';
       nextBtn.disabled = currentLightboxIndex === currentLightboxCarousel.slides.length - 1;
     }
-  }
+  }, 300); // Coincide con la duración de la transición fade-out
 }
 
 function prevLightboxImage() {
@@ -188,6 +216,15 @@ function nextLightboxImage() {
 function toggleZoom() {
   const lightboxImg = document.getElementById('lightbox-img');
   lightboxImg.classList.toggle('zoomed');
+
+  if (!lightboxImg.classList.contains('zoomed')) {
+    // Reset position
+    currentX = 0;
+    currentY = 0;
+    lightboxImg.style.transform = 'scale(1)';
+  } else {
+    lightboxImg.style.transform = `translate(0px, 0px) scale(3)`; //Cambiar ZOOM
+  }
 }
 
 function closeLightbox() {
@@ -201,12 +238,120 @@ function closeLightbox() {
   
   if (lightboxImg) {
     lightboxImg.classList.remove('zoomed');
+    lightboxImg.style.transform = 'scale(1)';
+    currentX = 0;
+    currentY = 0;
   }
-  
+
   currentLightboxCarousel = null;
   currentLightboxIndex = 0;
 }
 
+
+// =============================================
+// LIGHTBOX PARA IMÁGENES GRABBING AND ZOOM
+// =============================================
+function enableLightboxImageDragging() {
+  const lightboxImg = document.getElementById('lightbox-img');
+  let isDragging = false;
+  let startX, startY;
+  let currentX = 0;
+  let currentY = 0;
+
+  if (!lightboxImg) return;
+
+  // Mouse
+  lightboxImg.addEventListener('mousedown', (e) => {
+    if (!lightboxImg.classList.contains('zoomed')) return;
+    isDragging = true;
+    startX = e.clientX - currentX;
+    startY = e.clientY - currentY;
+    lightboxImg.style.cursor = 'grabbing';
+  });
+
+  document.addEventListener('mouseup', () => {
+    isDragging = false;
+    if (lightboxImg.classList.contains('zoomed')) {
+      lightboxImg.style.cursor = 'grab';
+    } else {
+      lightboxImg.style.cursor = 'zoom-in';
+    }
+  });
+
+  document.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    e.preventDefault();
+    currentX = e.clientX - startX;
+    currentY = e.clientY - startY;
+    lightboxImg.style.transform = `translate(${currentX}px, ${currentY}px) scale(2)`;
+  });
+
+  // Touch
+  lightboxImg.addEventListener('touchstart', (e) => {
+    if (!lightboxImg.classList.contains('zoomed')) return;
+    isDragging = true;
+    const touch = e.touches[0];
+    startX = touch.clientX - currentX;
+    startY = touch.clientY - currentY;
+  });
+
+  lightboxImg.addEventListener('touchend', () => {
+    isDragging = false;
+  });
+
+  lightboxImg.addEventListener('touchmove', (e) => {
+    if (!isDragging) return;
+    const touch = e.touches[0];
+    currentX = touch.clientX - startX;
+    currentY = touch.clientY - startY;
+    lightboxImg.style.transform = `translate(${currentX}px, ${currentY}px) scale(2)`;
+  });
+
+  // Reset position when zoom is toggled off
+  lightboxImg.addEventListener('click', () => {
+    if (!lightboxImg.classList.contains('zoomed')) {
+      currentX = 0;
+      currentY = 0;
+      lightboxImg.style.transform = 'none';
+      lightboxImg.style.cursor = 'zoom-in';
+    } else {
+      lightboxImg.style.cursor = 'grab';
+    }
+  });
+}
+
+function enableLightboxSwipeNavigation() {
+  const lightboxImg = document.getElementById('lightbox-img');
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  // Función para saber si la imagen está ampliada
+  function isZoomed() {
+    return lightboxImg.style.transform && lightboxImg.style.transform.includes('scale(') && !lightboxImg.style.transform.includes('scale(1');
+  }
+
+  // Swipe con touch
+  lightboxImg.addEventListener('touchstart', (e) => {
+    if (isZoomed()) return;
+    touchStartX = e.changedTouches[0].screenX;
+  });
+
+  lightboxImg.addEventListener('touchend', (e) => {
+    if (isZoomed()) return;
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipeGesture(touchStartX, touchEndX);
+  });
+
+  function handleSwipeGesture(startX, endX) {
+    const swipeThreshold = 50;
+
+    if (endX < startX - swipeThreshold) {
+      nextLightboxImage();
+    } else if (endX > startX + swipeThreshold) {
+      prevLightboxImage();
+    }
+  }
+}
 // =============================================
 // LIGHTBOX PARA VIDEO
 // =============================================
@@ -281,11 +426,92 @@ function initCarousel({ carouselId, slideClass, prevBtnId, nextBtnId, overlayId,
   const slides = carousel.querySelectorAll(`.${slideClass}`);
   const prevBtn = document.getElementById(prevBtnId);
   const nextBtn = document.getElementById(nextBtnId);
-  const overlay = document.getElementById(overlayId);
   const scrollPoints = document.getElementById(scrollPointsId);
+  const galleryContainer = carousel.parentElement;
   
   let currentIndex = 0;
   let clickTimer = null;
+  let instructionsShown = false;
+
+//=======================================================================
+//=======================================================================
+//=======================================================================
+
+
+  // Add description overlay to each slide if it doesn't exist
+  slides.forEach((slide, index) => {
+    if (!slide.querySelector('.description-overlay')) {
+      const overlay = document.createElement('div');
+      overlay.className = 'description-overlay';
+      overlay.id = `${overlayId}-${index}`;
+      slide.appendChild(overlay);
+    }
+  });
+
+  // Create instructions overlay
+  const instructionsOverlay = document.createElement('div');
+  instructionsOverlay.className = 'carousel-instructions';
+  
+  // Detect if device supports touch
+  const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+  const clickText = isTouchDevice ? 'tap' : 'click';
+  const doubleClickText = isTouchDevice ? 'Double tap' : 'Double click';
+  
+  instructionsOverlay.innerHTML = `
+    <div class="instruction-item">
+      <div class="hand-animation single-click">
+        <svg class="hand-icon" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+          <path d="M30.74,15.19a13.66,13.66,0,0,0-6.87-3.83A26,26,0,0,0,18,10.58V5.28A3.4,3.4,0,0,0,14.5,2,3.4,3.4,0,0,0,11,5.28v10L9.4,13.7a3.77,3.77,0,0,0-5.28,0A3.67,3.67,0,0,0,3,16.33a3.6,3.6,0,0,0,1,2.56l4.66,5.52a11.53,11.53,0,0,0,1.43,4,10.12,10.12,0,0,0,2,2.54v1.92a1.07,1.07,0,0,0,1,1.08H27a1.07,1.07,0,0,0,1-1.08v-2.7a12.81,12.81,0,0,0,3-8.36v-6A1,1,0,0,0,30.74,15.19ZM29,21.86a10.72,10.72,0,0,1-2.6,7.26,1.11,1.11,0,0,0-.4.72V32H14.14V30.52a1,1,0,0,0-.44-.83,7.26,7.26,0,0,1-1.82-2.23,9.14,9.14,0,0,1-1.2-3.52,1,1,0,0,0-.23-.59L5.53,17.53a1.7,1.7,0,0,1,0-2.42,1.76,1.76,0,0,1,2.47,0l3,3v3.14l2-1V5.28A1.42,1.42,0,0,1,14.5,4,1.42,1.42,0,0,1,16,5.28v11.8l2,.43V12.59a24.27,24.27,0,0,1,2.51.18V18l1.6.35V13c.41.08.83.17,1.26.28a14.88,14.88,0,0,1,1.53.49v5.15l1.6.35V14.5A11.06,11.06,0,0,1,29,16.23Z" fill="#27e2ff" stroke="none"/>
+        </svg>
+      </div>
+      <span>Single ${clickText} to show description</span>
+    </div>
+    <div class="instruction-item">
+      <div class="hand-animation double-click">
+        <svg class="hand-icon" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+          <path d="M30.74,15.19a13.66,13.66,0,0,0-6.87-3.83A26,26,0,0,0,18,10.58V5.28A3.4,3.4,0,0,0,14.5,2,3.4,3.4,0,0,0,11,5.28v10L9.4,13.7a3.77,3.77,0,0,0-5.28,0A3.67,3.67,0,0,0,3,16.33a3.6,3.6,0,0,0,1,2.56l4.66,5.52a11.53,11.53,0,0,0,1.43,4,10.12,10.12,0,0,0,2,2.54v1.92a1.07,1.07,0,0,0,1,1.08H27a1.07,1.07,0,0,0,1-1.08v-2.7a12.81,12.81,0,0,0,3-8.36v-6A1,1,0,0,0,30.74,15.19ZM29,21.86a10.72,10.72,0,0,1-2.6,7.26,1.11,1.11,0,0,0-.4.72V32H14.14V30.52a1,1,0,0,0-.44-.83,7.26,7.26,0,0,1-1.82-2.23,9.14,9.14,0,0,1-1.2-3.52,1,1,0,0,0-.23-.59L5.53,17.53a1.7,1.7,0,0,1,0-2.42,1.76,1.76,0,0,1,2.47,0l3,3v3.14l2-1V5.28A1.42,1.42,0,0,1,14.5,4,1.42,1.42,0,0,1,16,5.28v11.8l2,.43V12.59a24.27,24.27,0,0,1,2.51.18V18l1.6.35V13c.41.08.83.17,1.26.28a14.88,14.88,0,0,1,1.53.49v5.15l1.6.35V14.5A11.06,11.06,0,0,1,29,16.23Z" fill="#27e2ff" stroke="none"/>
+        </svg>
+      </div>
+      <span>${doubleClickText} to view full image</span>
+    </div>
+  `;
+  galleryContainer.appendChild(instructionsOverlay);
+
+  // Function to hide instructions
+  const hideInstructions = () => {
+    if (!instructionsShown) return;
+    instructionsOverlay.classList.remove('show');
+    setTimeout(() => {
+      instructionsOverlay.style.display = 'none';
+    }, 600);
+  };
+
+  // Function to show instructions
+  const showInstructions = () => {
+    if (instructionsShown) return;
+    instructionsShown = true;
+    instructionsOverlay.style.display = 'flex';
+    setTimeout(() => {
+      instructionsOverlay.classList.add('show');
+    }, 100);
+    
+    // Auto-hide after 10 seconds
+    setTimeout(hideInstructions, 10000);
+  };
+
+  // Intersection Observer to detect when carousel comes into view
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !instructionsShown) {
+        showInstructions();
+      }
+    });
+  }, { threshold: 0.3 });
+
+  observer.observe(galleryContainer);
+
+  // Hide instructions on any click in the carousel
+  galleryContainer.addEventListener('click', hideInstructions, { once: true });
 
   // Store carousel data for lightbox navigation
   const carouselData = {
@@ -296,6 +522,10 @@ function initCarousel({ carouselId, slideClass, prevBtnId, nextBtnId, overlayId,
   };
   
   allCarousels.push(carouselData);
+
+  // Ensure carousel starts at the first image
+  carousel.scrollLeft = 0;
+  currentIndex = 0;
 
   const updateButtons = () => {
     prevBtn.disabled = currentIndex === 0;
@@ -342,6 +572,7 @@ function initCarousel({ carouselId, slideClass, prevBtnId, nextBtnId, overlayId,
     updateButtons();
     highlightThumbnail(); 
   });
+// =================================================================
 
   // =============================== ENHANCED CLICK ACTIONS =========================
   // Single click: Show description, Double click: Open lightbox
@@ -359,19 +590,24 @@ function initCarousel({ carouselId, slideClass, prevBtnId, nextBtnId, overlayId,
         clickTimer = setTimeout(() => {
           clickTimer = null;
           
-          // Show description overlay
+          // Show description overlay for this specific slide
+          const overlay = slide.querySelector('.description-overlay');
           if (overlay && slide.dataset.description) {
+            // Hide any other active overlays in this carousel first
+            slides.forEach(s => {
+              const otherOverlay = s.querySelector('.description-overlay');
+              if (otherOverlay && otherOverlay !== overlay) {
+                otherOverlay.classList.remove('show');
+              }
+            });
+
             overlay.textContent = slide.dataset.description;
-            overlay.style.display = "block";
-            overlay.style.opacity = "1";
+            overlay.classList.add('show');
             
-            // Hide after 3 seconds
+            // Hide after 5 seconds
             setTimeout(() => {
-              overlay.style.opacity = "0";
-              setTimeout(() => {
-                overlay.style.display = "none";
-              }, 300);
-            }, 3000);
+              overlay.classList.remove('show');
+            }, 8000);
           }
         }, 250); // Delay to detect double clicks
       }
@@ -381,5 +617,23 @@ function initCarousel({ carouselId, slideClass, prevBtnId, nextBtnId, overlayId,
   //Actualiza configuración inicial de botones Carousel
   updateButtons();
   // Resalta el punto inicial al cargar
-  highlightThumbnail(); 
+  highlightThumbnail();
+
+  // Additional fix for carousel positioning after DOM is fully rendered
+  requestAnimationFrame(() => {
+    carousel.scrollLeft = 0;
+    currentIndex = 0;
+    updateButtons();
+    highlightThumbnail();
+    
+    // Extra fallback with small delay
+    setTimeout(() => {
+      if (carousel.scrollLeft !== 0) {
+        carousel.scrollLeft = 0;
+        currentIndex = 0;
+        updateButtons();
+        highlightThumbnail();
+      }
+    }, 50);
+  }); 
 }
