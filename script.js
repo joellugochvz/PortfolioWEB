@@ -251,20 +251,6 @@ function nextLightboxImage() {
   }
 }
 
-function toggleZoom() {
-  const lightboxImg = document.getElementById('lightbox-img');
-  lightboxImg.classList.toggle('zoomed');
-
-  if (!lightboxImg.classList.contains('zoomed')) {
-    // Reset position
-    currentX = 0;
-    currentY = 0;
-    lightboxImg.style.transform = 'scale(1)';
-  } else {
-    lightboxImg.style.transform = `translate(0px, 0px) scale(3)`; //Cambiar ZOOM
-  }
-}
-
 function closeLightbox() {
   const lightbox = document.getElementById('lightbox');
   const lightboxImg = document.getElementById('lightbox-img');
@@ -289,6 +275,20 @@ function closeLightbox() {
 // =============================================
 // LIGHTBOX PARA IMÁGENES GRABBING AND ZOOM
 // =============================================
+function toggleZoom() {
+  const lightboxImg = document.getElementById('lightbox-img');
+  lightboxImg.classList.toggle('zoomed');
+
+  if (!lightboxImg.classList.contains('zoomed')) {
+    // Reset position
+    currentX = 0;
+    currentY = 0;
+    lightboxImg.style.transform = 'scale(1)';
+  } else {
+    lightboxImg.style.transform = `translate(0px, 0px) scale(2.5)`; //Cambiar ZOOM
+  }
+}
+
 function enableLightboxImageDragging() {
   const lightboxImg = document.getElementById('lightbox-img');
   let isDragging = false;
@@ -321,7 +321,7 @@ function enableLightboxImageDragging() {
     e.preventDefault();
     currentX = e.clientX - startX;
     currentY = e.clientY - startY;
-    lightboxImg.style.transform = `translate(${currentX}px, ${currentY}px) scale(3)`; //ZOOM DRAGGING SCALE
+    lightboxImg.style.transform = `translate(${currentX}px, ${currentY}px) scale(2.5)`; //ZOOM DRAGGING SCALE
   });
 
   // Touch
@@ -342,7 +342,7 @@ function enableLightboxImageDragging() {
     const touch = e.touches[0];
     currentX = touch.clientX - startX;
     currentY = touch.clientY - startY;
-    lightboxImg.style.transform = `translate(${currentX}px, ${currentY}px) scale(3)`; //ZOOM DRAGGING SCALE
+    lightboxImg.style.transform = `translate(${currentX}px, ${currentY}px) scale(2.5)`; //ZOOM DRAGGING SCALE
   });
 
   // Reset position when zoom is toggled off

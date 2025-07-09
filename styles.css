@@ -590,7 +590,10 @@ body {
   width: 40px;
   height: 40px;
   position: relative;
-  cursor: pointer;
+
+  -webkit-tap-highlight-color: transparent; /* Móviles */
+  user-select: none; /* Bloquea selección de texto */
+  outline: none; /* Quita borde de enfoque */
 }
 
 .hand-icon {
@@ -598,9 +601,7 @@ body {
   height: 100%;
   fill: #27e2ff;
 
-  -webkit-tap-highlight-color: transparent; /* Móviles */
-  user-select: none; /* Bloquea selección de texto */
-  outline: none; /* Quita borde de enfoque */
+  
 }
 
 .single-click .hand-icon {
@@ -1111,7 +1112,6 @@ body {
 }
 
 
-
 .close-btn {
   position: absolute;
   top: 20px;
@@ -1194,8 +1194,8 @@ body {
 }
 
 .lightbox-counter {
-  position: absolute;
-  bottom: -100px;
+  position: fixed; /* Changed from relative to fixed */
+  top: 1rem; /* Distance from top of viewport */
   left: 50%;
   transform: translateX(-50%);
   color: #ccc;
@@ -1205,6 +1205,8 @@ body {
   padding: 8px 16px;
   border-radius: 20px;
   backdrop-filter: blur(5px);
+  z-index: 1001; /* Above lightbox (ensure lightbox has z-index: 1000 or lower) */
+  pointer-events: none; /* Allows clicks to pass through to lightbox */
 }
 
 .lightbox-zoom-hint {
@@ -1244,7 +1246,4 @@ body {
     height: 50px;
   }
 
-  .lightbox-content.zoomed {
-    transform: scale(2);
-  }
 }
