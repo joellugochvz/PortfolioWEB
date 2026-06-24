@@ -11,14 +11,88 @@ document.addEventListener("DOMContentLoaded", function () {
   document.addEventListener('click', function (event) {
     const lightbox = document.getElementById('lightbox');
     const videoLightbox = document.getElementById('video-lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
 
     if (event.target === lightbox) {
       closeLightbox();
     } else if (event.target === videoLightbox) {
       closeVideo();
     }
+
+    // Don't close lightbox when clicking on the image itself
+    if (event.target === lightboxImg) {
+      event.stopPropagation();
+    }
+  });
+
+  // Keyboard navigation for lightbox
+  document.addEventListener('keydown', function (event) {
+    const lightbox = document.getElementById('lightbox');
+    if (lightbox && lightbox.style.display === 'flex') {
+      switch (event.key) {
+        case 'ArrowLeft':
+          event.preventDefault();
+          prevLightboxImage();
+          break;
+        case 'ArrowRight':
+          event.preventDefault();
+          nextLightboxImage();
+          break;
+        case 'Escape':
+          event.preventDefault();
+          closeLightbox();
+          break;
+        case ' ': // Spacebar for zoom
+          event.preventDefault();
+          toggleZoom();
+          break;
+      }
+    }
+  });
+
+  // ====================================== Add profile picture animation ======================================
+  const profilePicture = document.querySelector('.profile-picture img');
+  const profilePictureContainer = document.querySelector('.profile-picture');
+
+  //======================== Para Dejar que la animación reinicie cada vez que se hace click ====================
+  // if (profilePicture && profilePictureContainer) {
+  //   profilePicture.addEventListener('click', function () {
+  //     // Eliminar la clase si ya está
+  //     profilePictureContainer.classList.remove('bouncing-ball');
+
+  //     // Forzar reflow para reiniciar la animación
+  //     void profilePictureContainer.offsetWidth;
+
+  //     // Volver a agregar la clase de animación
+  //     profilePictureContainer.classList.add('bouncing-ball');
+  //   });
+  // }
+
+
+  //======================== Para Dejar que la animación PROFILE PICTURE termine sin importar los clicks ====================
+  let isAnimating = false;
+
+  profilePicture.addEventListener('click', function () {
+    if (isAnimating) return;
+
+    isAnimating = true;
+
+    profilePictureContainer.classList.remove('bouncing-ball');
+    void profilePictureContainer.offsetWidth;
+    profilePictureContainer.classList.add('bouncing-ball');
+
+    setTimeout(() => {
+      isAnimating = false;
+    }, 1000); // Duración de la animación
   });
 });
+
+// =============================================
+// CAROUSEL GLOBAL VARIABLES
+// =============================================
+let currentLightboxCarousel = null;
+let currentLightboxIndex = 0;
+let allCarousels = [];
 
 // =============================================
 // FUNCIÓN PARA COPIAR CORREO
@@ -58,31 +132,270 @@ function copiarCorreo(event) {
 }
 
 // =============================================
-// LIGHTBOX PARA IMÁGENES
+// ENHANCED LIGHTBOX PARA IMÁGENES
 // =============================================
-function openLightbox(element) {
+function openLightbox(element, carouselData = null, slideIndex = 0) {
   const lightbox = document.getElementById('lightbox');
   const lightboxImg = document.getElementById('lightbox-img');
-  const img = element.querySelector('img');
 
-  if (!lightbox || !lightboxImg || !img) {
+  if (!lightbox || !lightboxImg) {
     console.error("Elementos del lightbox no encontrados");
     return;
   }
 
-  lightboxImg.src = img.src;
+  if (carouselData) {
+    currentLightboxCarousel = carouselData;
+    currentLightboxIndex = slideIndex;
+  } else {
+    // Fallback for direct element call
+    const img = element.querySelector('img');
+    if (!img) return;
+
+    currentLightboxCarousel = {
+      slides: [{ src: img.src, description: element.dataset.description || '' }]
+    };
+    currentLightboxIndex = 0;
+  }
+
+  updateLightboxImage();
   lightbox.style.display = 'flex';
   document.body.style.overflow = 'hidden';
+  //Habilitar Image Dragging and zoom
+  enableLightboxImageDragging();
+  enableLightboxSwipeNavigation()
+  // Reset zoom
+  lightboxImg.classList.remove('zoomed');
+}
+
+function updateLightboxImage() {
+  const lightboxImg = document.getElementById('lightbox-img');
+  const lightboxDescription = document.getElementById('lightbox-description');
+  const prevBtn = document.getElementById('lightbox-prev');
+  const nextBtn = document.getElementById('lightbox-next');
+  const counter = document.getElementById('lightbox-counter');
+
+  if (!currentLightboxCarousel || !currentLightboxCarousel.slides[currentLightboxIndex]) return;
+
+  const currentSlide = currentLightboxCarousel.slides[currentLightboxIndex];
+
+  if (lightboxImg) {
+    // Remover zoom y resetear posición
+    lightboxImg.classList.remove('zoomed');
+    lightboxImg.style.transition = 'none';
+    lightboxImg.style.transform = 'translate(0, 0) scale(1)';
+    lightboxImg.style.opacity = '0';
+  }
+
+  // ⚠️ Cargar imagen en segundo plano primero
+  const preloadImg = new Image();
+  preloadImg.onload = () => {
+    if (!lightboxImg) return;
+
+    // Una vez cargada, actualizar src y hacer fade-in
+    lightboxImg.src = currentSlide.src;
+
+    // Forzar reflow para que transition funcione (hack necesario a veces)
+    void lightboxImg.offsetWidth;
+
+    lightboxImg.style.transition = 'opacity 0.3s ease-in-out';
+    lightboxImg.style.opacity = '1';
+
+    // Actualizar descripción con fade
+    if (lightboxDescription) {
+      lightboxDescription.style.opacity = '0';
+      setTimeout(() => {
+        lightboxDescription.textContent = currentSlide.description || '';
+        lightboxDescription.style.transition = 'opacity 0.3s ease-in-out';
+        lightboxDescription.style.opacity = '1';
+      }, 50);
+    }
+
+    // Actualizar contador y botones
+    if (counter) {
+      counter.textContent = `${currentLightboxIndex + 1} / ${currentLightboxCarousel.slides.length}`;
+    }
+
+    if (prevBtn) {
+      prevBtn.style.display = currentLightboxCarousel.slides.length > 1 ? 'block' : 'none';
+      prevBtn.disabled = currentLightboxIndex === 0;
+    }
+
+    if (nextBtn) {
+      nextBtn.style.display = currentLightboxCarousel.slides.length > 1 ? 'block' : 'none';
+      nextBtn.disabled = currentLightboxIndex === currentLightboxCarousel.slides.length - 1;
+    }
+  };
+
+  preloadImg.src = currentSlide.src; // Importante: set src DESPUÉS de definir onload
+
+  // Cargar siguiente imagen en caché (preload sin esperar)
+  const nextSlide = currentLightboxCarousel.slides[currentLightboxIndex + 1];
+  if (nextSlide) {
+    const nextImg = new Image();
+    nextImg.src = nextSlide.src;
+  }
+}
+
+
+function prevLightboxImage() {
+  if (currentLightboxCarousel && currentLightboxIndex > 0) {
+    currentLightboxIndex--;
+    updateLightboxImage();
+  }
+}
+
+function nextLightboxImage() {
+  if (currentLightboxCarousel && currentLightboxIndex < currentLightboxCarousel.slides.length - 1) {
+    currentLightboxIndex++;
+    updateLightboxImage();
+  }
 }
 
 function closeLightbox() {
   const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+
   if (lightbox) {
     lightbox.style.display = 'none';
     document.body.style.overflow = 'auto';
   }
+
+  if (lightboxImg) {
+    lightboxImg.classList.remove('zoomed');
+    lightboxImg.style.transform = 'scale(1)';
+    currentX = 0;
+    currentY = 0;
+  }
+
+  currentLightboxCarousel = null;
+  currentLightboxIndex = 0;
 }
 
+
+// =============================================
+// LIGHTBOX PARA IMÁGENES GRABBING AND ZOOM
+// =============================================
+function toggleZoom() {
+  const lightboxImg = document.getElementById('lightbox-img');
+  lightboxImg.classList.toggle('zoomed');
+
+  if (!lightboxImg.classList.contains('zoomed')) {
+    // Reset position
+    currentX = 0;
+    currentY = 0;
+    lightboxImg.style.transform = 'scale(1)';
+  } else {
+    lightboxImg.style.transform = `translate(0px, 0px) scale(2.5)`; //Cambiar ZOOM
+  }
+}
+
+function enableLightboxImageDragging() {
+  const lightboxImg = document.getElementById('lightbox-img');
+  let isDragging = false;
+  let startX, startY;
+  let currentX = 0;
+  let currentY = 0;
+
+  if (!lightboxImg) return;
+
+  // Mouse
+  lightboxImg.addEventListener('mousedown', (e) => {
+    if (!lightboxImg.classList.contains('zoomed')) return;
+    isDragging = true;
+    startX = e.clientX - currentX;
+    startY = e.clientY - currentY;
+    lightboxImg.style.cursor = 'grabbing';
+  });
+
+  document.addEventListener('mouseup', () => {
+    isDragging = false;
+    if (lightboxImg.classList.contains('zoomed')) {
+      lightboxImg.style.cursor = 'grab';
+    } else {
+      lightboxImg.style.cursor = 'zoom-in';
+    }
+  });
+
+  document.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    e.preventDefault();
+    currentX = e.clientX - startX;
+    currentY = e.clientY - startY;
+    lightboxImg.style.transform = `translate(${currentX}px, ${currentY}px) scale(2.5)`; //ZOOM DRAGGING SCALE
+  });
+
+  // Touch
+  lightboxImg.addEventListener('touchstart', (e) => {
+    if (!lightboxImg.classList.contains('zoomed')) return;
+    isDragging = true;
+    const touch = e.touches[0];
+    startX = touch.clientX - currentX;
+    startY = touch.clientY - currentY;
+  });
+
+  lightboxImg.addEventListener('touchend', () => {
+    isDragging = false;
+  });
+
+  lightboxImg.addEventListener('touchmove', (e) => {
+    if (!isDragging) return;
+    const touch = e.touches[0];
+    currentX = touch.clientX - startX;
+    currentY = touch.clientY - startY;
+    lightboxImg.style.transform = `translate(${currentX}px, ${currentY}px) scale(2.5)`; //ZOOM DRAGGING SCALE
+  });
+
+  // Reset position when zoom is toggled off
+  lightboxImg.addEventListener('click', () => {
+    if (!lightboxImg.classList.contains('zoomed')) {
+      currentX = 0;
+      currentY = 0;
+      lightboxImg.style.transform = 'none';
+      lightboxImg.style.cursor = 'zoom-in';
+    } else {
+      lightboxImg.style.cursor = 'grab';
+    }
+  });
+}
+
+//FIXING SWIPE NAVIGATION IN IN LIGHTBOX
+
+let swipeNavigationEnabled = false;
+
+function enableLightboxSwipeNavigation() {
+  if (swipeNavigationEnabled) return; // Evita múltiples listeners
+
+  const lightboxImg = document.getElementById('lightbox-img');
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  function isZoomed() {
+    return lightboxImg.style.transform && lightboxImg.style.transform.includes('scale(') && !lightboxImg.style.transform.includes('scale(1');
+  }
+
+  lightboxImg.addEventListener('touchstart', (e) => {
+    if (isZoomed()) return;
+    touchStartX = e.changedTouches[0].screenX;
+  });
+
+  lightboxImg.addEventListener('touchend', (e) => {
+    if (isZoomed()) return;
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipeGesture(touchStartX, touchEndX);
+  });
+
+  function handleSwipeGesture(startX, endX) {
+    const swipeThreshold = 50;
+
+    if (endX < startX - swipeThreshold) {
+      nextLightboxImage();
+    } else if (endX > startX + swipeThreshold) {
+      prevLightboxImage();
+    }
+  }
+
+  swipeNavigationEnabled = true; // Marcar como activado
+}
 // =============================================
 // LIGHTBOX PARA VIDEO
 // =============================================
@@ -131,7 +444,7 @@ function openPdf(pdfUrl) {
 }
 
 // =================================================================
-// PCTURES CAROUSEL
+// PICTURES CAROUSEL
 // =================================================================
 // Definiciones Para galería 1
 initCarousel({
@@ -152,15 +465,111 @@ initCarousel({
   scrollPointsId: "scroll-points-2"
 });
 
-function initCarousel({ carouselId, slideClass, prevBtnId, nextBtnId, overlayId, scrollPointsId}) {
+function initCarousel({ carouselId, slideClass, prevBtnId, nextBtnId, overlayId, scrollPointsId }) {
   const carousel = document.getElementById(carouselId);
   const slides = carousel.querySelectorAll(`.${slideClass}`);
   const prevBtn = document.getElementById(prevBtnId);
   const nextBtn = document.getElementById(nextBtnId);
-  const overlay = document.getElementById(overlayId);
   const scrollPoints = document.getElementById(scrollPointsId);
-  
+  const galleryContainer = carousel.parentElement;
+
   let currentIndex = 0;
+  let clickTimer = null;
+  let instructionsShown = false;
+
+  //=======================================================================
+  //=======================================================================
+  //=======================================================================
+
+
+  // Add description overlay to each slide if it doesn't exist
+  slides.forEach((slide, index) => {
+    if (!slide.querySelector('.description-overlay')) {
+      const overlay = document.createElement('div');
+      overlay.className = 'description-overlay';
+      overlay.id = `${overlayId}-${index}`;
+      slide.appendChild(overlay);
+    }
+  });
+
+  // Create instructions overlay
+  const instructionsOverlay = document.createElement('div');
+  instructionsOverlay.className = 'carousel-instructions';
+
+  // Detect if device supports touch
+  const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+  const clickText = isTouchDevice ? 'tap' : 'click';
+  const doubleClickText = isTouchDevice ? 'Double tap' : 'Double click';
+
+  instructionsOverlay.innerHTML = `
+    <div class="instruction-item">
+      <div class="hand-animation single-click">
+        <svg class="hand-icon" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+          <path d="M30.74,15.19a13.66,13.66,0,0,0-6.87-3.83A26,26,0,0,0,18,10.58V5.28A3.4,3.4,0,0,0,14.5,2,3.4,3.4,0,0,0,11,5.28v10L9.4,13.7a3.77,3.77,0,0,0-5.28,0A3.67,3.67,0,0,0,3,16.33a3.6,3.6,0,0,0,1,2.56l4.66,5.52a11.53,11.53,0,0,0,1.43,4,10.12,10.12,0,0,0,2,2.54v1.92a1.07,1.07,0,0,0,1,1.08H27a1.07,1.07,0,0,0,1-1.08v-2.7a12.81,12.81,0,0,0,3-8.36v-6A1,1,0,0,0,30.74,15.19ZM29,21.86a10.72,10.72,0,0,1-2.6,7.26,1.11,1.11,0,0,0-.4.72V32H14.14V30.52a1,1,0,0,0-.44-.83,7.26,7.26,0,0,1-1.82-2.23,9.14,9.14,0,0,1-1.2-3.52,1,1,0,0,0-.23-.59L5.53,17.53a1.7,1.7,0,0,1,0-2.42,1.76,1.76,0,0,1,2.47,0l3,3v3.14l2-1V5.28A1.42,1.42,0,0,1,14.5,4,1.42,1.42,0,0,1,16,5.28v11.8l2,.43V12.59a24.27,24.27,0,0,1,2.51.18V18l1.6.35V13c.41.08.83.17,1.26.28a14.88,14.88,0,0,1,1.53.49v5.15l1.6.35V14.5A11.06,11.06,0,0,1,29,16.23Z" fill="#27e2ff" stroke="none"/>
+        </svg>
+      </div>
+      <span>Single ${clickText} to show description</span>
+    </div>
+    <div class="instruction-item">
+      <div class="hand-animation double-click">
+        <svg class="hand-icon" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+          <path d="M30.74,15.19a13.66,13.66,0,0,0-6.87-3.83A26,26,0,0,0,18,10.58V5.28A3.4,3.4,0,0,0,14.5,2,3.4,3.4,0,0,0,11,5.28v10L9.4,13.7a3.77,3.77,0,0,0-5.28,0A3.67,3.67,0,0,0,3,16.33a3.6,3.6,0,0,0,1,2.56l4.66,5.52a11.53,11.53,0,0,0,1.43,4,10.12,10.12,0,0,0,2,2.54v1.92a1.07,1.07,0,0,0,1,1.08H27a1.07,1.07,0,0,0,1-1.08v-2.7a12.81,12.81,0,0,0,3-8.36v-6A1,1,0,0,0,30.74,15.19ZM29,21.86a10.72,10.72,0,0,1-2.6,7.26,1.11,1.11,0,0,0-.4.72V32H14.14V30.52a1,1,0,0,0-.44-.83,7.26,7.26,0,0,1-1.82-2.23,9.14,9.14,0,0,1-1.2-3.52,1,1,0,0,0-.23-.59L5.53,17.53a1.7,1.7,0,0,1,0-2.42,1.76,1.76,0,0,1,2.47,0l3,3v3.14l2-1V5.28A1.42,1.42,0,0,1,14.5,4,1.42,1.42,0,0,1,16,5.28v11.8l2,.43V12.59a24.27,24.27,0,0,1,2.51.18V18l1.6.35V13c.41.08.83.17,1.26.28a14.88,14.88,0,0,1,1.53.49v5.15l1.6.35V14.5A11.06,11.06,0,0,1,29,16.23Z" fill="#27e2ff" stroke="none"/>
+        </svg>
+      </div>
+      <span>${doubleClickText} to view full image</span>
+    </div>
+  `;
+  galleryContainer.appendChild(instructionsOverlay);
+
+  // Function to hide instructions
+  const hideInstructions = () => {
+    if (!instructionsShown) return;
+    instructionsOverlay.classList.remove('show');
+    setTimeout(() => {
+      instructionsOverlay.style.display = 'none';
+    }, 600);
+  };
+
+  // Function to show instructions
+  const showInstructions = () => {
+    if (instructionsShown) return;
+    instructionsShown = true;
+    instructionsOverlay.style.display = 'flex';
+    setTimeout(() => {
+      instructionsOverlay.classList.add('show');
+    }, 100);
+
+    // Auto-hide after 10 seconds
+    setTimeout(hideInstructions, 10000);
+  };
+
+  // Intersection Observer to detect when carousel comes into view
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !instructionsShown) {
+        showInstructions();
+      }
+    });
+  }, { threshold: 0.3 });
+
+  observer.observe(galleryContainer);
+
+  // Hide instructions on any click in the carousel
+  galleryContainer.addEventListener('click', hideInstructions, { once: true });
+
+  // Store carousel data for lightbox navigation
+  const carouselData = {
+    slides: Array.from(slides).map(slide => ({
+      src: slide.querySelector('img').src,
+      description: slide.dataset.description || ''
+    }))
+  };
+
+  allCarousels.push(carouselData);
+
+  // Ensure carousel starts at the first image
+  carousel.scrollLeft = 0;
+  currentIndex = 0;
 
   const updateButtons = () => {
     prevBtn.disabled = currentIndex === 0;
@@ -175,7 +584,6 @@ function initCarousel({ carouselId, slideClass, prevBtnId, nextBtnId, overlayId,
       });
       currentIndex = index;
       updateButtons();
-      //Después se define highlightThumbnail
       highlightThumbnail();
     }
   };
@@ -196,7 +604,7 @@ function initCarousel({ carouselId, slideClass, prevBtnId, nextBtnId, overlayId,
     const activeDot = scrollPoints.querySelector(`div[data-id="${index}"]`);
     if (activeDot) activeDot.classList.add("highlighted");
   };
-  
+
   // ===================== EVENTOS Y FUNCIONALIDAD =====================
   // ===================== BUTTONS ACTIONS ===============================
   prevBtn.addEventListener("click", () => scrollToSlide(currentIndex - 1));
@@ -206,23 +614,94 @@ function initCarousel({ carouselId, slideClass, prevBtnId, nextBtnId, overlayId,
     const newIndex = Math.round(carousel.scrollLeft / slides[0].offsetWidth);
     currentIndex = newIndex;
     updateButtons();
-    highlightThumbnail(); 
+    highlightThumbnail();
   });
+  // =================================================================
 
-  // =============================== CLICK ACTIONS =========================
-  // Para ver descripciones de imágenes
-  // slides.forEach((slide,i) => {
-  //   slide.addEventListener("click", () => {
-  //     overlay.textContent = slide.dataset.description;
-  //     overlay.style.display = "block";
-  //     setTimeout(() => (overlay.style.display = "none"), 3000);
-  //   });
-  // });
+  // =============================== ENHANCED CLICK ACTIONS =========================
+  // Single click: Show description, Double click: Open lightbox
+  const overlayTimers = new WeakMap(); // Controla timers por slide individual
+
+  slides.forEach((slide, i) => {
+    slide.addEventListener("click", (e) => {
+      if (clickTimer) {
+        clearTimeout(clickTimer);
+        clickTimer = null;
+
+        // Doble clic → abrir lightbox
+        openLightbox(slide, carouselData, i);
+      } else {
+        clickTimer = setTimeout(() => {
+          clickTimer = null;
+
+          const overlay = slide.querySelector('.description-overlay');
+          if (overlay && slide.dataset.description) {
+            // Si ya está visible, ocultarlo de inmediato
+            if (overlay.classList.contains('show')) {
+              overlay.classList.remove('show');
+
+              // Cancelar cualquier timer pendiente
+              const existingTimer = overlayTimers.get(overlay);
+              if (existingTimer) {
+                clearTimeout(existingTimer);
+                overlayTimers.delete(overlay);
+              }
+              return;
+            }
+
+            // Ocultar otros overlays activos
+            slides.forEach(s => {
+              const otherOverlay = s.querySelector('.description-overlay');
+              if (otherOverlay && otherOverlay !== overlay) {
+                otherOverlay.classList.remove('show');
+
+                // Cancelar sus timers también
+                const otherTimer = overlayTimers.get(otherOverlay);
+                if (otherTimer) {
+                  clearTimeout(otherTimer);
+                  overlayTimers.delete(otherOverlay);
+                }
+              }
+            });
+
+            // Mostrar overlay
+            overlay.textContent = slide.dataset.description;
+            overlay.classList.add('show');
+
+            // Programar ocultar luego de x segundos
+            const timerId = setTimeout(() => {
+              overlay.classList.remove('show');
+              overlayTimers.delete(overlay);
+            }, 10000);
+
+            overlayTimers.set(overlay, timerId);
+          }
+        }, 250); // Tiempo para detectar doble clic
+      }
+    });
+  });
 
 
   //Actualiza configuración inicial de botones Carousel
   updateButtons();
   // Resalta el punto inicial al cargar
-  highlightThumbnail(); 
+  highlightThumbnail();
 
+  // Additional fix for carousel positioning after DOM is fully rendered
+  requestAnimationFrame(() => {
+    carousel.scrollLeft = 0;
+    currentIndex = 0;
+    updateButtons();
+    highlightThumbnail();
+
+    // Extra fallback with small delay
+    setTimeout(() => {
+      if (carousel.scrollLeft !== 0) {
+        carousel.scrollLeft = 0;
+        currentIndex = 0;
+        updateButtons();
+        highlightThumbnail();
+      }
+    }, 50);
+  });
 }
