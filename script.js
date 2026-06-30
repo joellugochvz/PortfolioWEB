@@ -464,6 +464,15 @@ initCarousel({
   overlayId: "descriptionOverlay-2",
   scrollPointsId: "scroll-points-2"
 });
+// Definiciones Para galería 3
+initCarousel({
+  carouselId: "carousel-3",
+  slideClass: "slide",
+  prevBtnId: "prevBtn-3",
+  nextBtnId: "nextBtn-3",
+  overlayId: "descriptionOverlay-3",
+  scrollPointsId: "scroll-points-3"
+});
 
 function initCarousel({ carouselId, slideClass, prevBtnId, nextBtnId, overlayId, scrollPointsId }) {
   const carousel = document.getElementById(carouselId);
